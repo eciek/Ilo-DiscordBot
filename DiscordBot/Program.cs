@@ -53,11 +53,11 @@ class Program
 
     private static async Task MessageReceivedAsync(SocketMessage message)
     {
-        // bot not responding to self
+        // bot not responding to itself
         if (message.Author.Id == _client.CurrentUser.Id)
             return;
 
-        Console.WriteLine($"{message.Author.Username}: {message.Content}");
+        Console.WriteLine($"{message.Author.Id}: {message.Content}");
 
         _commands.CheckCommand(message);
     }

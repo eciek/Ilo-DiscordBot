@@ -24,8 +24,9 @@ namespace DiscordBot
         async void SendTarotCard(SocketMessage message)
         {
             TarotCard card = tarot.GetRandomCard();
-            string desc = $"{card.name} - ```{card.description}```";
-            await message.Channel.SendFileAsync(tarot.GetRandomCardPhotoPath(card), desc);
+            string desc = $"**{card.name}**```{card.description}```";
+            await message.Channel.SendFileAsync(tarot.GetRandomCardPhotoPath(card), desc, messageReference: new Discord.MessageReference(message.Id));
+
         }
     }
 }
