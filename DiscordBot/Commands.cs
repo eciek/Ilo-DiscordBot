@@ -1,4 +1,5 @@
 ﻿using Discord.WebSocket;
+using DiscordBot.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,22 @@ namespace DiscordBot
 
         async void SendTarotCard(SocketMessage message)
         {
-            TarotCard card = tarot.GetRandomCard();
+            TarotCardsUsed user = tarot.CheckIfUserUsedCard(message.Author.Id.ToString());
+            TarotCard card = new TarotCard();
+            if (user != null)
+            {
+                card = tarot.GetCard(user.card);
+            }
+            else
+            {
+                card = tarot.GetRandomCard();
+                tarot.SaveCardToUser(message.Author.Id.ToString(), card.name);
+            }
+
             string desc = $"**{card.name}**```{card.description}```";
             await message.Channel.SendFileAsync(tarot.GetRandomCardPhotoPath(card), desc, messageReference: new Discord.MessageReference(message.Id));
+
+            //save card to user
 
         }
     }
