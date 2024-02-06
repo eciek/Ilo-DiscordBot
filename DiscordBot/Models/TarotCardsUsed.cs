@@ -10,5 +10,7 @@ namespace DiscordBot.Models
     {
         public string id { get;set; }
         public string card { get;set; }
+        public int usedTime { get;set; }
+        public ulong botMessageId { get;set; }
     }
 }

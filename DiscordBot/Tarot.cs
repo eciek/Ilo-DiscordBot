@@ -9,7 +9,6 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DiscordBot
 {
@@ -84,16 +83,24 @@ namespace DiscordBot
             return usedCards;
         }
 
-        public void SaveCardToUser(string id, string card)
+        public void SaveCardToUser(string id, string card, int usedTime, ulong botMessageId)
         {
             TarotCardsUsed user = new TarotCardsUsed();
             List<TarotCardsUsed> usedCards = GetAllUsers();
-            user.id = id;
-            user.card = card;
+            TarotCardsUsed foundObject = usedCards.Find(obj => obj.id == id);
+            if (foundObject != null)
+            {
+                foundObject.usedTime += 1;
+            }
+            else
+            {
+                user.id = id;
+                user.card = card;
+                user.usedTime = usedTime;
+                user.botMessageId = botMessageId;
+                usedCards.Add(user);
+            }
 
-            // get all users
-
-            usedCards.Add(user);
             // save all users
             string jsonf = JsonConvert.SerializeObject(usedCards.ToArray());
             System.IO.File.WriteAllText("C:\\Users\\Paweł\\Desktop\\Hepii\\DiscordBot\\DiscordBot\\JsonFiles\\tarotcardsused.json", jsonf);
@@ -109,6 +116,21 @@ namespace DiscordBot
                     return item;
             }
             return null;
+        }
+
+        public void SaveTimeTarotCardUsed(string userId, ulong botMessageId)
+        {
+            List<TarotCardsUsed> usedCards = GetAllUsers();
+
+            foreach (TarotCardsUsed item in usedCards)
+            {
+                if (item.id == userId)
+                {
+                    item.usedTime += 1;
+                    SaveCardToUser(item.id, item.card, item.usedTime, botMessageId);
+                }
+                    
+            }
         }
     }
 }

@@ -3,3 +3,8 @@
 
 2. Urodziny z anime
 	Raz dziennie o stałej porze bot sam z siebie wyśle wiadomość zawierającą urodziny postaci z popularnych anime. Jak będzie to wyglądać jest jeszcze do ustalenia
+
+feature
+anty spam - po 3 used 
+
+bugi

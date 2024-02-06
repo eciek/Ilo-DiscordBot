@@ -1,4 +1,5 @@
-﻿using Discord.WebSocket;
+﻿using Discord;
+using Discord.WebSocket;
 using DiscordBot.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace DiscordBot
     public class Commands
     {
         Tarot tarot = new Tarot();
+        
 
         // Commands
         public async void CheckCommand(SocketMessage message)
@@ -26,18 +28,33 @@ namespace DiscordBot
         {
             TarotCardsUsed user = tarot.CheckIfUserUsedCard(message.Author.Id.ToString());
             TarotCard card = new TarotCard();
+            IUserMessage botMessage = null;
+
             if (user != null)
-            {
                 card = tarot.GetCard(user.card);
+            else
+                card = tarot.GetRandomCard();
+
+            if (user != null && user.usedTime >= 3)
+            {
+                await message.Channel.SendMessageAsync($"<@{user.id}>", messageReference: new Discord.MessageReference(user.botMessageId));
             }
             else
             {
-                card = tarot.GetRandomCard();
-                tarot.SaveCardToUser(message.Author.Id.ToString(), card.name);
+                string desc = $"**{card.name}**```{card.description}```";
+                botMessage = await message.Channel.SendFileAsync(tarot.GetRandomCardPhotoPath(card), desc, messageReference: new Discord.MessageReference(message.Id));
             }
 
-            string desc = $"**{card.name}**```{card.description}```";
-            await message.Channel.SendFileAsync(tarot.GetRandomCardPhotoPath(card), desc, messageReference: new Discord.MessageReference(message.Id));
+            
+            
+
+            if (user != null)
+                tarot.SaveTimeTarotCardUsed(user.id, user.botMessageId);
+            else
+                tarot.SaveCardToUser(message.Author.Id.ToString(), card.name, 1, botMessage.Id);
+
+
+
 
             //save card to user
 
