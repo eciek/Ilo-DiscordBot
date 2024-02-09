@@ -4,7 +4,12 @@
 2. Urodziny z anime
 	Raz dziennie o stałej porze bot sam z siebie wyśle wiadomość zawierającą urodziny postaci z popularnych anime. Jak będzie to wyglądać jest jeszcze do ustalenia
 
+3. Wołanie usera który się zapisał kiedy wyjdzie nowa chińska bajka
+
+
 feature
 anty spam - po 3 used 
+clear automatyczny o godz 0:00
 
 bugi
+co jak user uzyl karty dnia na dwoch roznych serwerach????

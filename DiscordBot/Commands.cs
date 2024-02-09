@@ -35,7 +35,7 @@ namespace DiscordBot
             else
                 card = tarot.GetRandomCard();
 
-            if (user != null && user.usedTime >= 3)
+            if (user != null && user.usedTime >= 1)
             {
                 await message.Channel.SendMessageAsync($"<@{user.id}>", messageReference: new Discord.MessageReference(user.botMessageId));
             }
