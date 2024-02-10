@@ -8,8 +8,6 @@
 
 
 feature
-anty spam - po 3 used 
 clear automatyczny o godz 0:00
 
 bugi
-co jak user uzyl karty dnia na dwoch roznych serwerach????

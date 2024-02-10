@@ -63,7 +63,7 @@ namespace DiscordBot
 
         public string GetRandomCardPhotoPath(TarotCard card)
         {
-            string path = $"{System.IO.Directory.GetCurrentDirectory()}\\tarotphotos\\{card.name}.jpg";
+            string path = $"{System.IO.Directory.GetCurrentDirectory()}\\tarotphotos\\{card.name}.jpeg";
             return path;
         }
 
@@ -83,7 +83,7 @@ namespace DiscordBot
             return usedCards;
         }
 
-        public void SaveCardToUser(string id, string card, int usedTime, ulong botMessageId)
+        public void SaveCardToUser(string id, string card, int usedTime, ulong botMessageId, ulong guildId)
         {
             TarotCardsUsed user = new TarotCardsUsed();
             List<TarotCardsUsed> usedCards = GetAllUsers();
@@ -91,13 +91,43 @@ namespace DiscordBot
             if (foundObject != null)
             {
                 foundObject.usedTime += 1;
+                foreach (BotMessageId bot in foundObject.botMessagesId)
+                {
+                    if (bot.guildId == guildId)
+                    {
+                        return;
+                    }
+                }
+                BotMessageId botAdd = new BotMessageId();
+                botAdd.guildId = guildId;
+                botAdd.messageId = botMessageId;
+                if (foundObject.botMessagesId != null)
+                {
+                    user.botMessagesId = foundObject.botMessagesId;
+                    user.botMessagesId.Add(botAdd);
+                }
+                
             }
             else
             {
                 user.id = id;
                 user.card = card;
                 user.usedTime = usedTime;
-                user.botMessageId = botMessageId;
+                BotMessageId userIds = new BotMessageId();
+                userIds.guildId = guildId;  
+                userIds.messageId = botMessageId;
+                if (user.botMessagesId  != null)
+                {
+                    user.botMessagesId.Add(userIds);
+                    Console.Write("not null");
+                }
+                else
+                {
+                    user.botMessagesId = new List<BotMessageId>();
+                    user.botMessagesId.Add(userIds);
+                    Console.Write("null");
+                }
+                
                 usedCards.Add(user);
             }
 
@@ -118,7 +148,7 @@ namespace DiscordBot
             return null;
         }
 
-        public void SaveTimeTarotCardUsed(string userId, ulong botMessageId)
+        public void SaveTimeTarotCardUsed(string userId, ulong botMessageId, ulong guildId)
         {
             List<TarotCardsUsed> usedCards = GetAllUsers();
 
@@ -126,8 +156,19 @@ namespace DiscordBot
             {
                 if (item.id == userId)
                 {
+                    if (item.botMessagesId != null)
+                    {
+                        foreach (BotMessageId bot in item.botMessagesId)
+                        {
+                            if (bot.guildId != guildId)
+                            {
+                                SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId);
+                                return;
+                            }
+                        }
+                    }
                     item.usedTime += 1;
-                    SaveCardToUser(item.id, item.card, item.usedTime, botMessageId);
+                    SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId);
                 }
                     
             }

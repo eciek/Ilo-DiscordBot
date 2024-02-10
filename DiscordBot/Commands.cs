@@ -37,21 +37,41 @@ namespace DiscordBot
 
             if (user != null && user.usedTime >= 1)
             {
-                await message.Channel.SendMessageAsync($"<@{user.id}>", messageReference: new Discord.MessageReference(user.botMessageId));
+                if (message.Channel is SocketGuildChannel guildChannel)
+                {
+                    ulong guild = guildChannel.Guild.Id;
+
+                    foreach (BotMessageId item in user.botMessagesId)
+                    {
+                        if (item.guildId == guild)
+                        {
+                            botMessage = await message.Channel.SendMessageAsync($"<@{user.id}>", messageReference: new Discord.MessageReference(item.messageId));
+                            return;
+                        }
+                    }
+                    string desc = $"**{card.name}**```{card.description}```";
+                    botMessage = await message.Channel.SendFileAsync(tarot.GetRandomCardPhotoPath(card), desc, messageReference: new Discord.MessageReference(message.Id));
+                    var channel = botMessage.Channel as SocketGuildChannel;
+                    ulong guildId = channel.Guild.Id;
+                    tarot.SaveTimeTarotCardUsed(user.id, botMessage.Id, guildId);
+                }
             }
             else
             {
                 string desc = $"**{card.name}**```{card.description}```";
                 botMessage = await message.Channel.SendFileAsync(tarot.GetRandomCardPhotoPath(card), desc, messageReference: new Discord.MessageReference(message.Id));
+
+                var channel = botMessage.Channel as SocketGuildChannel;
+                ulong guildId = channel.Guild.Id;
+
+                tarot.SaveCardToUser(message.Author.Id.ToString(), card.name, 1, botMessage.Id, guildId);
             }
 
             
-            
 
-            if (user != null)
-                tarot.SaveTimeTarotCardUsed(user.id, user.botMessageId);
-            else
-                tarot.SaveCardToUser(message.Author.Id.ToString(), card.name, 1, botMessage.Id);
+
+
+                
 
 
 

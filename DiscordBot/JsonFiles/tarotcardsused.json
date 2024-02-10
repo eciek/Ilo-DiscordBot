@@ -1,1 +1,28 @@
-[{"id":"null","card":"null","usedTime":0,"botMessageId":0},{"id":"256492178069651468","card":"Głupiec","usedTime":2,"botMessageId":1204489806030311484}]
+[
+  {
+    "id": "null",
+    "card": "null",
+    "usedTime": 0,
+    "botMessagesId": [
+      {
+        "guildId": 1,
+        "messageId": 1
+      }
+    ]
+  },
+  {
+    "id": "256492178069651468",
+    "card": "Rydwan",
+    "usedTime": 2,
+    "botMessagesId": [
+      {
+        "guildId": 856940350023532575,
+        "messageId": 1205851156346052609
+      },
+      {
+        "guildId": 836218135697686599,
+        "messageId": 1205851179322572830
+      }
+    ]
+  }
+]
