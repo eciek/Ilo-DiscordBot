@@ -33,10 +33,15 @@ class Program
         _client.MessageReceived += MessageReceivedAsync;
         _client.InteractionCreated += InteractionCreatedAsync;
 
+
+
         // token
         await _client.LoginAsync(TokenType.Bot, config["Token"]);
         await _client.StartAsync();
+        await BotTimer();
         await Task.Delay(Timeout.Infinite);
+        
+
     }
 
     private static Task LogAsync(LogMessage log)
@@ -48,6 +53,7 @@ class Program
     private static Task ReadyAsync()
     {
         Console.WriteLine($"{_client.CurrentUser} is connected!");
+
         return Task.CompletedTask;
     }
 
@@ -73,5 +79,11 @@ class Program
             else
                 Console.WriteLine("An ID has been received that has no handler!");
         }
+    }
+
+    private static async Task BotTimer()
+    {
+        var taskExecutor = new Time();
+        await taskExecutor.Timer();
     }
 }
