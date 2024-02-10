@@ -38,7 +38,7 @@ class Program
         // token
         await _client.LoginAsync(TokenType.Bot, config["Token"]);
         await _client.StartAsync();
-        await BotTimer();
+        await Timer();
         await Task.Delay(Timeout.Infinite);
         
 
@@ -81,9 +81,24 @@ class Program
         }
     }
 
-    private static async Task BotTimer()
+    public static async Task Timer()
     {
-        var taskExecutor = new Time();
-        await taskExecutor.Timer();
+        DateTime now = DateTime.Now;
+        DateTime tomorrow = now.AddDays(1).Date;
+        TimeSpan delay = tomorrow - now;
+
+        Console.WriteLine($"Timer start {now}, {tomorrow}, {delay}");
+
+        await Task.Delay(delay);
+        await ClearUsers();
+    }
+
+    public static async Task ClearUsers()
+    {
+        Console.WriteLine("Cleared");
+        string jsonstring = "[{\"id\":\"null\",\"card\":\"null\",\"usedTime\":0,\"botMessagesId\":[{\"guildId\":1,\"messageId\":1}]}]";
+        System.IO.File.WriteAllText("C:\\Users\\Paweł\\Desktop\\Hepii\\DiscordBot\\DiscordBot\\JsonFiles\\tarotcardsused.json", jsonstring);
+
+        await Timer();
     }
 }
