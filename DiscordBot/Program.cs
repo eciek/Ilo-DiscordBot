@@ -41,6 +41,7 @@ class Program
         await Timer();
         await Task.Delay(Timeout.Infinite);
         
+        
 
     }
 
@@ -90,6 +91,8 @@ class Program
         Console.WriteLine($"Timer start {now}, {tomorrow}, {delay}");
 
         await Task.Delay(delay);
+        Birthday bd = new Birthday();
+        bd.SendBirthday(tomorrow);
         await ClearUsers();
     }
 
@@ -101,4 +104,5 @@ class Program
 
         await Timer();
     }
+
 }

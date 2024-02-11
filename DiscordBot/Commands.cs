@@ -22,6 +22,7 @@ namespace DiscordBot
 
             if (message.Content == "!kartadnia")
                 SendTarotCard(message);
+
         }
 
         async void SendTarotCard(SocketMessage message)
