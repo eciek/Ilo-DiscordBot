@@ -70,7 +70,7 @@ namespace DiscordBot
         public List<TarotCardsUsed> GetAllUsers()
         {
             List<TarotCardsUsed> usedCards = new List<TarotCardsUsed>();
-            using (StreamReader r = new StreamReader("C:\\Users\\Paweł\\Desktop\\Hepii\\DiscordBot\\DiscordBot\\JsonFiles\\tarotcardsused.json"))
+            using (StreamReader r = new StreamReader("JsonFiles/tarotcardsused.json"))
             {
                 var json = r.ReadToEnd();
                 var jarray = JArray.Parse(json);
