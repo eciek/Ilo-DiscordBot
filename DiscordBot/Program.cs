@@ -11,13 +11,10 @@ class Program
 {
     private static DiscordSocketClient _client;
     private static Commands _commands = new Commands();
+    private static Config _config = new Config();
 
     public static async Task Main(string[] args)
     {
-        // add user secrets
-        var config = new ConfigurationBuilder()
-            .AddUserSecrets<Program>()
-            .Build();
 
         // setup bot
         var configBot = new DiscordSocketConfig
@@ -36,7 +33,7 @@ class Program
 
 
         // token
-        await _client.LoginAsync(TokenType.Bot, config["Token"]);
+        await _client.LoginAsync(TokenType.Bot, _config.token);
         await _client.StartAsync();
         await Timer();
         await Task.Delay(Timeout.Infinite);
