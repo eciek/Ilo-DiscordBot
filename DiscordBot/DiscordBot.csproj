@@ -17,6 +17,10 @@
     <None Include="obj\Debug\net8.0\tarotphotos\Mag.jpg" />
     <None Include="obj\Debug\net8.0\tarotphotos\Osioł.jpg" />
     <None Include="obj\Debug\net8.0\tarotphotos\Papieżyca.jpg" />
+    <None Include="tarotphotos\Cesarzowa.jpg" />
+    <None Include="tarotphotos\Głupiec.jpg" />
+    <None Include="tarotphotos\Mag.jpg" />
+    <None Include="tarotphotos\Papieżyca.jpg" />
   </ItemGroup>
 
   <ItemGroup>
