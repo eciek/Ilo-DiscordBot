@@ -20,7 +20,7 @@ namespace DiscordBot
         private List<TarotCard> LoadJson()
         {
             List<TarotCard> cards = new List<TarotCard>();
-            using (StreamReader r = new StreamReader("C:\\Users\\Paweł\\Desktop\\Hepii\\DiscordBot\\DiscordBot\\JsonFiles\\tarotcards.json"))
+            using (StreamReader r = new StreamReader("JsonFiles/tarotcards.json"))
             {
                 var json = r.ReadToEnd();
                 var jarray = JArray.Parse(json);
@@ -63,7 +63,7 @@ namespace DiscordBot
 
         public string GetRandomCardPhotoPath(TarotCard card)
         {
-            string path = $"{System.IO.Directory.GetCurrentDirectory()}\\tarotphotos\\{card.name}.jpeg";
+            string path = $"{System.IO.Directory.GetCurrentDirectory()}/tarotphotos/{card.name}.jpeg";
             return path;
         }
 
@@ -133,7 +133,7 @@ namespace DiscordBot
 
             // save all users
             string jsonf = JsonConvert.SerializeObject(usedCards.ToArray());
-            System.IO.File.WriteAllText("C:\\Users\\Paweł\\Desktop\\Hepii\\DiscordBot\\DiscordBot\\JsonFiles\\tarotcardsused.json", jsonf);
+            System.IO.File.WriteAllText("JsonFiles/tarotcardsused.json", jsonf);
         }
 
         public TarotCardsUsed CheckIfUserUsedCard(string userId)

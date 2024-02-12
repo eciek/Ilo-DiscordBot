@@ -97,7 +97,7 @@ class Program
     {
         Console.WriteLine("Cleared");
         string jsonstring = "[{\"id\":\"null\",\"card\":\"null\",\"usedTime\":0,\"botMessagesId\":[{\"guildId\":1,\"messageId\":1}]}]";
-        System.IO.File.WriteAllText("C:\\Users\\Paweł\\Desktop\\Hepii\\DiscordBot\\DiscordBot\\JsonFiles\\tarotcardsused.json", jsonstring);
+        System.IO.File.WriteAllText("JsonFiles/tarotcardsused.json", jsonstring);
 
         await Timer();
     }
