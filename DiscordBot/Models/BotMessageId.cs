@@ -10,5 +10,6 @@ namespace DiscordBot.Models
     {
         public ulong guildId {  get; set; }
         public ulong messageId { get; set; }
+        public ulong channelId { get; set; }
     }
 }

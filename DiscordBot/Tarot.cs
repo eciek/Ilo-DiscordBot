@@ -83,7 +83,7 @@ namespace DiscordBot
             return usedCards;
         }
 
-        public void SaveCardToUser(string id, string card, int usedTime, ulong botMessageId, ulong guildId)
+        public void SaveCardToUser(string id, string card, int usedTime, ulong botMessageId, ulong guildId, ulong channelId)
         {
             TarotCardsUsed user = new TarotCardsUsed();
             List<TarotCardsUsed> usedCards = GetAllUsers();
@@ -101,6 +101,7 @@ namespace DiscordBot
                 BotMessageId botAdd = new BotMessageId();
                 botAdd.guildId = guildId;
                 botAdd.messageId = botMessageId;
+                botAdd.channelId = channelId;
                 if (foundObject.botMessagesId != null)
                 {
                     user.botMessagesId = foundObject.botMessagesId;
@@ -116,6 +117,7 @@ namespace DiscordBot
                 BotMessageId userIds = new BotMessageId();
                 userIds.guildId = guildId;  
                 userIds.messageId = botMessageId;
+                userIds.channelId = channelId;
                 if (user.botMessagesId  != null)
                 {
                     user.botMessagesId.Add(userIds);
@@ -148,7 +150,7 @@ namespace DiscordBot
             return null;
         }
 
-        public void SaveTimeTarotCardUsed(string userId, ulong botMessageId, ulong guildId)
+        public void SaveTimeTarotCardUsed(string userId, ulong botMessageId, ulong guildId, ulong channelId)
         {
             List<TarotCardsUsed> usedCards = GetAllUsers();
 
@@ -162,13 +164,13 @@ namespace DiscordBot
                         {
                             if (bot.guildId != guildId)
                             {
-                                SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId);
+                                SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId, channelId);
                                 return;
                             }
                         }
                     }
                     item.usedTime += 1;
-                    SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId);
+                    SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId, channelId);
                 }
                     
             }

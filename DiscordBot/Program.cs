@@ -1,105 +1,50 @@
-﻿using Microsoft.Extensions.Configuration;
-using Discord;
-using Discord.WebSocket;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿global using Discord;
+global using Discord.Interactions;
+global using Discord.WebSocket;
+
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.Logging;
+using DiscordBot;
+using DiscordBot.Services;
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+using Serilog;
 
 
-namespace DiscordBot;
-class Program
+var builder = new HostApplicationBuilder(args);
+
+builder.Configuration.AddEnvironmentVariables("DNetTemplate_");
+
+var loggerConfig = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File($"logs/log-{DateTime.Now:yy.MM.dd_HH.mm}.log")
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(loggerConfig, dispose: true);
+
+builder.Services.AddSingleton(new DiscordSocketClient(
+    new DiscordSocketConfig
+    {
+        GatewayIntents = GatewayIntents.AllUnprivileged,
+        FormatUsersInBidirectionalUnicode = false,
+        // Add GatewayIntents.GuildMembers to the GatewayIntents and change this to true if you want to download all users on startup
+        AlwaysDownloadUsers = false,
+        LogGatewayIntentWarnings = false,
+        LogLevel = LogSeverity.Info
+    }));
+
+builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>(), new InteractionServiceConfig()
 {
-    private static DiscordSocketClient _client;
-    private static Commands _commands = new Commands();
-    private static Config _config = new Config();
+    LogLevel = LogSeverity.Info
+}));
 
-    public static async Task Main(string[] args)
-    {
+builder.Services.AddSingleton<InteractionHandler>();
 
-        // setup bot
-        var configBot = new DiscordSocketConfig
-        {
-            GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent
-        };
+builder.Services.AddHostedService<DiscordBotService>();
 
-        _client = new DiscordSocketClient(configBot);
+var app = builder.Build();
 
-        // adding func to bot
-        _client.Log += LogAsync;
-        _client.Ready += ReadyAsync;
-        _client.MessageReceived += MessageReceivedAsync;
-        _client.InteractionCreated += InteractionCreatedAsync;
-
-
-
-        // token
-        await _client.LoginAsync(TokenType.Bot, _config.token);
-        await _client.StartAsync();
-        await Timer();
-        await Task.Delay(Timeout.Infinite);
-        
-        
-
-    }
-
-    private static Task LogAsync(LogMessage log)
-    {
-        Console.WriteLine(log.ToString());
-        return Task.CompletedTask;
-    }
-
-    private static Task ReadyAsync()
-    {
-        Console.WriteLine($"{_client.CurrentUser} is connected!");
-
-        return Task.CompletedTask;
-    }
-
-    private static async Task MessageReceivedAsync(SocketMessage message)
-    {
-        // bot not responding to itself
-        if (message.Author.Id == _client.CurrentUser.Id)
-            return;
-
-        Console.WriteLine($"{message.Author.Id}: {message.Content}");
-
-        _commands.CheckCommand(message);
-    }
-
-    // no idea how this is working yet
-    private static async Task InteractionCreatedAsync(SocketInteraction interaction)
-    {
-        if (interaction is SocketMessageComponent component)
-        {
-            if (component.Data.CustomId == "unique-id")
-                await interaction.RespondAsync("Thank u for clicking button");
-
-            else
-                Console.WriteLine("An ID has been received that has no handler!");
-        }
-    }
-
-    public static async Task Timer()
-    {
-        DateTime now = DateTime.Now;
-        DateTime tomorrow = now.AddDays(1).Date;
-        TimeSpan delay = tomorrow - now;
-
-        Console.WriteLine($"Timer start {now}, {tomorrow}, {delay}");
-
-        await Task.Delay(delay);
-        Birthday bd = new Birthday();
-        bd.SendBirthday(tomorrow);
-        await ClearUsers();
-    }
-
-    public static async Task ClearUsers()
-    {
-        Console.WriteLine("Cleared");
-        string jsonstring = "[{\"id\":\"null\",\"card\":\"null\",\"usedTime\":0,\"botMessagesId\":[{\"guildId\":1,\"messageId\":1}]}]";
-        System.IO.File.WriteAllText("JsonFiles/tarotcardsused.json", jsonstring);
-
-        await Timer();
-    }
-
-}
+await app.RunAsync();

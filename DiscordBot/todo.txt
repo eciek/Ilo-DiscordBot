@@ -6,6 +6,7 @@
 
 3. Wołanie usera który się zapisał kiedy wyjdzie nowa chińska bajka
 
+Scrapera w pythonie do zebrania danych o urodzinach postaci xD
 
 feature
 clear automatyczny o godz 0:00
