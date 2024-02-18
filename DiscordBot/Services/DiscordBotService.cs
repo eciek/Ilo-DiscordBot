@@ -13,6 +13,7 @@ public class DiscordBotService(DiscordSocketClient client, InteractionService in
 
         client.Log += LogAsync;
         interactions.Log += LogAsync;
+        Task task1 = Task.Run(async () => await TimerService.Timer());
 
         return interactionHandler.InitializeAsync()
             .ContinueWith(t => client.LoginAsync(TokenType.Bot, _config.token), cancellationToken)
@@ -32,7 +33,6 @@ public class DiscordBotService(DiscordSocketClient client, InteractionService in
     {
         logger.LogInformation("Logged as {User}", client.CurrentUser);
         await interactions.RegisterCommandsGloballyAsync(deleteMissing: true);
-        
     }
 
 
@@ -51,28 +51,5 @@ public class DiscordBotService(DiscordSocketClient client, InteractionService in
 
         logger.Log(severity, msg.Exception, msg.Message);
         return Task.CompletedTask;
-    }
-
-    public static async Task Timer()
-    {
-        DateTime now = DateTime.Now;
-        DateTime tomorrow = now.AddDays(1).Date;
-        TimeSpan delay = tomorrow - now;
-
-        Console.WriteLine($"Timer start {now}, {tomorrow}, {delay}");
-
-        await Task.Delay(delay);
-        Birthday bd = new Birthday();
-        bd.SendBirthday(tomorrow);
-        await ClearUsers();
-    }
-
-    public static async Task ClearUsers()
-    {
-        Console.WriteLine("Cleared");
-        string jsonstring = "[{\"id\":\"null\",\"card\":\"null\",\"usedTime\":0,\"botMessagesId\":[{\"guildId\":1,\"messageId\":1,\"channelId\":1}]}]";
-        System.IO.File.WriteAllText("JsonFiles/tarotcardsused.json", jsonstring);
-
-        await Timer();
     }
 }

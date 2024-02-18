@@ -42,9 +42,12 @@ builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<D
 }));
 
 builder.Services.AddSingleton<InteractionHandler>();
+builder.Services.AddSingleton<TarotService>();
+builder.Services.AddSingleton<TimerService>();
 
 builder.Services.AddHostedService<DiscordBotService>();
 
 var app = builder.Build();
 
 await app.RunAsync();
+await TimerService.Timer();

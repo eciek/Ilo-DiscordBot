@@ -1,22 +1,16 @@
-﻿using Discord.WebSocket;
-using DiscordBot.Models;
-using Newtonsoft.Json;
+﻿using DiscordBot.Models;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBot
+namespace DiscordBot.Services
 {
-    public class Tarot
+    public class TarotService : InteractionModuleBase<SocketInteractionContext>
     {
-        
-        
-
         private List<TarotCard> LoadJson()
         {
             List<TarotCard> cards = new List<TarotCard>();
@@ -30,7 +24,7 @@ namespace DiscordBot
                     cards.Add(card);
                 }
             }
-           
+
             return cards;
         }
 
@@ -38,7 +32,7 @@ namespace DiscordBot
         {
             TarotCard card = new TarotCard();
             List<TarotCard> cards = LoadJson();
-            
+
             Random random = new Random();
 
             int r = random.Next(cards.Count);
@@ -107,7 +101,7 @@ namespace DiscordBot
                     user.botMessagesId = foundObject.botMessagesId;
                     user.botMessagesId.Add(botAdd);
                 }
-                
+
             }
             else
             {
@@ -115,10 +109,10 @@ namespace DiscordBot
                 user.card = card;
                 user.usedTime = usedTime;
                 BotMessageId userIds = new BotMessageId();
-                userIds.guildId = guildId;  
+                userIds.guildId = guildId;
                 userIds.messageId = botMessageId;
                 userIds.channelId = channelId;
-                if (user.botMessagesId  != null)
+                if (user.botMessagesId != null)
                 {
                     user.botMessagesId.Add(userIds);
                     Console.Write("not null");
@@ -129,7 +123,7 @@ namespace DiscordBot
                     user.botMessagesId.Add(userIds);
                     Console.Write("null");
                 }
-                
+
                 usedCards.Add(user);
             }
 
@@ -141,7 +135,7 @@ namespace DiscordBot
         public TarotCardsUsed CheckIfUserUsedCard(string userId)
         {
             List<TarotCardsUsed> usedCards = GetAllUsers();
-            
+
             foreach (TarotCardsUsed item in usedCards)
             {
                 if (item.id == userId)
@@ -172,7 +166,7 @@ namespace DiscordBot
                     item.usedTime += 1;
                     SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId, channelId);
                 }
-                    
+
             }
         }
     }
