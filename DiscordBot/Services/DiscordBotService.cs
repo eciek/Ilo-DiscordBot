@@ -15,7 +15,7 @@ public class DiscordBotService(
             .AddJsonFile("appsettings.json",optional:false,reloadOnChange:true)
             .Build();
         BotConfig botConfig = new()
-        { token = sconfig.GetValue<string>("BotConfig:token") ?? throw new Exception("appsettings.json is not specified propely!") };
+        { token = sconfig.GetValue<string>("BotConfig:token") ?? throw new Exception("appsettings.json is not specified properly!") };
 
         if (botConfig.token == null)
             throw new Exception("BotConfig:token is missing!");
