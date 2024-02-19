@@ -5,6 +5,7 @@ global using Discord.WebSocket;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.Logging;
 using DiscordBot;
+using DiscordBot.Models;
 using DiscordBot.Services;
 
 using Microsoft.Extensions.DependencyInjection;
