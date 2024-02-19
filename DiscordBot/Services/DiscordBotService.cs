@@ -17,7 +17,7 @@ public class DiscordBotService(
         BotConfig botConfig = new()
         { token = sconfig.GetValue<string>("BotConfig:token") ?? throw new Exception("appsettings.json is not specified propely!") };
 
-        if (botConfig.token == null)
+        if (String.IsNullOrEmpty(botConfig.token))
             throw new Exception("BotConfig:token is missing!");
 
         client.Ready += ClientReady;
