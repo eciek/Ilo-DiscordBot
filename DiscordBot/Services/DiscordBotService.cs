@@ -12,6 +12,7 @@ public class DiscordBotService(DiscordSocketClient client, InteractionService in
         client.Ready += ClientReady;
 
         client.Log += LogAsync;
+        client.ButtonExecuted += ButtonHandler;
         interactions.Log += LogAsync;
         Task task1 = Task.Run(async () => await TimerService.Timer());
 
@@ -51,5 +52,15 @@ public class DiscordBotService(DiscordSocketClient client, InteractionService in
 
         logger.Log(severity, msg.Exception, msg.Message);
         return Task.CompletedTask;
+    }
+
+    public async Task ButtonHandler(SocketMessageComponent component)
+    {
+        switch (component.Data.CustomId)
+        {
+            case "saveButton":
+                await component.RespondAsync("Zapisano!", ephemeral: true);
+            break;
+        }
     }
 }

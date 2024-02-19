@@ -14,10 +14,13 @@ namespace DiscordBot.Modules
         private readonly ILogger<CommandModule> _logger;
 
 
-        [SlashCommand("kartadnia", "XDDDD")]
+        [SlashCommand("kartadnia", "Losuje karte dnia tarota")]
         public async Task TarotCard()
         {
-            await SendTarotCard(Context);
+            if (Context.User.Id == 792728812730449941)
+                await RespondAsync("Przepraszam ale nie mam schizofrenii i nie rozmawiam sama ze sobą");
+            else
+                await SendTarotCard(Context);
         }
 
         public async Task SendTarotCard(SocketInteractionContext message)
