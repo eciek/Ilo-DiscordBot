@@ -1,4 +1,5 @@
 ﻿using DiscordBot.Models;
+using DiscordBot.Services;
 using Microsoft.Extensions.Hosting;
 
 namespace DiscordBot.Services;
@@ -7,7 +8,8 @@ public class DiscordBotService(
         DiscordSocketClient client,
         InteractionService interactions,
         ILogger<DiscordBotService> logger,
-        InteractionHandler interactionHandler) : BackgroundService
+        InteractionHandler interactionHandler,
+        ConfigBotService configBotService) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken ct)
     {
@@ -21,9 +23,11 @@ public class DiscordBotService(
             throw new Exception("BotConfig:token is missing!");
 
         client.Ready += ClientReady;
-
+        client.SetGameAsync("Highschool of the Burning Onion");
         client.Log += LogAsync;
         client.ButtonExecuted += ButtonHandler;
+        client.SelectMenuExecuted += SelectMenuHandler;
+        
         interactions.Log += LogAsync;
         Task task1 = Task.Run(TimerService.Timer, ct);
 
@@ -70,6 +74,19 @@ public class DiscordBotService(
         switch (component.Data.CustomId)
         {
             case "saveButton":
+                await component.RespondAsync("Zapisano!", ephemeral: true);
+            break;
+        }
+    }
+
+
+
+    public async Task SelectMenuHandler(SocketMessageComponent component)
+    {
+        switch (component.Data.CustomId)
+        {
+            case "configMenu":
+                configBotService.SaveConfig(Convert.ToUInt64(component.Data.Values.First()), component.GuildId);
                 await component.RespondAsync("Zapisano!", ephemeral: true);
             break;
         }
