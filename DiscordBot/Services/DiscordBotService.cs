@@ -88,7 +88,6 @@ public class DiscordBotService(
             case "configMenu":
                 configBotService.SaveConfig(Convert.ToUInt64(component.Data.Values.First()), component.GuildId);
                 await component.RespondAsync("Zapisano!", ephemeral: true);
-                
             break;
         }
     }

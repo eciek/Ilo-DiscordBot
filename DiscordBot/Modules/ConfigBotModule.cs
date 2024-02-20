@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {
+    
     public class ConfigBotModule : InteractionModuleBase<SocketInteractionContext>
     {
         public ConfigBotService ConfigBotService { get; set; }
 
+        [RequireUserPermission(GuildPermission.Administrator)]
         [SlashCommand("config", "Konfiguracja funkcji bota")]
         public async Task ConfigBot()
         {
