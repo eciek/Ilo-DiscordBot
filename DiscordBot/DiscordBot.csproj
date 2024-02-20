@@ -9,14 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="bin\Debug\net8.0\tarotphotos\Głupiec.jpg" />
-    <None Include="bin\Debug\net8.0\tarotphotos\Mag.jpg" />
-    <None Include="bin\Debug\net8.0\tarotphotos\Cesarzowa.jpg" />
-    <None Include="bin\Debug\net8.0\tarotphotos\Papieżyca.jpg" />
-    <None Include="obj\Debug\net8.0\tarotphotos\Głupiec.jpg" />
-    <None Include="obj\Debug\net8.0\tarotphotos\Mag.jpg" />
-    <None Include="obj\Debug\net8.0\tarotphotos\Osioł.jpg" />
-    <None Include="obj\Debug\net8.0\tarotphotos\Papieżyca.jpg" />
+    <Compile Remove="obj\Debug\net8.0\tarotphotos\**" />
+    <EmbeddedResource Remove="obj\Debug\net8.0\tarotphotos\**" />
+    <None Remove="obj\Debug\net8.0\tarotphotos\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -285,6 +280,11 @@
     <None Update="tarotphotos\Świat.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\net8.0\tarotphotos\" />
+    <Folder Include="obj\Debug\net8.0\" />
   </ItemGroup>
 
 </Project>
