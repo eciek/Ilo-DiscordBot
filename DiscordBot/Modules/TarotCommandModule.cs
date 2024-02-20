@@ -13,11 +13,12 @@ namespace DiscordBot.Modules
         public TarotService TarotService { get; set; }
         private readonly ILogger<CommandModule> _logger;
 
+        private const Int64 _schizoID = 792728812730449941;
 
         [SlashCommand("kartadnia", "Losuje karte dnia tarota")]
         public async Task TarotCard()
         {
-            if (Context.User.Id == 792728812730449941)
+            if (Context.User.Id == _schizoID)
                 await RespondAsync("Przepraszam ale nie mam schizofrenii i nie rozmawiam sama ze sobą");
             else
                 await SendTarotCard(Context);

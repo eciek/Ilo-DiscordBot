@@ -1,18 +1,13 @@
 ﻿global using Discord;
 global using Discord.Interactions;
 global using Discord.WebSocket;
-
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.Logging;
-using DiscordBot;
-using DiscordBot.Models;
+using DiscordBot.Modules.AnimeFeed;
 using DiscordBot.Services;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using Serilog;
-
 
 var builder = new HostApplicationBuilder(args);
 
@@ -47,7 +42,7 @@ builder.Services.AddSingleton<InteractionHandler>();
 builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<ConfigBotService>();
-
+builder.Services.AddSingleton<AnimeFeedService>();
 
 
 
