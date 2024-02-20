@@ -9,6 +9,6 @@ namespace DiscordBot.Models
     public class ConfigModel
     {
         public ulong guildId { get; set; }
-        public ulong tarotChannelId { get; set; }
+        public ulong birthdayChannelId { get; set; }
     }
 }

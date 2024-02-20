@@ -42,13 +42,14 @@ builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<D
     LogLevel = LogSeverity.Info
 }));
 
+builder.Services.AddHostedService<DiscordBotService>();
 builder.Services.AddSingleton<InteractionHandler>();
 builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<ConfigBotService>();
 
 
-builder.Services.AddHostedService<DiscordBotService>();
+
 
 var app = builder.Build();
 
