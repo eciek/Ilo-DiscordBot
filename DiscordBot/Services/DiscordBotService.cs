@@ -8,9 +8,9 @@ public class DiscordBotService(
         DiscordSocketClient client,
         InteractionService interactions,
         ILogger<DiscordBotService> logger,
-        InteractionHandler interactionHandler) : BackgroundService
+        InteractionHandler interactionHandler,
+        ConfigBotService configBotService) : BackgroundService
 {
-    public ConfigBotService? ConfigBotService { get; set; }
     protected override Task ExecuteAsync(CancellationToken ct)
     {
         var sconfig = new ConfigurationBuilder()
@@ -27,6 +27,7 @@ public class DiscordBotService(
         client.Log += LogAsync;
         client.ButtonExecuted += ButtonHandler;
         client.SelectMenuExecuted += SelectMenuHandler;
+        
         interactions.Log += LogAsync;
         Task task1 = Task.Run(TimerService.Timer, ct);
 
@@ -78,13 +79,15 @@ public class DiscordBotService(
         }
     }
 
+
+
     public async Task SelectMenuHandler(SocketMessageComponent component)
     {
         switch (component.Data.CustomId)
         {
             case "configMenu":
-                ConfigBotService.SaveConfig(component.GuildId, component.ChannelId);
-                await component.RespondAsync("Zapisano!", ephemeral: true);
+                configBotService.SaveConfig(Convert.ToUInt64(component.Data.Values.First()), component.GuildId);
+                await component.RespondAsync(".", ephemeral: true);
                 
             break;
         }

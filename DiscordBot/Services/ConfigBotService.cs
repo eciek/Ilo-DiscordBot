@@ -55,13 +55,14 @@ namespace DiscordBot.Services
                     menuBuilder.AddOption($"{channel.Name}", $"{channel.Id}", " ");
                 }
             }
-            menuBuilder.AddOption("Wyłącz", "off", "Wyłącza funkcje");
+            menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
             var builder = new ComponentBuilder().WithSelectMenu(menuBuilder);
             return builder;
         }
 
         public void SaveConfig(ulong? birthdayChannelId, ulong? guildId)
         {
+            Console.WriteLine("Hiy");
             ConfigModel config = new ConfigModel();
             config.guildId = (ulong)guildId;
             config.birthdayChannelId = (ulong)birthdayChannelId;
