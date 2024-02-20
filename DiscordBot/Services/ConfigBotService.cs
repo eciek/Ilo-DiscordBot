@@ -60,19 +60,38 @@ namespace DiscordBot.Services
             return builder;
         }
 
+
+
         public void SaveConfig(ulong? birthdayChannelId, ulong? guildId)
         {
-            Console.WriteLine("Hiy");
-            ConfigModel config = new ConfigModel();
-            config.guildId = (ulong)guildId;
-            config.birthdayChannelId = (ulong)birthdayChannelId;
-
             List<ConfigModel> configList = new List<ConfigModel>();
             configList = _configModels;
-            configList.Add(config);
+            Console.WriteLine(guildId);
+            ConfigModel config = new ConfigModel();
+            config = CheckIfGuildIsInConfig(guildId);
+            if (config == null)
+            {
+                config = new ConfigModel();
+                config.guildId = (ulong)guildId;
+                config.birthdayChannelId = (ulong)birthdayChannelId;
+                configList.Add(config);
+            }
+            else
+            {
+                config.birthdayChannelId = (ulong)birthdayChannelId;
+            }
+            
+            
+            
+            
+            
+
 
             string jsonf = JsonConvert.SerializeObject(configList.ToArray());
             System.IO.File.WriteAllText("JsonFiles/configbot.json", jsonf);
         }
+
+        public ConfigModel? CheckIfGuildIsInConfig(ulong? guildId)
+            => _configModels.Where(x => x.guildId == guildId).FirstOrDefault();
     }
 }
