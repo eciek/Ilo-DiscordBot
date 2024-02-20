@@ -6,50 +6,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Nodes;
+using System.Security.Cryptography;
 
 namespace DiscordBot.Services
 {
     public class TarotService : InteractionModuleBase<SocketInteractionContext>
     {
-        private List<TarotCard> LoadJson()
-        {
-            List<TarotCard> cards = new List<TarotCard>();
-            using (StreamReader r = new StreamReader("JsonFiles/tarotcards.json"))
-            {
-                var json = r.ReadToEnd();
-                var jarray = JArray.Parse(json);
-                foreach (var item in jarray)
-                {
-                    TarotCard card = item.ToObject<TarotCard>();
-                    cards.Add(card);
-                }
-            }
 
-            return cards;
+        List<TarotCard> _cards;
+
+        public TarotService() 
+        {
+            using (var s = new StreamReader("JsonFiles/tarotcards.json"))
+            {
+                var jsonString = s.ReadToEnd();
+                try
+                {
+                    _cards = JsonConvert.DeserializeObject<List<TarotCard>>(jsonString) ?? throw new Exception();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Failed to read tarotcards.json! \n" + ex.Message);
+                }
+
+                if (_cards == null)
+                    throw new Exception("Failed to read tarotcards.json!");
+            }
         }
 
         public TarotCard GetRandomCard()
-        {
-            TarotCard card = new TarotCard();
-            List<TarotCard> cards = LoadJson();
-
-            Random random = new Random();
-
-            int r = random.Next(cards.Count);
-
-            Console.WriteLine(cards[r].name);
-
-            return cards[r];
-        }
+            => _cards[RandomNumberGenerator.GetInt32(_cards.Count)];
 
         public TarotCard GetCard(string name)
         {
             TarotCard card = new TarotCard();
-            List<TarotCard> cards = LoadJson();
+            List<TarotCard> cards = _cards;
 
             foreach (TarotCard item in cards)
             {
-                if (item.name == name)
+                if (item.Name == name)
                     return item;
             }
             return card;
@@ -57,7 +53,7 @@ namespace DiscordBot.Services
 
         public string GetRandomCardPhotoPath(TarotCard card)
         {
-            string path = $"{System.IO.Directory.GetCurrentDirectory()}/tarotphotos/{card.name}.jpeg";
+            string path = $"{System.IO.Directory.GetCurrentDirectory()}/tarotphotos/{card.Name}.jpeg";
             return path;
         }
 
@@ -132,17 +128,8 @@ namespace DiscordBot.Services
             System.IO.File.WriteAllText("JsonFiles/tarotcardsused.json", jsonf);
         }
 
-        public TarotCardsUsed CheckIfUserUsedCard(string userId)
-        {
-            List<TarotCardsUsed> usedCards = GetAllUsers();
-
-            foreach (TarotCardsUsed item in usedCards)
-            {
-                if (item.id == userId)
-                    return item;
-            }
-            return null;
-        }
+        public TarotCardsUsed? CheckIfUserUsedCard(string userId)
+            => GetAllUsers().Where(x => x.id == userId).FirstOrDefault();
 
         public void SaveTimeTarotCardUsed(string userId, ulong botMessageId, ulong guildId, ulong channelId)
         {

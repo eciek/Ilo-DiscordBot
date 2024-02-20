@@ -48,7 +48,7 @@ namespace DiscordBot.Modules
                             return;
                         }
                     }
-                    string desc = $"**{card.name}**```{card.description}```";
+                    string desc = $"**{card.Name}**```{card.Description}```";
                     await RespondWithFileAsync(filePath: TarotService.GetRandomCardPhotoPath(card), text: desc);
                     IUserMessage userx = await GetOriginalResponseAsync();
                     ulong guildId = Context.Guild.Id;
@@ -59,14 +59,14 @@ namespace DiscordBot.Modules
             }
             else
             {
-                string desc = $"**{card.name}**```{card.description}```";
+                string desc = $"**{card.Name}**```{card.Description}```";
                 await RespondWithFileAsync(filePath: TarotService.GetRandomCardPhotoPath(card), text: desc);
                 IUserMessage userx = await GetOriginalResponseAsync();
 
                 ulong guildId = Context.Guild.Id;
                 ulong channelId = Context.Channel.Id;
                 ulong testId = userx.Id;
-                TarotService.SaveCardToUser(message.User.Id.ToString(), card.name, 1, testId, guildId, channelId);
+                TarotService.SaveCardToUser(message.User.Id.ToString(), card.Name, 1, testId, guildId, channelId);
             }
         }
     }
