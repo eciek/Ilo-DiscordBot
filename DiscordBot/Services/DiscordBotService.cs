@@ -1,5 +1,6 @@
 ﻿using DiscordBot.Models;
-using DiscordBot.Services;
+using DiscordBot.Modules.Config;
+using DiscordBot.Modules.Timer;
 using Microsoft.Extensions.Hosting;
 
 namespace DiscordBot.Services;

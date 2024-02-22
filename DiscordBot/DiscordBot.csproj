@@ -37,13 +37,13 @@
     <None Update="JsonFiles\birthdayanime.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="JsonFiles\configbot.json">
+    <None Update="Modules\Config\JsonFiles\configbot.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="JsonFiles\tarotcards.json">
+    <None Update="Modules\Tarot\JsonFiles\tarotcards.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="JsonFiles\tarotcardsused.json">
+    <None Update="Modules\Tarot\JsonFiles\tarotcardsused.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="tarotphotos\Arcykapłanka.jpeg">

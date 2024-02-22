@@ -1,4 +1,4 @@
-﻿using DiscordBot.Models;
+﻿using DiscordBot.Modules.Config.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBot.Services
+namespace DiscordBot.Modules.Config
 {
     public class ConfigBotService : InteractionModuleBase<SocketInteractionContext>
     {
         List<ConfigModel> _configModels;
         public ConfigBotService()
         {
-            using (var s = new StreamReader("JsonFiles/configbot.json"))
+            using (var s = new StreamReader("Modules/Config/JsonFiles/configbot.json"))
             {
                 var jsonString = s.ReadToEnd();
                 try
@@ -34,7 +34,6 @@ namespace DiscordBot.Services
         {
             IReadOnlyCollection<SocketGuildChannel> channels = new List<SocketGuildChannel>();
             channels = context.Guild.Channels;
-            
             return channels;
         }
 
@@ -60,38 +59,27 @@ namespace DiscordBot.Services
             return builder;
         }
 
-
-
         public void SaveConfig(ulong? birthdayChannelId, ulong? guildId)
         {
-            List<ConfigModel> configList = new List<ConfigModel>();
-            configList = _configModels;
+            List<ConfigModel> configList = _configModels;
             Console.WriteLine(guildId);
-            ConfigModel config = new ConfigModel();
-            config = CheckIfGuildIsInConfig(guildId);
+            ConfigModel config = CheckIfGuildIsInConfig(guildId);
             if (config == null)
             {
                 config = new ConfigModel();
-                config.guildId = (ulong)guildId;
-                config.birthdayChannelId = (ulong)birthdayChannelId;
+                config.GuildId = (ulong)guildId;
+                config.BirthdayChannelId = (ulong)birthdayChannelId;
                 configList.Add(config);
             }
             else
             {
-                config.birthdayChannelId = (ulong)birthdayChannelId;
+                config.BirthdayChannelId = (ulong)birthdayChannelId;
             }
-            
-            
-            
-            
-            
-
-
             string jsonf = JsonConvert.SerializeObject(configList.ToArray());
-            System.IO.File.WriteAllText("JsonFiles/configbot.json", jsonf);
+            File.WriteAllText("Modules/Config/JsonFiles/configbot.json", jsonf);
         }
 
         public ConfigModel? CheckIfGuildIsInConfig(ulong? guildId)
-            => _configModels.Where(x => x.guildId == guildId).FirstOrDefault();
+            => _configModels.Where(x => x.GuildId == guildId).FirstOrDefault();
     }
 }

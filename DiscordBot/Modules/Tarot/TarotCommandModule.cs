@@ -1,19 +1,13 @@
-﻿using DiscordBot.Services;
-using DiscordBot.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DiscordBot.Modules.Tarot.Models;
 
-namespace DiscordBot.Modules
+namespace DiscordBot.Modules.Tarot
 {
     public class TarotCommandModule : InteractionModuleBase<SocketInteractionContext>
     {
         public TarotService TarotService { get; set; }
         private readonly ILogger<CommandModule> _logger;
 
-        private const Int64 _schizoID = 792728812730449941;
+        private const long _schizoID = 792728812730449941;
 
         [SlashCommand("kartadnia", "Losuje karte dnia tarota")]
         public async Task TarotCard()
@@ -31,21 +25,21 @@ namespace DiscordBot.Modules
             IUserMessage botMessage = null;
 
             if (user != null)
-                card = TarotService.GetCard(user.card);
+                card = TarotService.GetCard(user.Card);
             else
                 card = TarotService.GetRandomCard();
 
-            if (user != null && user.usedTime >= 1)
+            if (user != null && user.UsedTime >= 1)
             {
                 if (message.Channel is SocketGuildChannel guildChannel)
                 {
                     ulong guild = guildChannel.Guild.Id;
 
-                    foreach (BotMessageId item in user.botMessagesId)
+                    foreach (BotMessageId item in user.BotMessagesId)
                     {
-                        if (item.guildId == guild)
+                        if (item.GuildId == guild)
                         {
-                            await RespondAsync($"<@{user.id}> https://discord.com/channels/{item.guildId}/{item.channelId}/{item.messageId}");
+                            await RespondAsync($"<@{user.Id}> https://discord.com/channels/{item.GuildId}/{item.ChannelId}/{item.MessageId}");
                             return;
                         }
                     }
@@ -55,7 +49,7 @@ namespace DiscordBot.Modules
                     ulong guildId = Context.Guild.Id;
                     ulong channelId = Context.Channel.Id;
 
-                    TarotService.SaveTimeTarotCardUsed(user.id, userx.Id, guildId, channelId);
+                    TarotService.SaveTimeTarotCardUsed(user.Id, userx.Id, guildId, channelId);
                 }
             }
             else

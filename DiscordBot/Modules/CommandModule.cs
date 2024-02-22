@@ -1,5 +1,6 @@
 ﻿using DiscordBot.Models;
 using DiscordBot.Services;
+using DiscordBot.Modules.Tarot;
 
 namespace DiscordBot.Modules;
 
