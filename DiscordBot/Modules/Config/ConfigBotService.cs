@@ -30,6 +30,11 @@ namespace DiscordBot.Modules.Config
             }
         }
 
+        public List<ConfigModel> ReturnConfigModels()
+        {
+            return _configModels;
+        }
+
         public IReadOnlyCollection<SocketGuildChannel> GetAllChannels(SocketInteractionContext context)
         {
             IReadOnlyCollection<SocketGuildChannel> channels = new List<SocketGuildChannel>();
