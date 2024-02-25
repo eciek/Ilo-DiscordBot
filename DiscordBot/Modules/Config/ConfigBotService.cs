@@ -1,4 +1,5 @@
-﻿using DiscordBot.Modules.Config.Models;
+﻿using DiscordBot.Modules.BirthdayAnime.Models;
+using DiscordBot.Modules.Config.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,11 @@ namespace DiscordBot.Modules.Config
                 if (_configModels == null)
                     throw new Exception("Failed to read configbot.json");
             }
+        }
+
+        public List<ConfigModel> GetConfigModels()
+        {
+            return _configModels;
         }
 
         public IReadOnlyCollection<SocketGuildChannel> GetAllChannels(SocketInteractionContext context)

@@ -37,8 +37,11 @@
     <None Update="JsonFiles\birthdayanime.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Modules\BirthdayAnime\JsonFiles\birthdayanime.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Modules\Config\JsonFiles\configbot.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Modules\Tarot\JsonFiles\tarotcards.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
