@@ -1,4 +1,5 @@
-﻿using DiscordBot.Modules.Config.Models;
+﻿using DiscordBot.Modules.BirthdayAnime.Models;
+using DiscordBot.Modules.Config.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
