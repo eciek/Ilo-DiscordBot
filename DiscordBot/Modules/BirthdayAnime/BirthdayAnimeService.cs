@@ -22,7 +22,7 @@ namespace DiscordBot.Modules.BirthdayAnime
             DiscordSocketClient client)
         {
             _socketClient = client;
-            using (var s = new StreamReader("Modules/BirthdayAnime/JsonFiles/months.json"))
+            using (var s = new StreamReader("Modules/BirthdayAnime/JsonFiles/birthdayanime.json"))
             {
                 var jsonString = s.ReadToEnd();
                 try
@@ -31,10 +31,10 @@ namespace DiscordBot.Modules.BirthdayAnime
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Failed to read months.json! \n" + ex.Message);
+                    throw new Exception("Failed to read birthdayanime.json! \n" + ex.Message);
                 }
                 if (_models == null)
-                    throw new Exception("Failed to read months.json!");
+                    throw new Exception("Failed to read birthdayanime.json!");
             }
         }
 
@@ -44,7 +44,7 @@ namespace DiscordBot.Modules.BirthdayAnime
         public async Task SendMessage(BirthdayAnimeModel anime)
         {
             ConfigBotService configBotService = new ConfigBotService();
-            List<ConfigModel> models = configBotService.ReturnConfigModels();
+            List<ConfigModel> models = configBotService.GetConfigModels();
             foreach (ConfigModel model in models)
             {
                 if (model.BirthdayChannelId != 1)

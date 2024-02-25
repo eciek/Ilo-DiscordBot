@@ -49,8 +49,6 @@ builder.Services.AddSingleton<ConfigBotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
 builder.Services.AddSingleton<BirthdayAnimeService>();
 
-
-
 var app = builder.Build();
 
 await app.RunAsync();

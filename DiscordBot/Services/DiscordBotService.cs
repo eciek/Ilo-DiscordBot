@@ -13,7 +13,7 @@ public class DiscordBotService(
         ConfigBotService configBotService,
         TimerService timerService) : BackgroundService
 {
-    protected override Task ExecuteAsync( CancellationToken ct)
+    protected override Task ExecuteAsync(CancellationToken ct)
     {
         var sconfig = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json",optional:false,reloadOnChange:true)

@@ -37,7 +37,7 @@
     <None Update="JsonFiles\birthdayanime.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Modules\BirthdayAnime\JsonFiles\months.json">
+    <None Update="Modules\BirthdayAnime\JsonFiles\birthdayanime.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Modules\Config\JsonFiles\configbot.json">
@@ -287,7 +287,6 @@
 
   <ItemGroup>
     <Folder Include="bin\Debug\net8.0\tarotphotos\" />
-    <Folder Include="Modules\BirthdayAnime\JsonFiles\" />
     <Folder Include="obj\Debug\net8.0\" />
   </ItemGroup>
 

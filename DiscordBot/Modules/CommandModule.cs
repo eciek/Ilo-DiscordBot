@@ -1,7 +1,7 @@
 ﻿using DiscordBot.Models;
-using DiscordBot.Services;
-using DiscordBot.Modules.Tarot;
 using DiscordBot.Modules.BirthdayAnime;
+using DiscordBot.Modules.Tarot;
+using DiscordBot.Services;
 
 namespace DiscordBot.Modules;
 

@@ -30,7 +30,7 @@ namespace DiscordBot.Modules.Config
             }
         }
 
-        public List<ConfigModel> ReturnConfigModels()
+        public List<ConfigModel> GetConfigModels()
         {
             return _configModels;
         }
