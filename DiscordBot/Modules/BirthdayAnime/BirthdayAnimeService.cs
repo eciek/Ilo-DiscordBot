@@ -39,13 +39,10 @@ public class BirthdayAnimeService : InteractionModuleBase<SocketInteractionConte
     public async Task SendMessage(BirthdayAnimeModel anime)
     {
         //List<ConfigModel> models = new ConfigBotService().GetConfigModels();
-        foreach (ConfigModel model in _configBotService.GetConfigModels())
+        foreach (ConfigModel model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0))
         {
-            if (model.BirthdayChannelId != 0)
-            {
-                var channel = (SocketTextChannel)_socketClient.GetChannel(model.BirthdayChannelId);
-                channel.SendMessageAsync($"Dzisiaj urodzili się: {anime.Characters}");
-            }
+            var channel = (SocketTextChannel)_socketClient.GetChannel(model.BirthdayChannelId);
+            channel.SendMessageAsync($"Dzisiaj urodzili się: {anime.Characters}");
         }
     }
 }
