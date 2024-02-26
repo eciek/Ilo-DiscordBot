@@ -63,5 +63,4 @@ public class AnimeFeedModule(
             $"Co Ci się nie spodobało w tym anime?");
         return;
     }
-
 }

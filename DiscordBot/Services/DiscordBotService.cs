@@ -1,5 +1,6 @@
 ﻿using DiscordBot.Models;
-using DiscordBot.Services;
+using DiscordBot.Modules.Config;
+using DiscordBot.Modules.Timer;
 using Microsoft.Extensions.Hosting;
 
 namespace DiscordBot.Services;
@@ -9,7 +10,8 @@ public class DiscordBotService(
         InteractionService interactions,
         ILogger<DiscordBotService> logger,
         InteractionHandler interactionHandler,
-        ConfigBotService configBotService) : BackgroundService
+        ConfigBotService configBotService,
+        TimerService timerService) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken ct)
     {
@@ -29,7 +31,7 @@ public class DiscordBotService(
         client.SelectMenuExecuted += SelectMenuHandler;
         
         interactions.Log += LogAsync;
-        Task task1 = Task.Run(TimerService.Timer, ct);
+        Task task1 = Task.Run(timerService.Timer, ct);
 
         return interactionHandler.InitializeAsync()
             .ContinueWith(t => client.LoginAsync(TokenType.Bot, botConfig.token), ct)
@@ -78,8 +80,6 @@ public class DiscordBotService(
             break;
         }
     }
-
-
 
     public async Task SelectMenuHandler(SocketMessageComponent component)
     {

@@ -1,24 +1,17 @@
-﻿using DiscordBot.Models;
+﻿using DiscordBot.Modules.Tarot.Models;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json.Nodes;
 using System.Security.Cryptography;
 
-namespace DiscordBot.Services
+namespace DiscordBot.Modules.Tarot
 {
     public class TarotService : InteractionModuleBase<SocketInteractionContext>
     {
-
         List<TarotCard> _cards;
 
         public TarotService() 
         {
-            using (var s = new StreamReader("JsonFiles/tarotcards.json"))
+            using (var s = new StreamReader("Modules/Tarot/JsonFiles/tarotcards.json"))
             {
                 var jsonString = s.ReadToEnd();
                 try
@@ -29,7 +22,6 @@ namespace DiscordBot.Services
                 {
                     throw new Exception("Failed to read tarotcards.json! \n" + ex.Message);
                 }
-
                 if (_cards == null)
                     throw new Exception("Failed to read tarotcards.json!");
             }
@@ -60,7 +52,7 @@ namespace DiscordBot.Services
         public List<TarotCardsUsed> GetAllUsers()
         {
             List<TarotCardsUsed> usedCards = new List<TarotCardsUsed>();
-            using (StreamReader r = new StreamReader("JsonFiles/tarotcardsused.json"))
+            using (StreamReader r = new StreamReader("Modules/Tarot/JsonFiles/tarotcardsused.json"))
             {
                 var json = r.ReadToEnd();
                 var jarray = JArray.Parse(json);
@@ -77,59 +69,56 @@ namespace DiscordBot.Services
         {
             TarotCardsUsed user = new TarotCardsUsed();
             List<TarotCardsUsed> usedCards = GetAllUsers();
-            TarotCardsUsed foundObject = usedCards.Find(obj => obj.id == id);
+            TarotCardsUsed foundObject = usedCards.Find(obj => obj.Id == id);
             if (foundObject != null)
             {
-                foundObject.usedTime += 1;
-                foreach (BotMessageId bot in foundObject.botMessagesId)
+                foundObject.UsedTime += 1;
+                foreach (BotMessageId bot in foundObject.BotMessagesId)
                 {
-                    if (bot.guildId == guildId)
+                    if (bot.GuildId == guildId)
                     {
                         return;
                     }
                 }
                 BotMessageId botAdd = new BotMessageId();
-                botAdd.guildId = guildId;
-                botAdd.messageId = botMessageId;
-                botAdd.channelId = channelId;
-                if (foundObject.botMessagesId != null)
+                botAdd.GuildId = guildId;
+                botAdd.MessageId = botMessageId;
+                botAdd.ChannelId = channelId;
+                if (foundObject.BotMessagesId != null)
                 {
-                    user.botMessagesId = foundObject.botMessagesId;
-                    user.botMessagesId.Add(botAdd);
+                    user.BotMessagesId = foundObject.BotMessagesId;
+                    user.BotMessagesId.Add(botAdd);
                 }
-
             }
             else
             {
-                user.id = id;
-                user.card = card;
-                user.usedTime = usedTime;
+                user.Id = id;
+                user.Card = card;
+                user.UsedTime = usedTime;
                 BotMessageId userIds = new BotMessageId();
-                userIds.guildId = guildId;
-                userIds.messageId = botMessageId;
-                userIds.channelId = channelId;
-                if (user.botMessagesId != null)
+                userIds.GuildId = guildId;
+                userIds.MessageId = botMessageId;
+                userIds.ChannelId = channelId;
+                if (user.BotMessagesId != null)
                 {
-                    user.botMessagesId.Add(userIds);
+                    user.BotMessagesId.Add(userIds);
                     Console.Write("not null");
                 }
                 else
                 {
-                    user.botMessagesId = new List<BotMessageId>();
-                    user.botMessagesId.Add(userIds);
+                    user.BotMessagesId = new List<BotMessageId>();
+                    user.BotMessagesId.Add(userIds);
                     Console.Write("null");
                 }
-
                 usedCards.Add(user);
             }
-
             // save all users
             string jsonf = JsonConvert.SerializeObject(usedCards.ToArray());
-            System.IO.File.WriteAllText("JsonFiles/tarotcardsused.json", jsonf);
+            System.IO.File.WriteAllText("Modules/Tarot/JsonFiles/tarotcardsused.json", jsonf);
         }
 
         public TarotCardsUsed? CheckIfUserUsedCard(string userId)
-            => GetAllUsers().Where(x => x.id == userId).FirstOrDefault();
+            => GetAllUsers().Where(x => x.Id == userId).FirstOrDefault();
 
         public void SaveTimeTarotCardUsed(string userId, ulong botMessageId, ulong guildId, ulong channelId)
         {
@@ -137,23 +126,22 @@ namespace DiscordBot.Services
 
             foreach (TarotCardsUsed item in usedCards)
             {
-                if (item.id == userId)
+                if (item.Id == userId)
                 {
-                    if (item.botMessagesId != null)
+                    if (item.BotMessagesId != null)
                     {
-                        foreach (BotMessageId bot in item.botMessagesId)
+                        foreach (BotMessageId bot in item.BotMessagesId)
                         {
-                            if (bot.guildId != guildId)
+                            if (bot.GuildId != guildId)
                             {
-                                SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId, channelId);
+                                SaveCardToUser(item.Id, item.Card, item.UsedTime, botMessageId, guildId, channelId);
                                 return;
                             }
                         }
                     }
-                    item.usedTime += 1;
-                    SaveCardToUser(item.id, item.card, item.usedTime, botMessageId, guildId, channelId);
+                    item.UsedTime += 1;
+                    SaveCardToUser(item.Id, item.Card, item.UsedTime, botMessageId, guildId, channelId);
                 }
-
             }
         }
     }

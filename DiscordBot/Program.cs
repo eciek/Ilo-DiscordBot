@@ -4,6 +4,10 @@ global using Discord.WebSocket;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.Logging;
 using DiscordBot.Modules.AnimeFeed;
+using DiscordBot.Modules.BirthdayAnime;
+using DiscordBot.Modules.Config;
+using DiscordBot.Modules.Tarot;
+using DiscordBot.Modules.Timer;
 using DiscordBot.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -44,11 +48,10 @@ builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<ConfigBotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
+
 builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>()));
-
-
+builder.Services.AddSingleton<BirthdayAnimeService>();
 
 var app = builder.Build();
 
 await app.RunAsync();
-await TimerService.Timer();
