@@ -42,11 +42,14 @@ builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<D
 }));
 
 builder.Services.AddHostedService<DiscordBotService>();
+builder.Services.AddSingleton<DiscordChatService>();
 builder.Services.AddSingleton<InteractionHandler>();
 builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<ConfigBotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
+
+builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>()));
 builder.Services.AddSingleton<BirthdayAnimeService>();
 
 var app = builder.Build();
