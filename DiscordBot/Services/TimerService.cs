@@ -1,4 +1,4 @@
-﻿using DiscordBot.Interfaces;
+﻿using DiscordBot.Models;
 using System.Timers;
 
 namespace DiscordBot.Services;
@@ -55,20 +55,6 @@ public class TimerService
         }
 
         _timerJobs.RemoveAll(x=> x.IsDone);
-    }
-
-    
-
-    public static async Task TimerSer()
-    {
-
-
-        DateTime now = DateTime.Now;
-        DateTime tomorrow = now.AddDays(1).Date;
-        TimeSpan delay = tomorrow - now;
-        Console.WriteLine($"Timer start {now}, {tomorrow}, {delay}");
-
-        await Task.Delay(delay);
     }
 }
 
