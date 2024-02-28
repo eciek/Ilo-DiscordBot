@@ -1,6 +1,7 @@
 ﻿using Discord.Commands;
 using DiscordBot.Modules.AnimeFeed.Models;
 using System.Runtime.InteropServices;
+
 namespace DiscordBot.Modules.AnimeFeed;
 
 public class AnimeFeedModule(
