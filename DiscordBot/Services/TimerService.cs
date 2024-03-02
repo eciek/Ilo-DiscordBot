@@ -6,7 +6,7 @@ namespace DiscordBot.Services;
 public enum TimerJobTiming
 {
     OneTimeCountDown = 1,
-    NowAndRepeatAfterCountDown = 2,
+    NowAndRepeatOnInterval = 2,
     TriggerDailyAtSetHour = 3
 }
 
@@ -38,6 +38,16 @@ public class TimerService
         Console.WriteLine($"Timer Started! [Day:{_today.Date} ] [minute: {_minutes}]");
     }
 
+    public void RegisterJob(TimerJob job)
+    {
+        if (_timerJobs.Where(x => x.Name == job.Name).Any() == false)
+        {
+            _timerJobs.Add(job);
+            Console.WriteLine($"TimerJob [{job.Name}] Registered! Executing in [{job.Interval}] minutes");
+        }
+    }
+
+
     private void Timer_Tick(object? sender, ElapsedEventArgs e)
     {
         _minutes++;
@@ -51,7 +61,7 @@ public class TimerService
 
         foreach (var job in _timerJobs.Where(x=> x.TargetMinute == _minutes))
         {
-            job.HandleJob();
+            job.ExecuteJob();
         }
 
         _timerJobs.RemoveAll(x=> x.IsDone);

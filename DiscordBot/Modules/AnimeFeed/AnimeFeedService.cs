@@ -1,4 +1,6 @@
-﻿using DiscordBot.Modules.AnimeFeed.Models;
+﻿using DiscordBot.Models;
+using DiscordBot.Modules.AnimeFeed.Models;
+using DiscordBot.Services;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -6,11 +8,11 @@ namespace DiscordBot.Modules.AnimeFeed;
 
 public partial class AnimeFeedService
 {
-    const string _subsPleaseUrl = @"https://nyaa.si/?page=rss&q=%5BSubsPlease%5D+1080&c=1_2&f=0";
-    const string _nyaaSiiFilter = @"\[(.*)\] (.*) - (.\d) \(1080p\)";
-    const string _nyaaSiiIdFilter = @"https:\/\/nyaa\.si\/view\/(\d*)";
+    private const string _subsPleaseUrl = @"https://nyaa.si/?page=rss&q=%5BSubsPlease%5D+1080&c=1_2&f=0";
+    private const string _nyaaSiiFilter = @"\[(.*)\] (.*) - (.\d+(?:[\.\,]\d{1,2})?) \(1080p\)";
+    private const string _nyaaSiiIdFilter = @"https:\/\/nyaa\.si\/view\/(\d*)";
 
-    readonly HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
     private List<Anime> _animeList;
 
     public AnimeFeedService()
@@ -32,14 +34,14 @@ public partial class AnimeFeedService
     {
         try
         {
-            var anime = _animeList.SingleOrDefault(x => x.Name!.Contains(query)) ?? throw new Exception();
+            var anime = _animeList.SingleOrDefault(x => x.Name!.Contains(query, StringComparison.CurrentCultureIgnoreCase)) ?? throw new Exception();
 
             return anime;
 
         }
         catch(InvalidOperationException)
         {
-            var animeNames = _animeList.Where(x => x.Name!.Contains(query)).Select(x=> x.Name).ToArray();
+            var animeNames = _animeList.Where(x => x.Name!.Contains(query,StringComparison.CurrentCultureIgnoreCase)).Select(x=> x.Name).ToArray();
 
             string errMsg = "Znalazłam kilka pasujących anime do twojego opisu:\n" +
                 String.Join(",\n", animeNames) + ".\n"+"Które Cie interesuje?";
@@ -50,7 +52,7 @@ public partial class AnimeFeedService
         {
             // update anime list and try again, just to be sure
             await UpdateAnimeFeedAsync();
-            var anime = _animeList.FirstOrDefault(x => x.Name!.Contains(query));
+            var anime = _animeList.FirstOrDefault(x => x.Name!.Contains(query, StringComparison.CurrentCultureIgnoreCase));
 
             return anime ?? throw new Exception("Nie wiem o które anime Ci chodzi. Czy pojawił się już chociaż jeden odcinek?");
         }

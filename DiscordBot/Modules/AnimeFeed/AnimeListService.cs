@@ -1,25 +1,30 @@
 ﻿using DiscordBot.Modules.AnimeFeed.Models;
+using DiscordBot.Modules.Config.Models;
+using DiscordBot.Modules.Config;
 using DiscordBot.Services;
 using Newtonsoft.Json;
+using System.Xml.Linq;
 
 namespace DiscordBot.Modules.AnimeFeed;
 
 public class AnimeListService
 {
     private readonly DiscordChatService _chatService;
-    private readonly TimerService _timerService;
+    private readonly ConfigBotService _configBotService;
     private const string _dataRoot = "data";
+    private const string _modulePath = _dataRoot + "/{0}/animeFeed/";
     // 0 - guildId
-    private const string _animeListPath = _dataRoot + "/{0}/animeFeed/animeList.json";
+    private const string _animeListJson = "animeList.json";
     private readonly Dictionary<ulong, List<Anime>> _animeList;
+
+    private bool _contentChanged = false;
 
     public AnimeListService(
             DiscordChatService chatService,
-            TimerService timerService
-            ) {
+            ConfigBotService configBotService)
+    {
         _chatService = chatService;
-        _timerService = timerService;
-
+        _configBotService = configBotService;
         string[] registeredGuilds;
         _animeList = [];
 
@@ -34,16 +39,22 @@ public class AnimeListService
         }
 
         foreach (var registeredGuild in registeredGuilds)
-            _animeList.Add(ulong.Parse(registeredGuild), []);
+        {
+            string trimmedID = registeredGuild.Replace("data\\", "");
+            _animeList.Add(ulong.Parse(trimmedID), []);
+        }
         LoadFromJson();
     }
 
-    public async Task UpdateAnimeList(List<Anime> animeList) 
+    public async Task UpdateAnimeList(IEnumerable<Anime> animeList)
     {
         foreach(var guild in _animeList) 
         {
-            // temporal measures
-            ulong weebChannelId = 1211407711414124635;
+            ulong weebChannelId =0;
+            foreach (ConfigModel model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0))
+            {
+                weebChannelId = model.BirthdayChannelId;
+            }
 
             foreach (var guildAnime in guild.Value) 
             {
@@ -57,8 +68,12 @@ public class AnimeListService
                 guildAnime.Id = anime.Id;
 
                 await _chatService.SendMessage(weebChannelId, $"Jest nowy odcinek {anime.Name}!! \n {anime.Url}");
+                _contentChanged = true;
             }
         }
+
+        if(_contentChanged)
+            SynchronizeJson();
     }
 
     public void AddAnimeSubscriber(ulong guildId, ulong userId, Anime anime)
@@ -74,6 +89,8 @@ public class AnimeListService
             guildAnimeList = _animeList[guildId];
         }
 
+        guildAnimeList??= [];
+
         var listEntry = guildAnimeList.Where(x=> x.Equals(anime)).FirstOrDefault();
 
         if (listEntry is null)
@@ -88,6 +105,7 @@ public class AnimeListService
         if ( !listEntry.Subscribers.Contains(userId))
         {
             listEntry.Subscribers.Add(userId);
+            _contentChanged = true;
         }
     }
 
@@ -98,22 +116,23 @@ public class AnimeListService
             return;
 
         listEntry.Subscribers.Remove(userId);
+        _contentChanged = true;
     }
 
     private void LoadFromJson()
     {
+        Console.WriteLine("Loading AnimeFeed.json...");
         foreach (var anime in _animeList)
         {
-            var path = String.Format(_animeListPath, anime.Key);
+            var filePath = String.Format(_modulePath + _animeListJson, anime.Key);
             string json;
 
             try
             {
-                json = File.ReadAllText(path);
+                json = File.ReadAllText(filePath);
             }
             catch (FileNotFoundException) 
             {
-                File.Create(path);
                 json = string.Empty;
             }
 
@@ -121,17 +140,27 @@ public class AnimeListService
                 continue;
 
             _animeList[anime.Key] = JsonConvert.DeserializeObject<List<Anime>>(json)!;
+            _animeList[anime.Key] ??= [];
         }
     }
 
     private void SynchronizeJson()
     {
-        foreach (var anime in _animeList)
+        Console.WriteLine("Saving AnimeFeed.json...");
+        foreach (var guildAnimeList in _animeList.GroupBy(x => x.Key))
         {
-            var path = String.Format(_animeListPath, anime.Key);
-            string json = JsonConvert.SerializeObject(anime);
-            File.WriteAllText(path,json);
+            var path = String.Format(_modulePath, guildAnimeList.Key);
+            var filePath = path + _animeListJson;
+            string json = JsonConvert.SerializeObject(guildAnimeList,Formatting.Indented);
+            if (!File.Exists(filePath))
+            {
+                Directory.CreateDirectory(path);
+                File.Create(filePath);
+            }
+
+            File.WriteAllText(filePath, json);
         }
+        _contentChanged = false;
     }
 
     private void AddNewGuild(ulong guildId)

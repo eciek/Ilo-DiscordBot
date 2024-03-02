@@ -48,7 +48,7 @@ builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<ConfigBotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
 
-builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),x.GetRequiredService<TimerService>()));
+builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),x.GetRequiredService<ConfigBotService>()));
 builder.Services.AddSingleton<BirthdayAnimeService>();
 
 var app = builder.Build();

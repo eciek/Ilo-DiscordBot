@@ -42,7 +42,7 @@ public class BirthdayAnimeService : InteractionModuleBase<SocketInteractionConte
         foreach (ConfigModel model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0))
         {
             var channel = (SocketTextChannel)_socketClient.GetChannel(model.BirthdayChannelId);
-            channel.SendMessageAsync($"Dzisiaj urodzili się: {anime.Characters}");
+            await channel.SendMessageAsync($"Dzisiaj urodzili się: {anime.Characters}");
         }
     }
 }

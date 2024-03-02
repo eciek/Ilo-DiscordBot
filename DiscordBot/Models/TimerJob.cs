@@ -1,9 +1,10 @@
 ﻿using DiscordBot.Services;
 
-namespace DiscordBot.Interfaces;
+namespace DiscordBot.Models;
 
-public abstract class TimerJob
+public class TimerJob
 {
+    public string Name { get; init; }
     public TimerJobTiming Timing { get; init; }
 
     //Time units in minutes
@@ -13,17 +14,22 @@ public abstract class TimerJob
 
     public bool IsDone { get; protected set; } = false;
 
-    public TimerJob( int interval, TimerJobTiming timing)
+    private readonly Action _targetMethod;
+
+    public TimerJob(string jobName, int interval, TimerJobTiming timing, Action method)
     {
+        Name = jobName;
         Interval = interval;
         Timing = timing;
+        _targetMethod = method;
+        TargetMinute = double.Floor(DateTime.Now.TimeOfDay.TotalMinutes);
 
         switch (Timing)
         {
             case TimerJobTiming.OneTimeCountDown:
                 TargetMinute += Interval;
                 break;
-            case TimerJobTiming.NowAndRepeatAfterCountDown:
+            case TimerJobTiming.NowAndRepeatOnInterval:
                 TargetMinute += 1;
 
                 // Check for next day execution
@@ -37,23 +43,29 @@ public abstract class TimerJob
                 TargetMinute = Interval;
                 break;
         }
-
     }
 
-    public virtual Task HandleJob()
+    public Task ExecuteJob()
     {
+        Console.WriteLine($"TimerJob [{Name}] Invoked! Starting [{_targetMethod.Method.Name}]");
+        try
+        {
+            _targetMethod.Invoke();
+        }
+        catch (Exception ex) { Console.WriteLine($"TimerJob [{Name}] failed! Next execution in [{Interval}] minutes \n" + ex.Message); };
+
         UpdateTriggerTime();
         return Task.CompletedTask;
     }
 
-    protected void UpdateTriggerTime()
+    private void UpdateTriggerTime()
     {
         switch (Timing)
         {
             case TimerJobTiming.OneTimeCountDown:
                 IsDone = true;
                 return;
-            case TimerJobTiming.NowAndRepeatAfterCountDown:
+            case TimerJobTiming.NowAndRepeatOnInterval:
                 TargetMinute += Interval;
 
                 // Check for next day execution
