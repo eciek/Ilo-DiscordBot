@@ -66,7 +66,8 @@ public class AnimeListService
                 guildAnime.Url = anime.Url;
                 guildAnime.Id = anime.Id;
 
-                await _chatService.SendMessage(weebChannelId, $"Jest nowy odcinek {anime.Name}!! \n {anime.Url}");
+                //might to an Embeed one day
+                await _chatService.SendMessage(weebChannelId, guildAnime.GetUpdateMessage());
                 _contentChanged = true;
             }
         }
@@ -111,7 +112,7 @@ public class AnimeListService
     public void RemoveAnimeSubscriber(ulong guildId, ulong userId, Anime anime)
     {
         var listEntry = _animeList[guildId].Where(x => x.Equals(anime)).FirstOrDefault();
-        if (listEntry is null || listEntry.Subscribers is null || listEntry.Subscribers.Contains(userId))
+        if (listEntry is null || listEntry.Subscribers is null || !listEntry.Subscribers.Contains(userId))
             return;
 
         listEntry.Subscribers.Remove(userId);
