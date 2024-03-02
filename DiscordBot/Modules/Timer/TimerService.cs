@@ -13,7 +13,9 @@ namespace DiscordBot.Modules.Timer
         {
             DateTime now = DateTime.Now;
             DateTime tomorrow = now.AddDays(1).Date;
+            
             TimeSpan delay = tomorrow - now;
+            Console.WriteLine(delay);
             Console.WriteLine($"Timer start {now}, {tomorrow}, {delay}");
             BirthdayAnimeModel? characters = birthdayAnimeService.CheckBirthday(tomorrow.ToString("dd.MM"));
             
@@ -27,6 +29,7 @@ namespace DiscordBot.Modules.Timer
             Console.WriteLine("Cleared");
             string jsonstring = "[{\"id\":\"null\",\"card\":\"null\",\"usedTime\":0,\"botMessagesId\":[{\"guildId\":1,\"messageId\":1,\"channelId\":1}]}]";
             File.WriteAllText("Modules/Tarot/JsonFiles/tarotcardsused.json", jsonstring);
+            Thread.Sleep(60000);
             await Timer();
         }
     }
