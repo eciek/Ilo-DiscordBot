@@ -126,6 +126,9 @@ public class AnimeListService
             var filePath = String.Format(_modulePath + _animeListJson, anime.Key);
             string json;
 
+            if (File.Exists(filePath) == false)
+                return;
+
             using (var stream = new StreamReader(filePath))
             {
                 try
@@ -138,22 +141,24 @@ public class AnimeListService
                 }
             }
 
-            if (!string.IsNullOrEmpty(json))
+            if (string.IsNullOrEmpty(json))
+            {
+                _animeList[anime.Key] ??= [];
                 continue;
+            }
 
             _animeList[anime.Key] = JsonConvert.DeserializeObject<List<Anime>>(json)!;
-            _animeList[anime.Key] ??= [];
         }
     }
 
     private void SynchronizeJson()
     {
         Console.WriteLine("Saving AnimeFeed.json...");
-        foreach (var guildAnimeList in _animeList.GroupBy(x => x.Key))
+        foreach (var guildAnimeList in _animeList)
         {
             var path = String.Format(_modulePath, guildAnimeList.Key);
             var filePath = path + _animeListJson;
-            string json = JsonConvert.SerializeObject(guildAnimeList,Formatting.Indented);
+            string json = JsonConvert.SerializeObject(guildAnimeList.Value,Formatting.Indented);
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
