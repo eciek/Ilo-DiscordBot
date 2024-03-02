@@ -43,6 +43,7 @@ public class BirthdayAnimeService : InteractionModuleBase<SocketInteractionConte
         {
             var channel = (SocketTextChannel)_socketClient.GetChannel(model.BirthdayChannelId);
             channel.SendMessageAsync($"Dzisiaj urodzili się: {anime.Characters}");
+            channel = null;
         }
     }
 }
