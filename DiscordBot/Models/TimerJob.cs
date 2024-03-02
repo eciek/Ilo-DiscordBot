@@ -39,7 +39,7 @@ public class TimerJob
                     TargetMinute -= dayInMinutes;
                 }
                 break;
-            case TimerJobTiming.TriggerDailyAtSetHour:
+            case TimerJobTiming.TriggerDailyAtSetMinute:
                 TargetMinute = Interval;
                 break;
         }
@@ -75,7 +75,7 @@ public class TimerJob
                     TargetMinute -= dayInMinutes;
                 }
                 break;
-            case TimerJobTiming.TriggerDailyAtSetHour:
+            case TimerJobTiming.TriggerDailyAtSetMinute:
                 TargetMinute = Interval;
                 break;
         }
