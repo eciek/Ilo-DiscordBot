@@ -7,7 +7,7 @@ public enum TimerJobTiming
 {
     OneTimeCountDown = 1,
     NowAndRepeatOnInterval = 2,
-    TriggerDailyAtSetHour = 3
+    TriggerDailyAtSetMinute = 3
 }
 
 public class TimerService

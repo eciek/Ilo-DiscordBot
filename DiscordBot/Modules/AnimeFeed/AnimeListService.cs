@@ -3,7 +3,6 @@ using DiscordBot.Modules.Config.Models;
 using DiscordBot.Modules.Config;
 using DiscordBot.Services;
 using Newtonsoft.Json;
-using System.Xml.Linq;
 
 namespace DiscordBot.Modules.AnimeFeed;
 
@@ -119,7 +118,7 @@ public class AnimeListService
         _contentChanged = true;
     }
 
-    private void LoadFromJson()
+    private async void LoadFromJson()
     {
         Console.WriteLine("Loading AnimeFeed.json...");
         foreach (var anime in _animeList)
@@ -127,13 +126,16 @@ public class AnimeListService
             var filePath = String.Format(_modulePath + _animeListJson, anime.Key);
             string json;
 
-            try
+            using (var stream = new StreamReader(filePath))
             {
-                json = File.ReadAllText(filePath);
-            }
-            catch (FileNotFoundException) 
-            {
-                json = string.Empty;
+                try
+                {
+                    json = await stream.ReadToEndAsync();
+                }
+                catch (FileNotFoundException)
+                {
+                    json = string.Empty;
+                }
             }
 
             if (!string.IsNullOrEmpty(json))
@@ -152,13 +154,12 @@ public class AnimeListService
             var path = String.Format(_modulePath, guildAnimeList.Key);
             var filePath = path + _animeListJson;
             string json = JsonConvert.SerializeObject(guildAnimeList,Formatting.Indented);
-            if (!File.Exists(filePath))
-            {
-                Directory.CreateDirectory(path);
-                File.Create(filePath);
-            }
 
-            File.WriteAllText(filePath, json);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            using var stream = new StreamWriter(new FileStream(filePath, FileMode.Create));
+            stream.Write(json);
         }
         _contentChanged = false;
     }
