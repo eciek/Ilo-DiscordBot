@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <None Update="appsettings.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="JsonFiles\birthdayanime.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -287,7 +287,6 @@
 
   <ItemGroup>
     <Folder Include="bin\Debug\net8.0\tarotphotos\" />
-    <Folder Include="Modules\Timer\" />
     <Folder Include="obj\Debug\net8.0\" />
   </ItemGroup>
 

@@ -46,7 +46,7 @@ namespace DiscordBot.Modules.Config
         public ComponentBuilder Build(SocketInteractionContext context)
         {
             var menuBuilder = new SelectMenuBuilder()
-            .WithPlaceholder("Wybierz kanał na którym mają być wysyłane urodziny postaci z anime")
+            .WithPlaceholder("Kanał dla weebowskich funckji")
             .WithCustomId("configMenu")
             .WithMinValues(1)
             .WithMaxValues(1);

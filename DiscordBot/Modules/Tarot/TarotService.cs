@@ -2,14 +2,19 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
+using DiscordBot.Models;
+using DiscordBot.Services;
 
 namespace DiscordBot.Modules.Tarot
 {
     public class TarotService : InteractionModuleBase<SocketInteractionContext>
     {
         List<TarotCard> _cards;
+        TimerService _timerService;
+        DateTime _today;
 
-        public TarotService() 
+        public TarotService(
+            TimerService timerService) 
         {
             using (var s = new StreamReader("Modules/Tarot/JsonFiles/tarotcards.json"))
             {
@@ -25,6 +30,13 @@ namespace DiscordBot.Modules.Tarot
                 if (_cards == null)
                     throw new Exception("Failed to read tarotcards.json!");
             }
+
+            _today = DateTime.Now;
+            _timerService = timerService;
+            
+
+            TimerJob tarotClearJob = new(nameof(tarotClearJob), 0, TimerJobTiming.TriggerDailyAtSetHour, ClearUsers);
+            _timerService.RegisterJob(tarotClearJob);
         }
 
         public TarotCard GetRandomCard()
@@ -143,6 +155,13 @@ namespace DiscordBot.Modules.Tarot
                     SaveCardToUser(item.Id, item.Card, item.UsedTime, botMessageId, guildId, channelId);
                 }
             }
+        }
+
+        public async void ClearUsers()
+        {
+            Console.WriteLine("Cleared");
+            string jsonstring = "[{\"id\":\"null\",\"card\":\"null\",\"usedTime\":0,\"botMessagesId\":[{\"guildId\":1,\"messageId\":1,\"channelId\":1}]}]";
+            File.WriteAllText("Modules/Tarot/JsonFiles/tarotcardsused.json", jsonstring);
         }
     }
 }
