@@ -35,7 +35,7 @@ namespace DiscordBot.Modules.Tarot
             _timerService = timerService;
             
 
-            TimerJob tarotClearJob = new(nameof(tarotClearJob), 0, TimerJobTiming.TriggerDailyAtSetHour, ClearUsers);
+            TimerJob tarotClearJob = new(nameof(tarotClearJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, ClearUsers);
             _timerService.RegisterJob(tarotClearJob);
         }
 

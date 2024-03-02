@@ -38,7 +38,7 @@ public class BirthdayAnimeService : InteractionModuleBase<SocketInteractionConte
 
         _timerService = timerService;
 
-        TimerJob birthdaySendMessageJob = new(nameof(birthdaySendMessageJob), 0, TimerJobTiming.TriggerDailyAtSetHour, SendMessage);
+        TimerJob birthdaySendMessageJob = new(nameof(birthdaySendMessageJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, SendMessage);
         _timerService.RegisterJob(birthdaySendMessageJob);
     }
 
