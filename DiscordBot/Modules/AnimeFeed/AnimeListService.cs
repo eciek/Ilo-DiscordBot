@@ -3,6 +3,7 @@ using DiscordBot.Modules.Config.Models;
 using DiscordBot.Modules.Config;
 using DiscordBot.Services;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace DiscordBot.Modules.AnimeFeed;
 
@@ -11,7 +12,7 @@ public class AnimeListService
     private readonly DiscordChatService _chatService;
     private readonly ConfigBotService _configBotService;
     private const string _dataRoot = "data";
-    private const string _modulePath = _dataRoot + "/{0}/animeFeed/";
+    private const string _modulePath = "animeFeed";
     // 0 - guildId
     private const string _animeListJson = "animeList.json";
     private readonly Dictionary<ulong, List<Anime>> _animeList;
@@ -39,7 +40,7 @@ public class AnimeListService
 
         foreach (var registeredGuild in registeredGuilds)
         {
-            string trimmedID = registeredGuild.Replace("data\\", "");
+            string trimmedID = Regex.Replace(registeredGuild, "[^0-9]", "");
             _animeList.Add(ulong.Parse(trimmedID), []);
         }
         LoadFromJson();
@@ -124,7 +125,7 @@ public class AnimeListService
         Console.WriteLine("Loading AnimeFeed.json...");
         foreach (var anime in _animeList)
         {
-            var filePath = String.Format(_modulePath + _animeListJson, anime.Key);
+            var filePath = Path.Combine(_modulePath, anime.Key.ToString(), _modulePath, _animeListJson);
             string json;
 
             if (File.Exists(filePath) == false)
@@ -157,8 +158,8 @@ public class AnimeListService
         Console.WriteLine("Saving AnimeFeed.json...");
         foreach (var guildAnimeList in _animeList)
         {
-            var path = String.Format(_modulePath, guildAnimeList.Key);
-            var filePath = path + _animeListJson;
+            var path = Path.Combine(_modulePath,guildAnimeList.Key.ToString() );
+            var filePath = Path.Combine(path,_animeListJson);
             string json = JsonConvert.SerializeObject(guildAnimeList.Value,Formatting.Indented);
 
             if (!Directory.Exists(path))
