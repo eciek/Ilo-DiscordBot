@@ -125,7 +125,7 @@ public class AnimeListService
         Console.WriteLine("Loading AnimeFeed.json...");
         foreach (var anime in _animeList)
         {
-            var filePath = Path.Combine(_modulePath, anime.Key.ToString(), _modulePath, _animeListJson);
+            var filePath = Path.Combine(_dataRoot, anime.Key.ToString(), _modulePath, _animeListJson);
             string json;
 
             if (File.Exists(filePath) == false)
@@ -158,7 +158,7 @@ public class AnimeListService
         Console.WriteLine("Saving AnimeFeed.json...");
         foreach (var guildAnimeList in _animeList)
         {
-            var path = Path.Combine(_modulePath,guildAnimeList.Key.ToString() );
+            var path = Path.Combine(_dataRoot,guildAnimeList.Key.ToString(),_modulePath);
             var filePath = Path.Combine(path,_animeListJson);
             string json = JsonConvert.SerializeObject(guildAnimeList.Value,Formatting.Indented);
 
