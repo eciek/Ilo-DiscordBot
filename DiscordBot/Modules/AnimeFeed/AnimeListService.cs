@@ -50,15 +50,15 @@ public class AnimeListService
     {
         foreach(var guild in _animeList) 
         {
-            ulong weebChannelId =0;
-            foreach (ConfigModel model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0))
+            ulong weebChannelId = 0;
+            foreach (ConfigModel model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0 && x.GuildId == guild.Key))
             {
                 weebChannelId = model.BirthdayChannelId;
             }
 
             foreach (var guildAnime in guild.Value) 
             {
-               var anime = animeList.Where(x=> x.Equals(guildAnime)).FirstOrDefault();
+                var anime = animeList.Where(x=> x.Equals(guildAnime)).FirstOrDefault();
 
                 if (anime is null || guildAnime.Episode == anime.Episode)
                     continue;
