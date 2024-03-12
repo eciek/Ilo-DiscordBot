@@ -39,11 +39,11 @@ namespace DiscordBot.Modules.Tarot
                     {
                         if (item.GuildId == guild)
                         {
-                            await RespondAsync($"<@{user.Id}> https://discord.com/channels/{item.GuildId}/{item.ChannelId}/{item.MessageId}\n#pdwHepii");
+                            await RespondAsync($"<@{user.Id}> https://discord.com/channels/{item.GuildId}/{item.ChannelId}/{item.MessageId}");
                             return;
                         }
                     }
-                    string desc = $"**{card.Name}**```{card.Description}```\n#pdwHepii";
+                    string desc = $"**{card.Name}**```{card.Description}```";
                     await RespondWithFileAsync(filePath: TarotService.GetRandomCardPhotoPath(card), text: desc);
                     IUserMessage userx = await GetOriginalResponseAsync();
                     ulong guildId = Context.Guild.Id;
@@ -54,7 +54,7 @@ namespace DiscordBot.Modules.Tarot
             }
             else
             {
-                string desc = $"**{card.Name}**```{card.Description}```\n#pdwHepii";
+                string desc = $"**{card.Name}**```{card.Description}```";
                 await RespondWithFileAsync(filePath: TarotService.GetRandomCardPhotoPath(card), text: desc);
                 IUserMessage userx = await GetOriginalResponseAsync();
 
