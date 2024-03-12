@@ -84,7 +84,7 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     {
         await _animeFeedService.UpdateAnimeFeedAsync();
         var animeList = _animeFeedService.GetAnimeList();
-
+        
         await _animeListService.UpdateAnimeList(animeList);
     }
 }

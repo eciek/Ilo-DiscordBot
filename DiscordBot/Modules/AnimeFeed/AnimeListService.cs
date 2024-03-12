@@ -71,6 +71,9 @@ public class AnimeListService
                 await _chatService.SendMessage(weebChannelId, guildAnime.GetUpdateMessage());
                 _contentChanged = true;
             }
+            Console.WriteLine("input");
+            string messagexD = Console.ReadLine();
+            await _chatService.SendMessage(606253518281768991, messagexD);
         }
 
         if(_contentChanged)
