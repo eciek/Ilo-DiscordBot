@@ -67,7 +67,7 @@ public class AnimeListService
                 guildAnime.Url = anime.Url;
                 guildAnime.Id = anime.Id;
 
-                //might to an Embeed one day
+                //might to an Embeed one dayy
                 await _chatService.SendMessage(weebChannelId, guildAnime.GetUpdateMessage());
                 _contentChanged = true;
             }
