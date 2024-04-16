@@ -1,4 +1,5 @@
 ﻿using DiscordBot.Modules.Tarot.Models;
+using System.Security.Cryptography;
 
 namespace DiscordBot.Modules.Tarot
 {
@@ -8,6 +9,7 @@ namespace DiscordBot.Modules.Tarot
         private readonly ILogger<CommandModule> _logger;
 
         private const long _schizoID = 792728812730449941;
+        private const long _alcoholicID = 1192192605941932093;
 
         [SlashCommand("kartadnia", "Losuje karte dnia tarota")]
         public async Task TarotCard()
@@ -27,6 +29,10 @@ namespace DiscordBot.Modules.Tarot
             if (user != null)
                 card = TarotService.GetCard(user.Card);
             else
+                //25% chance for alcoholic
+                if (message.User.Id == _alcoholicID && RandomNumberGenerator.GetInt32(3) == 0)
+                    card = Models.TarotCard.AlcoholicCard();
+                else
                 card = TarotService.GetRandomCard();
 
             if (user != null && user.UsedTime >= 1)
@@ -43,7 +49,11 @@ namespace DiscordBot.Modules.Tarot
                             return;
                         }
                     }
-                    string desc = $"**{card.Name}**```{card.Description}```";
+
+                    string desc = String.Format("**{0}**{1}\r\n```{2}```",
+                        card.Name,
+                        String.IsNullOrEmpty(card.Quote) ? null : "\r\n> "+ card.Quote,
+                        card.Description );
                     await RespondWithFileAsync(filePath: TarotService.GetRandomCardPhotoPath(card), text: desc);
                     IUserMessage userx = await GetOriginalResponseAsync();
                     ulong guildId = Context.Guild.Id;
@@ -54,7 +64,10 @@ namespace DiscordBot.Modules.Tarot
             }
             else
             {
-                string desc = $"**{card.Name}**```{card.Description}```";
+                string desc = String.Format("**{0}**{1}\r\n```{2}```",
+                         card.Name,
+                         String.IsNullOrEmpty(card.Quote) ? null : "\r\n> " + card.Quote,
+                         card.Description);
                 await RespondWithFileAsync(filePath: TarotService.GetRandomCardPhotoPath(card), text: desc);
                 IUserMessage userx = await GetOriginalResponseAsync();
 

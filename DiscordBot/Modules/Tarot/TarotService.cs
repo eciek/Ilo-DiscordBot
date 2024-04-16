@@ -57,7 +57,7 @@ namespace DiscordBot.Modules.Tarot
 
         public string GetRandomCardPhotoPath(TarotCard card)
         {
-            string path = $"{System.IO.Directory.GetCurrentDirectory()}/tarotphotos/{card.Name}.jpeg";
+            string path = $"{System.IO.Directory.GetCurrentDirectory()}/tarotphotos/{card.Name}.png";
             return path;
         }
 
