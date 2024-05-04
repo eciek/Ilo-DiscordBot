@@ -1,4 +1,5 @@
-﻿using DiscordBot.Modules.Tarot.Models;
+﻿using DiscordBot.Modules.AntiSpam;
+using DiscordBot.Modules.Tarot.Models;
 using System.Security.Cryptography;
 
 namespace DiscordBot.Modules.Tarot
@@ -6,6 +7,7 @@ namespace DiscordBot.Modules.Tarot
     public class TarotCommandModule : InteractionModuleBase<SocketInteractionContext>
     {
         public TarotService TarotService { get; set; }
+        public AntiSpamService AntiSpamService { get; set; }
         private readonly ILogger<CommandModule> _logger;
 
         private const long _schizoID = 792728812730449941;
@@ -14,10 +16,18 @@ namespace DiscordBot.Modules.Tarot
         [SlashCommand("kartadnia", "Losuje karte dnia tarota")]
         public async Task TarotCard()
         {
-            if (Context.User.Id == _schizoID)
-                await RespondAsync("Przepraszam ale nie mam schizofrenii i nie rozmawiam sama ze sobą");
+            if (AntiSpamService._blockedUsers.Contains((long)Context.User.Id))
+            {
+                await RespondAsync($"Proszeee, zostaw mnie w spokoju, nyaa~! ✨💖🌸", ephemeral: true);
+            }
             else
-                await SendTarotCard(Context);
+            {
+                AntiSpamService._blockedUsers.Add((long)Context.User.Id);
+                if (Context.User.Id == _schizoID)
+                    await RespondAsync("Przepraszam ale nie mam schizofrenii i nie rozmawiam sama ze sobą");
+                else
+                    await SendTarotCard(Context);
+            }   
         }
 
         public async Task SendTarotCard(SocketInteractionContext message)

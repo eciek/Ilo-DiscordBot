@@ -24,7 +24,7 @@ public class TimerService
         _timer = new()
         {
             // 1 minute
-            Interval = 60 * 1000,
+            Interval = 180 * 1000,
             Enabled = true
         };
         
