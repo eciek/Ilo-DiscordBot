@@ -25,6 +25,8 @@ namespace DiscordBot.Modules.Tarot
                 AntiSpamService._blockedUsers.Add((long)Context.User.Id);
                 if (Context.User.Id == _schizoID)
                     await RespondAsync("Przepraszam ale nie mam schizofrenii i nie rozmawiam sama ze sobą");
+                else if (Context.User.Id == _alcoholicID)
+                    await RespondAsync("Spierdalaj alkoholiku jebany");
                 else
                     await SendTarotCard(Context);
             }   
