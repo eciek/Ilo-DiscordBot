@@ -26,7 +26,7 @@ namespace DiscordBot.Modules.Tarot
                 if (Context.User.Id == _schizoID)
                     await RespondAsync("Przepraszam ale nie mam schizofrenii i nie rozmawiam sama ze sobą");
                 else if (Context.User.Id == _alcoholicID)
-                    await RespondAsync("Spierdalaj alkoholiku jebany");
+                    await RespondAsync("Przepraszam ale nie mam problemu z alkoholem i nie dam ci nic na kreske");
                 else
                     await SendTarotCard(Context);
             }   
@@ -41,10 +41,6 @@ namespace DiscordBot.Modules.Tarot
             if (user != null)
                 card = TarotService.GetCard(user.Card);
             else
-                //25% chance for alcoholic
-                if (message.User.Id == _alcoholicID && RandomNumberGenerator.GetInt32(3) == 0)
-                    card = Models.TarotCard.AlcoholicCard();
-                else
                 card = TarotService.GetRandomCard();
 
             if (user != null && user.UsedTime >= 1)

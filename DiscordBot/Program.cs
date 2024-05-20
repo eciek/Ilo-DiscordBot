@@ -7,6 +7,7 @@ using DiscordBot.Modules.AnimeFeed;
 using DiscordBot.Modules.AntiSpam;
 using DiscordBot.Modules.BirthdayAnime;
 using DiscordBot.Modules.Config;
+using DiscordBot.Modules.RaiderIO;
 using DiscordBot.Modules.Tarot;
 using DiscordBot.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +50,7 @@ builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<ConfigBotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
 builder.Services.AddSingleton<AntiSpamService>();
+builder.Services.AddSingleton<RaiderIOService>();
 
 builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),x.GetRequiredService<ConfigBotService>()));
 builder.Services.AddSingleton<BirthdayAnimeService>();
