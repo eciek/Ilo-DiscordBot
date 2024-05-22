@@ -26,11 +26,13 @@ namespace DiscordBot.Modules.Tarot
                 if (RandomNumberGenerator.GetInt32(1000) == 0)
                 {
                     Context.User.SendMessageAsync("Niestety przegrałeś/aś w rosyjskiej ruletce, oto twoja kulka w głowę\nhttps://cdn.discordapp.com/attachments/1036702964754165901/1242471907953999966/IMG_1507.png?ex=664df5a2&is=664ca422&hm=ef422c38d8edb1fec05f074f5222cd2223d8a36a35b391ab980dd5c4f54021cf&");
+                    await RespondAsync($"Otrzymałeś/aś kulkę w głowę w rosyjskiej ruletce...");
+                    return;
                 }
                 if (Context.User.Id == _schizoID)
                     await RespondAsync("Przepraszam ale nie mam schizofrenii i nie rozmawiam sama ze sobą");
                 else if (Context.User.Id == _alcoholicID)
-                    await RespondAsync("Przepraszam ale nie mam problemu z alkoholem i nie dam ci nic na kreske");
+                    await RespondAsync("Przepraszam ale nie mam problemu z alkoholem, nie dam ci nic na kreske, nie mam żadnego benzo i proszę nie wysyłaj więcej zdjęć swojego przyrodzenia...");
                 else
                     await SendTarotCard(Context);
             }   
