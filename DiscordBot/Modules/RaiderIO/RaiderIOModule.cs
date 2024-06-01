@@ -34,5 +34,14 @@ namespace DiscordBot.Modules.RaiderIO
                 }
             }
         }
+
+        [SlashCommand("say", "Say")]
+        public async Task Say([Name("Message")][MinLength(2)] string message)
+        {
+            if (Context.User.Id == 394196664388157440)
+                await RespondAsync($"eciu: {message}");
+            else
+                await RespondAsync($"Proszeee, zostaw mnie w spokoju, nyaa~! ✨💖🌸", ephemeral: true);
+        }
     }
 }
