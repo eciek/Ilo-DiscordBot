@@ -1,167 +1,167 @@
-﻿using DiscordBot.Modules.Tarot.Models;
-using Newtonsoft.Json.Linq;
+﻿using DiscordBot.Helpers;
+using DiscordBot.Models;
+using DiscordBot.Modules.Tarot.Models;
+using DiscordBot.Services;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
-using DiscordBot.Models;
-using DiscordBot.Services;
+using System.Text.RegularExpressions;
 
 namespace DiscordBot.Modules.Tarot
 {
     public class TarotService : InteractionModuleBase<SocketInteractionContext>
     {
-        List<TarotCard> _cards;
-        TimerService _timerService;
-        DateTime _today;
+        //readonly List<TarotCard> _cards;
+        private readonly TimerService _timerService;
+        
+        private readonly List<TarotCard> _cards;
+        private const string _tarotCardsPath = "Modules/Tarot/JsonFiles/tarotcards.json";
+
+        private const string _dataRoot = "data";
+        private const string _modulePath = "tarot";
+        // 0 - guildId
+        private const string _cardsDrawnJson = "cardsDrawn.json";
+        private readonly Dictionary<ulong, List<TarotDraw>> _cardsDrawn;
 
         public TarotService(
-            TimerService timerService) 
+            TimerService timerService)
         {
-            using (var s = new StreamReader("Modules/Tarot/JsonFiles/tarotcards.json"))
+            string[] registeredGuilds;
+            _cardsDrawn = [];
+            _timerService = timerService;
+            _cards = GetCardsFromJson();
+
+            try
             {
-                var jsonString = s.ReadToEnd();
-                try
-                {
-                    _cards = JsonConvert.DeserializeObject<List<TarotCard>>(jsonString) ?? throw new Exception();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Failed to read tarotcards.json! \n" + ex.Message);
-                }
-                if (_cards == null)
-                    throw new Exception("Failed to read tarotcards.json!");
+                registeredGuilds = Directory.GetDirectories(_dataRoot);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(_dataRoot);
+                registeredGuilds = Directory.GetDirectories(_dataRoot);
             }
 
-            _today = DateTime.Now;
-            _timerService = timerService;
-            
+            foreach (var registeredGuild in registeredGuilds)
+            {
+                _cardsDrawn.Add(ulong.Parse(registeredGuild.TrimLetters()), []);
+            }
+            LoadDrawsFromJson();
 
-            TimerJob tarotClearJob = new(nameof(tarotClearJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, ClearUsers);
-            _timerService.RegisterJob(tarotClearJob);
+            TimerJob ClearDrawJob = new(nameof(ClearDrawJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, ClearDraws);
+            _timerService.RegisterJob(ClearDrawJob);
         }
 
         public TarotCard GetRandomCard()
             => _cards[RandomNumberGenerator.GetInt32(_cards.Count)];
 
-        public TarotCard GetCard(string name)
-        {
-            TarotCard card = new TarotCard();
-            List<TarotCard> cards = _cards;
+        public static string GetRandomCardPhotoPath(TarotCard card)
+            => $"Modules/Tarot/tarotphotos/{card.Name}.png";
 
-            foreach (TarotCard item in cards)
+        private List<TarotDraw> GetAllUsers(ulong guildId)
+            => _cardsDrawn[guildId];
+
+        public void SaveCardToUser(ulong userId, ulong messageId, ulong guildId, ulong channelId)
+        {
+            var usedCards = GetAllUsers(guildId);
+
+            if (usedCards.Where(x => x.UserId == userId).Any())
             {
-                if (item.Name == name)
-                    return item;
+                return;
             }
-            return card;
-        }
 
-        public string GetRandomCardPhotoPath(TarotCard card)
-        {
-            string path = $"{System.IO.Directory.GetCurrentDirectory()}/tarotphotos/{card.Name}.png";
-            return path;
-        }
-
-        public List<TarotCardsUsed> GetAllUsers()
-        {
-            List<TarotCardsUsed> usedCards = new List<TarotCardsUsed>();
-            using (StreamReader r = new StreamReader("Modules/Tarot/JsonFiles/tarotcardsused.json"))
+            var draw = new TarotDraw()
             {
-                var json = r.ReadToEnd();
-                var jarray = JArray.Parse(json);
-                foreach (var item in jarray)
+                UserId = userId,
+                Message = new()
                 {
-                    TarotCardsUsed usedCard = item.ToObject<TarotCardsUsed>();
-                    usedCards.Add(usedCard);
+                    MessageId = messageId,
+                    ChannelId = channelId
                 }
-            }
-            return usedCards;
+            };
+            usedCards.Add(draw);
+            SynchronizeJson();
         }
 
-        public void SaveCardToUser(string id, string card, int usedTime, ulong botMessageId, ulong guildId, ulong channelId)
+        public TarotDraw? GetUserDrawInfo(ulong userId, ulong guildId)
+            => (_cardsDrawn[guildId] ?? []).Where(x => x.UserId == userId).FirstOrDefault();
+
+        public void ClearDraws()
         {
-            TarotCardsUsed user = new TarotCardsUsed();
-            List<TarotCardsUsed> usedCards = GetAllUsers();
-            TarotCardsUsed foundObject = usedCards.Find(obj => obj.Id == id);
-            if (foundObject != null)
+
+            foreach (var guildDraws in _cardsDrawn.Values)
             {
-                foundObject.UsedTime += 1;
-                foreach (BotMessageId bot in foundObject.BotMessagesId)
+                guildDraws.Clear();
+            }
+
+            SynchronizeJson();
+        }
+
+        private void SynchronizeJson()
+        {
+            Console.WriteLine("Saving TarotDraw.json...");
+            foreach (var guildCardDraws in _cardsDrawn)
+            {
+                var path = Path.Combine(_dataRoot, guildCardDraws.Key.ToString(), _modulePath);
+                var filePath = Path.Combine(path, _cardsDrawnJson);
+                string json = JsonConvert.SerializeObject(guildCardDraws.Value, Formatting.Indented);
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                using var stream = new StreamWriter(new FileStream(filePath, FileMode.Create));
+                stream.Write(json);
+            }
+        }
+        private List<TarotCard> GetCardsFromJson()
+        {
+            var cards = new List<TarotCard>();
+            using (var s = new StreamReader(_tarotCardsPath))
+            {
+                var jsonString = s.ReadToEnd();
+                try
                 {
-                    if (bot.GuildId == guildId)
+                    cards = JsonConvert.DeserializeObject<List<TarotCard>>(jsonString) ?? throw new Exception();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Failed to read tarotcards.json! \n" + ex.Message);
+                }
+                if (cards == null || cards.Count == 0)
+                    throw new Exception("Failed to read tarotcards.json!");
+            }
+            return cards;
+        }
+
+        private async void LoadDrawsFromJson()
+        {
+            Console.WriteLine($"Loading {_cardsDrawnJson}...");
+            foreach (var cardsDrawn in _cardsDrawn)
+            {
+                var filePath = Path.Combine(_dataRoot, cardsDrawn.Key.ToString(), _modulePath, _cardsDrawnJson);
+                string json;
+
+                if (File.Exists(filePath) == false)
+                    return;
+
+                using (var stream = new StreamReader(filePath))
+                {
+                    try
                     {
-                        return;
+                        json = await stream.ReadToEndAsync();
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        json = string.Empty;
                     }
                 }
-                BotMessageId botAdd = new BotMessageId();
-                botAdd.GuildId = guildId;
-                botAdd.MessageId = botMessageId;
-                botAdd.ChannelId = channelId;
-                if (foundObject.BotMessagesId != null)
+
+                if (string.IsNullOrEmpty(json))
                 {
-                    user.BotMessagesId = foundObject.BotMessagesId;
-                    user.BotMessagesId.Add(botAdd);
+                    _cardsDrawn[cardsDrawn.Key] ??= [];
+                    continue;
                 }
+
+                _cardsDrawn[cardsDrawn.Key] = JsonConvert.DeserializeObject<List<TarotDraw>>(json)!;
             }
-            else
-            {
-                user.Id = id;
-                user.Card = card;
-                user.UsedTime = usedTime;
-                BotMessageId userIds = new BotMessageId();
-                userIds.GuildId = guildId;
-                userIds.MessageId = botMessageId;
-                userIds.ChannelId = channelId;
-                if (user.BotMessagesId != null)
-                {
-                    user.BotMessagesId.Add(userIds);
-                    Console.Write("not null");
-                }
-                else
-                {
-                    user.BotMessagesId = new List<BotMessageId>();
-                    user.BotMessagesId.Add(userIds);
-                    Console.Write("null");
-                }
-                usedCards.Add(user);
-            }
-            // save all users
-            string jsonf = JsonConvert.SerializeObject(usedCards.ToArray());
-            System.IO.File.WriteAllText("Modules/Tarot/JsonFiles/tarotcardsused.json", jsonf);
-        }
-
-        public TarotCardsUsed? CheckIfUserUsedCard(string userId)
-            => GetAllUsers().Where(x => x.Id == userId).FirstOrDefault();
-
-        public void SaveTimeTarotCardUsed(string userId, ulong botMessageId, ulong guildId, ulong channelId)
-        {
-            List<TarotCardsUsed> usedCards = GetAllUsers();
-
-            foreach (TarotCardsUsed item in usedCards)
-            {
-                if (item.Id == userId)
-                {
-                    if (item.BotMessagesId != null)
-                    {
-                        foreach (BotMessageId bot in item.BotMessagesId)
-                        {
-                            if (bot.GuildId != guildId)
-                            {
-                                SaveCardToUser(item.Id, item.Card, item.UsedTime, botMessageId, guildId, channelId);
-                                return;
-                            }
-                        }
-                    }
-                    item.UsedTime += 1;
-                    SaveCardToUser(item.Id, item.Card, item.UsedTime, botMessageId, guildId, channelId);
-                }
-            }
-        }
-
-        public async void ClearUsers()
-        {
-            Console.WriteLine("Cleared");
-            string jsonstring = "[{\"id\":\"null\",\"card\":\"null\",\"usedTime\":0,\"botMessagesId\":[{\"guildId\":1,\"messageId\":1,\"channelId\":1}]}]";
-            File.WriteAllText("Modules/Tarot/JsonFiles/tarotcardsused.json", jsonstring);
         }
     }
 }

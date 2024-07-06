@@ -58,472 +58,238 @@
     <None Update="Modules\Tarot\JsonFiles\tarotcardsused.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Arcykapłanka.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Arcykapłanka.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Arcykapłanka.png">
+    <None Update="Modules\Tarot\tarotphotos\As Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\As Buław.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\As Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\As Buław.png">
+    <None Update="Modules\Tarot\tarotphotos\As Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\As Mieczy.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\As Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\As Mieczy.png">
+    <None Update="Modules\Tarot\tarotphotos\Cesarz.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\As Monet.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Cesarzowa.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\As Monet.png">
+    <None Update="Modules\Tarot\tarotphotos\Czwórka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\As Pucharów.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Czwórka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\As Pucharów.png">
+    <None Update="Modules\Tarot\tarotphotos\Czwórka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Cesarz.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Czwórka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Cesarz.png">
+    <None Update="Modules\Tarot\tarotphotos\Diabeł.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Cesarzowa.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Dwójka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Cesarzowa.png">
+    <None Update="Modules\Tarot\tarotphotos\Dwójka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Czwórka Buław.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Dwójka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Czwórka Buław.png">
+    <None Update="Modules\Tarot\tarotphotos\Dwójka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Czwórka Mieczy.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Dziesiątka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Czwórka Mieczy.png">
+    <None Update="Modules\Tarot\tarotphotos\Dziesiątka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Czwórka Monet.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Dziesiątka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Czwórka Monet.png">
+    <None Update="Modules\Tarot\tarotphotos\Dziesiątka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Czwórka Pucharów.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Dziewiątka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Czwórka Pucharów.png">
+    <None Update="Modules\Tarot\tarotphotos\Dziewiątka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Diabeł.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Dziewiątka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Diabeł.png">
+    <None Update="Modules\Tarot\tarotphotos\Dziewiątka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dwójka Buław.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Gwiazda.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dwójka Buław.png">
+    <None Update="Modules\Tarot\tarotphotos\Głupiec.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dwójka Mieczy.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Kochankowie.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dwójka Mieczy.png">
+    <None Update="Modules\Tarot\tarotphotos\Koło fortuny.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dwójka Monet.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Król Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dwójka Monet.png">
+    <None Update="Modules\Tarot\tarotphotos\Król Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dwójka Pucharów.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Król Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dwójka Pucharów.png">
+    <None Update="Modules\Tarot\tarotphotos\Król Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziesiątka Buław.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Królowa Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziesiątka Buław.png">
+    <None Update="Modules\Tarot\tarotphotos\Królowa Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziesiątka Mieczy.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Królowa Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziesiątka Mieczy.png">
+    <None Update="Modules\Tarot\tarotphotos\Królowa Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziesiątka Monet.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Księżyc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziesiątka Monet.png">
+    <None Update="Modules\Tarot\tarotphotos\Mag.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziesiątka Pucharów.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Papież.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziesiątka Pucharów.png">
+    <None Update="Modules\Tarot\tarotphotos\Paź Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziewiątka Buław.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Paź Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziewiątka Buław.png">
+    <None Update="Modules\Tarot\tarotphotos\Paź Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziewiątka Mieczy.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Paź Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziewiątka Mieczy.png">
+    <None Update="Modules\Tarot\tarotphotos\Piątka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziewiątka Monet.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Piątka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziewiątka Monet.png">
+    <None Update="Modules\Tarot\tarotphotos\Piątka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziewiątka Pucharów.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Piątka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Dziewiątka Pucharów.png">
+    <None Update="Modules\Tarot\tarotphotos\Pustelnik.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Gwiazda.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Rycerz Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Gwiazda.png">
+    <None Update="Modules\Tarot\tarotphotos\Rycerz Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Głupiec.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Rycerz Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Głupiec.png">
+    <None Update="Modules\Tarot\tarotphotos\Rycerz Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Hierofant.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Rydwan.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Kochankowie.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Siódemka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Kochankowie.png">
+    <None Update="Modules\Tarot\tarotphotos\Siódemka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Koło fortuny.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Siódemka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Koło fortuny.png">
+    <None Update="Modules\Tarot\tarotphotos\Siódemka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Król Buław.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Siła.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Król Buław.png">
+    <None Update="Modules\Tarot\tarotphotos\Sprawiedliwość.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Król Mieczy.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Szóstka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Król Mieczy.png">
+    <None Update="Modules\Tarot\tarotphotos\Szóstka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Król Monet.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Szóstka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Król Monet.png">
+    <None Update="Modules\Tarot\tarotphotos\Szóstka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Król Pucharów.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Sąd.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Król Pucharów.png">
+    <None Update="Modules\Tarot\tarotphotos\Słońce.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Królowa Buław.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Trójka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Królowa Buław.png">
+    <None Update="Modules\Tarot\tarotphotos\Trójka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Królowa Mieczy.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Trójka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Królowa Mieczy.png">
+    <None Update="Modules\Tarot\tarotphotos\Trójka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Królowa Monet.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Umiarkowanie.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Królowa Monet.png">
+    <None Update="Modules\Tarot\tarotphotos\Wieża.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Królowa Pucharów.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Wisielec.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Królowa Pucharów.png">
+    <None Update="Modules\Tarot\tarotphotos\Ósemka Buław.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Księżyc.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Ósemka Mieczy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Księżyc.png">
+    <None Update="Modules\Tarot\tarotphotos\Ósemka Monet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Mag.jpeg">
+    <None Update="Modules\Tarot\tarotphotos\Ósemka Pucharów.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Mag.png">
+    <None Update="Modules\Tarot\tarotphotos\Śmierć.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tarotphotos\Papież.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Paź Buław.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Paź Buław.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Paź Mieczy.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Paź Mieczy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Paź Monet.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Paź Monet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Paź Pucharów.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Paź Pucharów.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Piątka Buław.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Piątka Buław.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Piątka Mieczy.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Piątka Mieczy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Piątka Monet.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Piątka Monet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Piątka Pucharów.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Piątka Pucharów.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Pustelnik.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Pustelnik.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rycerz Buław.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rycerz Buław.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rycerz Mieczy.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rycerz Mieczy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rycerz Monet.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rycerz Monet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rycerz Pucharów.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rycerz Pucharów.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rydwan.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Rydwan.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siódemka Buław.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siódemka Buław.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siódemka Mieczy.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siódemka Mieczy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siódemka Monet.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siódemka Monet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siódemka Pucharów.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siódemka Pucharów.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siła.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Siła.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Sprawiedliwość.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Sprawiedliwość.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Szóstka Buław.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Szóstka Buław.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Szóstka Mieczy.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Szóstka Mieczy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Szóstka Monet.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Szóstka Monet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Szóstka Pucharów.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Szóstka Pucharów.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Sąd.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Sąd.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Słońce.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Słońce.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Trójka Buław.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Trójka Buław.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Trójka Mieczy.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Trójka Mieczy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Trójka Monet.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Trójka Monet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Trójka Pucharów.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Trójka Pucharów.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Umiarkowanie.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Umiarkowanie.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Wieża.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Wieża.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Wisielec.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Wisielec.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Ósemka Buław.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Ósemka Buław.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Ósemka Mieczy.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Ósemka Mieczy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Ósemka Monet.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Ósemka Monet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Ósemka Pucharów.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Ósemka Pucharów.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Śmierć.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Śmierć.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Świat.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tarotphotos\Świat.png">
+    <None Update="Modules\Tarot\tarotphotos\Świat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

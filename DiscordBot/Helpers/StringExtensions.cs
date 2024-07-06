@@ -2,18 +2,31 @@
 
 namespace DiscordBot.Helpers
 {
-    public static class StringExtensions
+    public static partial class StringExtensions
     {
         public static string GenerateSlug(this string str)
         {
             // invalid chars
-            str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
+            str = InvalidChars().Replace(str, "");
             // convert multiple spaces into one space
-            str = Regex.Replace(str, @"\s+", " ").Trim();
+            str = TrimSpaces().Replace(str, " ").Trim();
             // trim 
             str = str.Trim();
-            str = Regex.Replace(str, @"\s", "-"); // hyphens
+            str = Hyphens().Replace(str, "-"); // hyphens
             return str;
         }
+
+        public static string TrimLetters(this string str) {
+            return LetterFilter().Replace(str, "");
+        }
+
+        [GeneratedRegex("[^0-9]")]
+        private static partial Regex LetterFilter();
+        [GeneratedRegex(@"[^a-z0-9\s-]")]
+        private static partial Regex InvalidChars();
+        [GeneratedRegex(@"\s+")]
+        private static partial Regex TrimSpaces();
+        [GeneratedRegex(@"\s")]
+        private static partial Regex Hyphens();
     }
 }

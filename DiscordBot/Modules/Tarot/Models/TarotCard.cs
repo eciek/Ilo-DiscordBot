@@ -8,7 +8,7 @@
 
 
         public static TarotCard AlcoholicCard()
-            => new TarotCard()
+            => new()
             {
                 Name = "Alkoholik",
                 Quote = "Trzeba piwo jebnąć na śniadanie",
