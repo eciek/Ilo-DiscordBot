@@ -12,7 +12,7 @@ namespace DiscordBot.Modules.Tarot
     {
         //readonly List<TarotCard> _cards;
         private readonly TimerService _timerService;
-        
+
         private readonly List<TarotCard> _cards;
         private const string _tarotCardsPath = "Modules/Tarot/JsonFiles/tarotcards.json";
 
@@ -57,7 +57,10 @@ namespace DiscordBot.Modules.Tarot
             => $"Modules/Tarot/tarotphotos/{card.Name}.png";
 
         private List<TarotDraw> GetAllUsers(ulong guildId)
-            => _cardsDrawn[guildId];
+            => _cardsDrawn.TryGetValue(guildId, out var draws) ? draws : [];
+
+        public TarotDraw? GetUserDrawInfo(ulong userId, ulong guildId)
+        => GetAllUsers(guildId).Where(x => x.UserId == userId).FirstOrDefault();
 
         public void SaveCardToUser(ulong userId, ulong messageId, ulong guildId, ulong channelId)
         {
@@ -77,12 +80,14 @@ namespace DiscordBot.Modules.Tarot
                     ChannelId = channelId
                 }
             };
-            usedCards.Add(draw);
+
+            if (!_cardsDrawn.TryGetValue(guildId, out var list))
+            {
+                _cardsDrawn.Add(guildId, []);
+            }
+            _cardsDrawn[guildId].Add(draw);
             SynchronizeJson();
         }
-
-        public TarotDraw? GetUserDrawInfo(ulong userId, ulong guildId)
-            => (_cardsDrawn[guildId] ?? []).Where(x => x.UserId == userId).FirstOrDefault();
 
         public void ClearDraws()
         {
@@ -111,7 +116,8 @@ namespace DiscordBot.Modules.Tarot
                 stream.Write(json);
             }
         }
-        private List<TarotCard> GetCardsFromJson()
+
+        private static List<TarotCard> GetCardsFromJson()
         {
             var cards = new List<TarotCard>();
             using (var s = new StreamReader(_tarotCardsPath))
