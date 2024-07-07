@@ -57,7 +57,13 @@ namespace DiscordBot.Modules.Tarot
             => $"Modules/Tarot/tarotphotos/{card.Name}.png";
 
         private List<TarotDraw> GetAllUsers(ulong guildId)
-            => _cardsDrawn.TryGetValue(guildId, out var draws) ? draws : [];
+        {
+            if (!_cardsDrawn.TryGetValue(guildId, out var list))
+            {
+                _cardsDrawn.Add(guildId, []);
+            }
+            return _cardsDrawn[guildId];
+        }
 
         public TarotDraw? GetUserDrawInfo(ulong userId, ulong guildId)
         => GetAllUsers(guildId).Where(x => x.UserId == userId).FirstOrDefault();
@@ -81,10 +87,7 @@ namespace DiscordBot.Modules.Tarot
                 }
             };
 
-            if (!_cardsDrawn.TryGetValue(guildId, out var list))
-            {
-                _cardsDrawn.Add(guildId, []);
-            }
+
             _cardsDrawn[guildId].Add(draw);
             SynchronizeJson();
         }
