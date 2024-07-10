@@ -1,7 +1,7 @@
 ﻿using DiscordBot.Models;
 using DiscordBot.Modules.BirthdayAnime.Models;
-using DiscordBot.Modules.Config;
-using DiscordBot.Modules.Config.Models;
+using DiscordBot.Modules.GuildConfig;
+using DiscordBot.Modules.GuildConfig.Models;
 using DiscordBot.Services;
 using Newtonsoft.Json;
 
@@ -11,12 +11,12 @@ public class BirthdayAnimeService : InteractionModuleBase<SocketInteractionConte
 {
     List<BirthdayAnimeModel> _models;
     DiscordSocketClient _socketClient;
-    ConfigBotService _configBotService;
+    GuildConfigService _configBotService;
     TimerService _timerService;
 
     public BirthdayAnimeService(
         DiscordSocketClient client,
-        ConfigBotService configBotService,
+        GuildConfigService configBotService,
         TimerService timerService)
     {
         _socketClient = client;
@@ -49,11 +49,11 @@ public class BirthdayAnimeService : InteractionModuleBase<SocketInteractionConte
     {
         BirthdayAnimeModel? characters = CheckBirthday(DateTime.Now.ToString("dd.MM"));
         //List<ConfigModel> models = new ConfigBotService().GetConfigModels();
-        foreach (ConfigModel model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0))
-        {
-            var channel = (SocketTextChannel)_socketClient.GetChannel(model.BirthdayChannelId);
-            channel.SendMessageAsync($"Dzisiaj urodzili się: {characters.Characters}");
-            channel = null;
-        }
+        //foreach (GuildConfigRecord model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0))
+        //{
+            //var channel = (SocketTextChannel)_socketClient.GetChannel(model.BirthdayChannelId);
+            //channel.SendMessageAsync($"Dzisiaj urodzili się: {characters.Characters}");
+            //channel = null;
+        //}
     }
 }

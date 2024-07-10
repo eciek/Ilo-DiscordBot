@@ -1,5 +1,6 @@
 ﻿using DiscordBot.Models;
-using DiscordBot.Modules.Config;
+using DiscordBot.Modules.GuildConfig;
+using DiscordBot.Modules.GuildConfig.Models;
 using Microsoft.Extensions.Hosting;
 
 namespace DiscordBot.Services;
@@ -9,12 +10,12 @@ public class DiscordBotService(
         InteractionService interactions,
         ILogger<DiscordBotService> logger,
         InteractionHandler interactionHandler,
-        ConfigBotService configBotService) : BackgroundService
+        GuildConfigService configBotService) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken ct)
     {
         var sconfig = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json",optional:false,reloadOnChange:true)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
         BotConfig botConfig = new()
         { token = sconfig.GetValue<string>("BotConfig:token") ?? throw new Exception("appsettings.json is not specified properly!") };
@@ -25,9 +26,9 @@ public class DiscordBotService(
         client.Ready += ClientReady;
         client.SetGameAsync("Highschool of the Burning Onion");
         client.Log += LogAsync;
-        client.ButtonExecuted += ButtonHandler;
-        client.SelectMenuExecuted += SelectMenuHandler;
-        
+        client.ButtonExecuted += ConfigHandler;
+        client.SelectMenuExecuted += ConfigHandler;
+
         interactions.Log += LogAsync;
 
         return interactionHandler.InitializeAsync()
@@ -51,7 +52,7 @@ public class DiscordBotService(
     }
 
 
-    public Task LogAsync(LogMessage msg)
+    private Task LogAsync(LogMessage msg)
     {
         var severity = msg.Severity switch
         {
@@ -68,24 +69,14 @@ public class DiscordBotService(
         return Task.CompletedTask;
     }
 
-    public async Task ButtonHandler(SocketMessageComponent component)
+    private async Task ConfigHandler(SocketMessageComponent component)
     {
-        switch (component.Data.CustomId)
-        {
-            case "saveButton":
-                await component.RespondAsync("Zapisano!", ephemeral: true);
-            break;
-        }
-    }
+        var guildId = component.GuildId is null
+            ? 0
+            : component.GuildId.Value;
 
-    public async Task SelectMenuHandler(SocketMessageComponent component)
-    {
-        switch (component.Data.CustomId)
-        {
-            case "configMenu":
-                configBotService.SaveConfig(Convert.ToUInt64(component.Data.Values.First()), component.GuildId);
-                await component.RespondAsync("Zapisano!", ephemeral: true);
-            break;
-        }
+        var record = new GuildConfigRecord(component.Data.CustomId, component.Data.Value);
+        configBotService.SaveConfig(guildId, record);
+        await component.RespondAsync("Zapisano!", ephemeral: true);
     }
 }

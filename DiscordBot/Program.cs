@@ -6,7 +6,7 @@ global using Microsoft.Extensions.Logging;
 using DiscordBot.Modules.AnimeFeed;
 using DiscordBot.Modules.AntiSpam;
 using DiscordBot.Modules.BirthdayAnime;
-using DiscordBot.Modules.Config;
+using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Modules.RaiderIO;
 using DiscordBot.Modules.Tarot;
 using DiscordBot.Services;
@@ -42,17 +42,18 @@ builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<D
     LogLevel = LogSeverity.Info
 }));
 
+builder.Services.AddSingleton<GuildConfigService>();
 builder.Services.AddHostedService<DiscordBotService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<DiscordChatService>();
 builder.Services.AddSingleton<InteractionHandler>();
 builder.Services.AddSingleton<TarotService>();
-builder.Services.AddSingleton<ConfigBotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
 builder.Services.AddSingleton<AntiSpamService>();
 builder.Services.AddSingleton<RaiderIOService>();
 
-builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),x.GetRequiredService<ConfigBotService>()));
+builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),
+                                                        x.GetRequiredService<GuildConfigService>()));
 builder.Services.AddSingleton<BirthdayAnimeService>();
 
 var app = builder.Build();

@@ -1,64 +1,43 @@
 ﻿using DiscordBot.Modules.AnimeFeed.Models;
-using DiscordBot.Modules.Config.Models;
-using DiscordBot.Modules.Config;
+using DiscordBot.Modules.GuildConfig;
+using DiscordBot.Modules.GuildConfig.Models;
 using DiscordBot.Services;
-using Newtonsoft.Json;
-using System.Text.RegularExpressions;
 
 namespace DiscordBot.Modules.AnimeFeed;
 
-public class AnimeListService
+public class AnimeListService : ServiceWithJsonData<Anime>
 {
     private readonly DiscordChatService _chatService;
-    private readonly ConfigBotService _configBotService;
-    private const string _dataRoot = "data";
-    private const string _modulePath = "animeFeed";
-    // 0 - guildId
-    private const string _animeListJson = "animeList.json";
-    private readonly Dictionary<ulong, List<Anime>> _animeList;
-
+    private readonly GuildConfigService _guildConfigService;
     private bool _contentChanged = false;
 
     public AnimeListService(
             DiscordChatService chatService,
-            ConfigBotService configBotService)
+            GuildConfigService guildConfigService)
     {
         _chatService = chatService;
-        _configBotService = configBotService;
-        string[] registeredGuilds;
-        _animeList = [];
+        _guildConfigService = guildConfigService;
 
-        try
-        {
-            registeredGuilds = Directory.GetDirectories(_dataRoot);
-        }
-        catch (DirectoryNotFoundException)
-        {
-            Directory.CreateDirectory(_dataRoot);
-            registeredGuilds = Directory.GetDirectories(_dataRoot);
-        }
-
-        foreach (var registeredGuild in registeredGuilds)
-        {
-            string trimmedID = Regex.Replace(registeredGuild, "[^0-9]", "");
-            _animeList.Add(ulong.Parse(trimmedID), []);
-        }
-        LoadFromJson();
+        _guildConfigService.Components.Add(BuildConfig);
     }
+
+    protected override string ModulePath => "animeFeed";
+
+    protected override string ModuleJson => "animeList.json";
 
     public async Task UpdateAnimeList(IEnumerable<Anime> animeList)
     {
-        foreach(var guild in _animeList) 
+        foreach (var guild in moduleData)
         {
             ulong weebChannelId = 0;
-            foreach (ConfigModel model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0 && x.GuildId == guild.Key))
+            foreach (GuildConfigRecord model in _guildConfigService.GetGuildConfig(guild.Key).Where(x => x.Key == ModulePath))
             {
-                weebChannelId = model.BirthdayChannelId;
+                weebChannelId = (ulong)model.Value;
             }
 
-            foreach (var guildAnime in guild.Value) 
+            foreach (var guildAnime in guild.Value)
             {
-                var anime = animeList.Where(x=> x.Equals(guildAnime)).FirstOrDefault();
+                var anime = animeList.Where(x => x.Equals(guildAnime)).FirstOrDefault();
 
                 if (anime is null || guildAnime.Episode == anime.Episode)
                     continue;
@@ -73,37 +52,26 @@ public class AnimeListService
             }
         }
 
-        if(_contentChanged)
+        if (_contentChanged)
             SynchronizeJson();
     }
 
     public void AddAnimeSubscriber(ulong guildId, ulong userId, Anime anime)
     {
-        List<Anime> guildAnimeList;
-        try
-        {
-            guildAnimeList = _animeList[guildId];
-        }
-        catch (KeyNotFoundException)
-        {
-            AddNewGuild(guildId);
-            guildAnimeList = _animeList[guildId];
-        }
+        List<Anime> guildAnimeList = GetGuildData(guildId);
 
-        guildAnimeList??= [];
-
-        var listEntry = guildAnimeList.Where(x=> x.Equals(anime)).FirstOrDefault();
+        var listEntry = guildAnimeList.Where(x => x.Equals(anime)).FirstOrDefault();
 
         if (listEntry is null)
         {
-            _animeList[guildId].Add(anime);
+            moduleData[guildId].Add(anime);
             listEntry = anime;
         }
 
         listEntry.Subscribers ??= [];
 
         // check if user is already on the list
-        if ( !listEntry.Subscribers.Contains(userId))
+        if (!listEntry.Subscribers.Contains(userId))
         {
             listEntry.Subscribers.Add(userId);
             _contentChanged = true;
@@ -112,89 +80,52 @@ public class AnimeListService
 
     public void RemoveAnimeSubscriber(ulong guildId, ulong userId, Anime anime)
     {
-        var listEntry = _animeList[guildId].Where(x => x.Equals(anime)).FirstOrDefault();
-        if (listEntry is null || listEntry.Subscribers is null || !listEntry.Subscribers.Contains(userId))
+        var listEntry = GetGuildData(guildId)
+                        .Where(x => x.Equals(anime))
+                        .FirstOrDefault();
+
+        if (listEntry is null ||
+            listEntry.Subscribers is null ||
+            !listEntry.Subscribers.Contains(userId))
             return;
 
         listEntry.Subscribers.Remove(userId);
         _contentChanged = true;
     }
 
-    private async void LoadFromJson()
-    {
-        Console.WriteLine("Loading AnimeFeed.json...");
-        foreach (var anime in _animeList)
-        {
-            var filePath = Path.Combine(_dataRoot, anime.Key.ToString(), _modulePath, _animeListJson);
-            string json;
-
-            if (File.Exists(filePath) == false)
-                return;
-
-            using (var stream = new StreamReader(filePath))
-            {
-                try
-                {
-                    json = await stream.ReadToEndAsync();
-                }
-                catch (FileNotFoundException)
-                {
-                    json = string.Empty;
-                }
-            }
-
-            if (string.IsNullOrEmpty(json))
-            {
-                _animeList[anime.Key] ??= [];
-                continue;
-            }
-
-            _animeList[anime.Key] = JsonConvert.DeserializeObject<List<Anime>>(json)!;
-        }
-    }
-
-    private void SynchronizeJson()
-    {
-        Console.WriteLine("Saving AnimeFeed.json...");
-        foreach (var guildAnimeList in _animeList)
-        {
-            var path = Path.Combine(_dataRoot,guildAnimeList.Key.ToString(),_modulePath);
-            var filePath = Path.Combine(path,_animeListJson);
-            string json = JsonConvert.SerializeObject(guildAnimeList.Value,Formatting.Indented);
-
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            using var stream = new StreamWriter(new FileStream(filePath, FileMode.Create));
-            stream.Write(json);
-        }
-        _contentChanged = false;
-    }
-
-    private void AddNewGuild(ulong guildId)
-        => _animeList.Add(guildId, []);
-
     public IEnumerable<string?> GetUserAnimeList(ulong guildId, ulong userId)
     {
-        List<Anime> guildAnimeList;
-        try
-        {
-            guildAnimeList = _animeList[guildId];
-            if (guildAnimeList is null || guildAnimeList.Count == 0)
-                throw new Exception();
-        }
-        catch (KeyNotFoundException)
-        {
-            throw new Exception("Ty Pajacu! Nie obserwujesz żadnego anime!");
-        }
+        List<Anime> guildAnimeList = GetGuildData(guildId);
 
-        var userAnimeList = guildAnimeList.Where(x => x.Subscribers is not null && x.Subscribers.Contains(userId))
+        var userAnimeList = guildAnimeList.Where(x => x.Subscribers is not null
+                                           && x.Subscribers.Contains(userId))
                                           .Select(x => x.Name)
                                           .ToList()
                                           .DefaultIfEmpty();
 
-        return userAnimeList is null 
+        return userAnimeList is null
             ? throw new Exception("Ty Pajacu! Nie obserwujesz żadnego anime!")
             : userAnimeList;
+    }
+
+    private static ComponentBuilder BuildConfig(ComponentBuilder builder, SocketInteractionContext context)
+    {
+        var menuBuilder = new SelectMenuBuilder()
+        .WithPlaceholder("Przypominajka anime - wybierz kanał")
+        .WithCustomId("animeFeed")
+        .WithMinValues(1)
+        .WithMaxValues(1);
+
+        IReadOnlyCollection<SocketGuildChannel> guildChannels = context.Guild.Channels;
+
+        foreach (SocketGuildChannel channel in guildChannels)
+        {
+            if (channel.GetChannelType() is ChannelType.Text)
+            {
+                menuBuilder.AddOption($"{channel.Name}", $"{channel.Id}");
+            }
+        }
+        menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
+        return builder.WithSelectMenu(menuBuilder);
     }
 }

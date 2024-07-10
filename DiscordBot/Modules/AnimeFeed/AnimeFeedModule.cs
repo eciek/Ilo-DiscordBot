@@ -1,7 +1,9 @@
 ﻿using Discord.Commands;
 using DiscordBot.Models;
 using DiscordBot.Modules.AnimeFeed.Models;
+using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Services;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace DiscordBot.Modules.AnimeFeed;
@@ -27,14 +29,14 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     }
 
     [SlashCommand("anime-dodaj", "Dodaj do listy wołania na nowy odcinek anime")]
-    public async Task AnimeAdd([Name("Nazwa Anime")] [MinLength(4)]string anime)
+    public async Task AnimeAdd([Name("Nazwa Anime")][MinLength(4)] string anime)
     {
         Anime foundAnime;
         try
         {
             foundAnime = await _animeFeedService.MatchAnime(anime);
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             await RespondAsync(ex.Message, ephemeral: true);
             return;
@@ -42,12 +44,11 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
 
         _animeListService.AddAnimeSubscriber(Context.Guild.Id, Context.User.Id, foundAnime);
 
-        await RespondAsync($"Dodałam Cię do listy {foundAnime.Name}!",ephemeral: true);
+        await RespondAsync($"Dodałam Cię do listy {foundAnime.Name}!", ephemeral: true);
     }
 
-    [Discord.Commands.RequireUserPermission(GuildPermission.Administrator)]
     [SlashCommand("anime-usuń", "Usuń z listy wołania na nowy odcinek anime")]
-    public async Task AnimeDelete([Optional] [Name("Nazwa Anime")] [MinLength(4)] string anime)
+    public async Task AnimeDelete([Optional][Name("Nazwa Anime")][MinLength(4)] string anime)
     {
         Anime foundAnime;
         try
@@ -76,15 +77,21 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
 
         _animeListService.RemoveAnimeSubscriber(Context.Guild.Id, Context.User.Id, foundAnime);
         await RespondAsync($"Już nie obserwujesz {foundAnime.Name}. \n" +
-            $"Co Ci się nie spodobało w tym anime?",ephemeral:true);
+            $"Co Ci się nie spodobało w tym anime?", ephemeral: true);
         return;
     }
 
-    public async void Update()
+    private async void Update()
     {
         await _animeFeedService.UpdateAnimeFeedAsync();
         var animeList = _animeFeedService.GetAnimeList();
-        
+
         await _animeListService.UpdateAnimeList(animeList);
+    }
+
+    [ComponentInteraction("animeFeed")]
+    public async Task AnimeFeed()
+    {
+        
     }
 }

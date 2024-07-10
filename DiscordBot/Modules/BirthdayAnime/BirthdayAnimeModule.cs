@@ -1,7 +1,7 @@
 ﻿using DiscordBot.Modules.BirthdayAnime;
 using DiscordBot.Modules.BirthdayAnime.Models;
 
-namespace DiscordBot.Modules.Config
+namespace DiscordBot.Modules.GuildConfig
 {
     public class BirthdayAnimeModuke : InteractionModuleBase<SocketInteractionContext>
     {
