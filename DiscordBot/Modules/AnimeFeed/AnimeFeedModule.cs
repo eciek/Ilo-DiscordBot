@@ -90,7 +90,7 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     }
 
     [ComponentInteraction("animeFeed")]
-    public async Task AnimeFeed()
+    public static void AnimeFeed()
     {
         
     }

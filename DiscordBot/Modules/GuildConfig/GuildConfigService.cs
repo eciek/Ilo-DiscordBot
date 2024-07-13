@@ -13,12 +13,10 @@ namespace DiscordBot.Modules.GuildConfig
         public List<GuildConfigRecord> GetGuildConfig(ulong guildId)
             => GetGuildData(guildId);
 
-
         public void SaveConfig(ulong guildId, GuildConfigRecord configRecord)
         {
-            var configRecords = GetGuildData(guildId);
+            moduleData[guildId].Add(configRecord);
             SynchronizeJson();
-            
         }
     }
 }

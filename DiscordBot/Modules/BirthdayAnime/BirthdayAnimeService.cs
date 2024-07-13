@@ -1,59 +1,57 @@
 ﻿using DiscordBot.Models;
-using DiscordBot.Modules.BirthdayAnime.Models;
+using DiscordBot.Modules.AnimeBirthdays.Models;
 using DiscordBot.Modules.GuildConfig;
-using DiscordBot.Modules.GuildConfig.Models;
 using DiscordBot.Services;
 using Newtonsoft.Json;
 
-namespace DiscordBot.Modules.BirthdayAnime;
+namespace DiscordBot.Modules.AnimeBirthdays;
 
-public class BirthdayAnimeService : InteractionModuleBase<SocketInteractionContext>
+public class BirthdayAnimeService
 {
-    List<BirthdayAnimeModel> _models;
-    DiscordSocketClient _socketClient;
-    GuildConfigService _configBotService;
-    TimerService _timerService;
+    readonly List<BirthdayAnime> _animeBirthdays;
+    private readonly GuildConfigService _guildConfigService;
 
-    public BirthdayAnimeService(
-        DiscordSocketClient client,
-        GuildConfigService configBotService,
-        TimerService timerService)
+    public BirthdayAnimeService(GuildConfigService configBotService)
     {
-        _socketClient = client;
-        _configBotService = configBotService;
-        using (var s = new StreamReader("Modules/BirthdayAnime/JsonFiles/birthdayanime.json"))
+        _guildConfigService = configBotService;
+
+        _guildConfigService.Components.Add(BuildConfig);
+
+        using var s = new StreamReader("Modules/BirthdayAnime/JsonFiles/birthdayanime.json");
+        var jsonString = s.ReadToEnd();
+        try
         {
-            var jsonString = s.ReadToEnd();
-            try
-            {
-                _models = JsonConvert.DeserializeObject<List<BirthdayAnimeModel>>(jsonString) ?? throw new Exception();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Failed to read birthdayanime.json! \n" + ex.Message);
-            }
-            if (_models == null)
-                throw new Exception("Failed to read birthdayanime.json!");
+            _animeBirthdays = JsonConvert.DeserializeObject<List<BirthdayAnime>>(jsonString) ?? throw new Exception();
         }
-
-        _timerService = timerService;
-
-        TimerJob birthdaySendMessageJob = new(nameof(birthdaySendMessageJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, SendMessage);
-        _timerService.RegisterJob(birthdaySendMessageJob);
+        catch (Exception ex)
+        {
+            throw new Exception("Failed to read birthdayanime.json! \n" + ex.Message);
+        }
+        if (_animeBirthdays == null)
+            throw new Exception("Failed to read birthdayanime.json!");
     }
 
-    public BirthdayAnimeModel? CheckBirthday(string date)
-        => _models.Where(x => x.Date == date).FirstOrDefault();
+    public List<BirthdayAnimeCharacter> GetAnimeCharacters(string date)
+        => _animeBirthdays.Where(x => x.Date == date).Select(x=>x.Characters).FirstOrDefault() ?? [];
 
-    public async void SendMessage()
+    private static ComponentBuilder BuildConfig(ComponentBuilder builder, SocketInteractionContext context)
     {
-        BirthdayAnimeModel? characters = CheckBirthday(DateTime.Now.ToString("dd.MM"));
-        //List<ConfigModel> models = new ConfigBotService().GetConfigModels();
-        //foreach (GuildConfigRecord model in _configBotService.GetConfigModels().Where(x => x.BirthdayChannelId != 0))
-        //{
-            //var channel = (SocketTextChannel)_socketClient.GetChannel(model.BirthdayChannelId);
-            //channel.SendMessageAsync($"Dzisiaj urodzili się: {characters.Characters}");
-            //channel = null;
-        //}
+        var menuBuilder = new SelectMenuBuilder()
+        .WithPlaceholder("Urodziny Anime - wybierz kanał")
+        .WithCustomId("animeBirthday")
+        .WithMinValues(1)
+        .WithMaxValues(1);
+
+        IReadOnlyCollection<SocketGuildChannel> guildChannels = context.Guild.Channels;
+
+        foreach (SocketGuildChannel channel in guildChannels)
+        {
+            if (channel.GetChannelType() is ChannelType.Text)
+            {
+                menuBuilder.AddOption($"{channel.Name}", $"{channel.Id}");
+            }
+        }
+        menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
+        return builder.WithSelectMenu(menuBuilder);
     }
 }
