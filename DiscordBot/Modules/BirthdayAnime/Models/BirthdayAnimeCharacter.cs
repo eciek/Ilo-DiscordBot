@@ -14,9 +14,13 @@ public class BirthdayAnimeCharacter
             return $"{Name} {Surname} ({Series})";
     }
 
+    private string GetSeriesSlug()
+        => (Series ?? string.Empty).Trim().Replace(" ", "_");
+
+
     public string ToNameSurnameBooruSlug()
-        => $"{Name}_{Surname}".Trim().Replace(" ", "_") + $" ({Series})";
+        => $"{Name}_{Surname}".Trim().Replace(" ", "_") + $" ({GetSeriesSlug()})";
 
     public string ToSurnameNameBooruSlug()
-        => $"{Surname}_{Name}".Trim().Replace(" ", "_") + $" ({Series})";
+        => $"{Surname}_{Name}".Trim().Replace(" ", "_") + $" ({GetSeriesSlug()})";
 }

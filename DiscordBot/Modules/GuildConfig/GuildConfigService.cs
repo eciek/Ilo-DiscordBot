@@ -13,6 +13,9 @@ namespace DiscordBot.Modules.GuildConfig
         public List<GuildConfigRecord> GetGuildConfig(ulong guildId)
             => GetGuildData(guildId);
 
+        public Dictionary<ulong, List<GuildConfigRecord>> GetAllGuildsData()
+        => moduleData;
+        
         public void SaveConfig(ulong guildId, GuildConfigRecord configRecord)
         {
             moduleData[guildId].Add(configRecord);

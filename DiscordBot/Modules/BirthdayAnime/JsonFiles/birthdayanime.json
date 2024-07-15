@@ -1,4 +1,4 @@
-{
+[{
     "date": "01.01",
     "characters": [
         {
@@ -15,10 +15,9 @@
             "name": "Kaguya",
             "surname": "Shinomiya",
             "series": "Kaguya-sama: Love is War"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.01",
     "characters": [
         {
@@ -35,10 +34,9 @@
             "name": "Peepley",
             "surname": "Lulu",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.01",
     "characters": [
         {
@@ -55,10 +53,9 @@
             "name": "Iceberg",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.01",
     "characters": [
         {
@@ -75,10 +72,9 @@
             "name": "Aiichiro",
             "surname": "Nitori",
             "series": "Free! - Iwatobi Swim Club"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.01",
     "characters": [
         {
@@ -95,10 +91,9 @@
             "name": "Strawberry",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.01",
     "characters": [
         {
@@ -115,10 +110,9 @@
             "name": "Sherlock",
             "surname": "Holmes",
             "series": "Moriarty the Patriot"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.01",
     "characters": [
         {
@@ -135,10 +129,9 @@
             "name": "Samui",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.01",
     "characters": [
         {
@@ -155,10 +148,9 @@
             "name": "Hiashi",
             "surname": "Hyuga",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.01",
     "characters": [
         {
@@ -175,10 +167,9 @@
             "name": "Kaede",
             "surname": "Kayano",
             "series": "Assassination Classroom"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.01",
     "characters": [
         {
@@ -195,10 +186,9 @@
             "name": "Ittetsu",
             "surname": "Takeda",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.01",
     "characters": [
         {
@@ -215,10 +205,9 @@
             "name": "Hanbee",
             "surname": "Kikaku",
             "series": "Life Lessons with Uramichi Oniisan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.01",
     "characters": [
         {
@@ -235,10 +224,9 @@
             "name": "Schneizel",
             "surname": "el Britannia",
             "series": "Code Geass"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.01",
     "characters": [
         {
@@ -255,10 +243,9 @@
             "name": "Cutthroat",
             "surname": "",
             "series": "Akudama Drive"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.01",
     "characters": [
         {
@@ -275,10 +262,9 @@
             "name": "Estarossa",
             "surname": "",
             "series": "The Seven Deadly Sins"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.01",
     "characters": [
         {
@@ -295,10 +281,9 @@
             "name": "Mio",
             "surname": "Akiyama",
             "series": "K-On!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.01",
     "characters": [
         {
@@ -315,10 +300,9 @@
             "name": "Boodle",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.01",
     "characters": [
         {
@@ -335,10 +319,9 @@
             "name": "Kay",
             "surname": "",
             "series": "Girls und Panzer"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.01",
     "characters": [
         {
@@ -355,10 +338,9 @@
             "name": "Hannes",
             "surname": "",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.01",
     "characters": [
         {
@@ -375,10 +357,9 @@
             "name": "Coyote",
             "surname": "Starrk",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.01",
     "characters": [
         {
@@ -395,10 +376,9 @@
             "name": "Sakura",
             "surname": "Kouno",
             "series": "Horimiya"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.01",
     "characters": [
         {
@@ -415,10 +395,9 @@
             "name": "Sirius",
             "surname": "Dieke",
             "series": "My Next Life as a Villainess: All Routes Lead to Doom!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.01",
     "characters": [
         {
@@ -435,10 +414,9 @@
             "name": "Lilie",
             "surname": "Shirogane",
             "series": "Aikatsu Stars!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.01",
     "characters": [
         {
@@ -455,10 +433,9 @@
             "name": "Haruki",
             "surname": "Komi",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.01",
     "characters": [
         {
@@ -475,10 +452,9 @@
             "name": "Natsumi",
             "surname": "Koshigaya",
             "series": "Non Non Biyori"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.01",
     "characters": [
         {
@@ -495,10 +471,9 @@
             "name": "Iori",
             "surname": "Izumi",
             "series": "Idolish7"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.01",
     "characters": [
         {
@@ -515,10 +490,9 @@
             "name": "Yumoto",
             "surname": "Hakone",
             "series": "Cute High Earth Defense Club Love!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.01",
     "characters": [
         {
@@ -535,10 +509,9 @@
             "name": "Loly",
             "surname": "Aivirrne",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.01",
     "characters": [
         {
@@ -555,10 +528,9 @@
             "name": "Kou",
             "surname": "Mukami",
             "series": "Diabolik Lovers"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.01",
     "characters": [
         {
@@ -575,10 +547,9 @@
             "name": "Kotaro",
             "surname": "Takebayashi",
             "series": "Assassination Classroom"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.01",
     "characters": [
         {
@@ -595,10 +566,9 @@
             "name": "Misuto",
             "surname": "Kiriya",
             "series": "Corpse Party: Blood Drive"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "31.01",
     "characters": [
         {
@@ -615,10 +585,9 @@
             "name": "Sawako",
             "surname": "Yamanaka",
             "series": "K-On!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.02",
     "characters": [
         {
@@ -635,10 +604,9 @@
             "name": "Irisviel",
             "surname": "von Einzbern",
             "series": "Fate/Zero"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.02",
     "characters": [
         {
@@ -655,10 +623,9 @@
             "name": "Ram",
             "surname": "",
             "series": "Re:ZERO -Starting Life in Another World-"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.02",
     "characters": [
         {
@@ -675,10 +642,9 @@
             "name": "Rin",
             "surname": "Tohsaka",
             "series": "Fate/stay night"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.02",
     "characters": [
         {
@@ -695,10 +661,9 @@
             "name": "Nishiki",
             "surname": "Nishio",
             "series": "Tokyo Ghoul"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.02",
     "characters": [
         {
@@ -715,10 +680,9 @@
             "name": "Makoto",
             "surname": "Naegi",
             "series": "Danganronpa 3: The End of Hope's Peak High School"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.02",
     "characters": [
         {
@@ -735,10 +699,9 @@
             "name": "Nico",
             "surname": "Olivia",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.02",
     "characters": [
         {
@@ -755,10 +718,9 @@
             "name": "Ouni",
             "surname": "",
             "series": "Children of the Whales"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.02",
     "characters": [
         {
@@ -775,10 +737,9 @@
             "name": "Hiruzen",
             "surname": "Sarutobi",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.02",
     "characters": [
         {
@@ -795,10 +756,9 @@
             "name": "Kazushi",
             "surname": "Yamagishi",
             "series": "Tokyo Revengers"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.02",
     "characters": [
         {
@@ -815,10 +775,9 @@
             "name": "Mikasa",
             "surname": "Ackerman",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.02",
     "characters": [
         {
@@ -835,10 +794,9 @@
             "name": "Soi",
             "surname": "Fon",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.02",
     "characters": [
         {
@@ -855,10 +813,9 @@
             "name": "Yachiru",
             "surname": "Kusajishi",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.02",
     "characters": [
         {
@@ -875,10 +832,9 @@
             "name": "Yoshitaka",
             "surname": "Moriyama",
             "series": "Kuroko's Basketball"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.02",
     "characters": [
         {
@@ -895,10 +851,9 @@
             "name": "Karui",
             "surname": "",
             "series": "Naruto Shippuden"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.02",
     "characters": [
         {
@@ -915,10 +870,9 @@
             "name": "Hisashi",
             "surname": "Kinoshita",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.02",
     "characters": [
         {
@@ -935,10 +889,9 @@
             "name": "Fourth",
             "surname": "Kind",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.02",
     "characters": [
         {
@@ -955,10 +908,9 @@
             "name": "Cyan",
             "surname": "Sung-Sun",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.02",
     "characters": [
         {
@@ -975,10 +927,9 @@
             "name": "Halle",
             "surname": "Lidner",
             "series": "Death Note"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.02",
     "characters": [
         {
@@ -995,10 +946,9 @@
             "name": "Futaba",
             "surname": "Sakura",
             "series": "Persona 5 the Animation"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.02",
     "characters": [
         {
@@ -1015,10 +965,9 @@
             "name": "Benimaru",
             "surname": "Shinmon",
             "series": "Fire Force"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.02",
     "characters": [
         {
@@ -1035,10 +984,9 @@
             "name": "Wataru",
             "surname": "Hibiki",
             "series": "Ensemble Stars"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.02",
     "characters": [
         {
@@ -1055,10 +1003,9 @@
             "name": "Taketora",
             "surname": "Yamamoto",
             "series": "Haikyuu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.02",
     "characters": [
         {
@@ -1075,10 +1022,9 @@
             "name": "Tama",
             "surname": "",
             "series": "Gintama"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.02",
     "characters": [
         {
@@ -1095,10 +1041,9 @@
             "name": "Akira",
             "surname": "",
             "series": "Kemono Jihen"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.02",
     "characters": [
         {
@@ -1115,10 +1060,9 @@
             "name": "Yu",
             "surname": "Kashima",
             "series": "Yarichin B*tch Club"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.02",
     "characters": [
         {
@@ -1135,10 +1079,9 @@
             "name": "Hime",
             "surname": "Shiratori",
             "series": "Aikatsu Stars!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.02",
     "characters": [
         {
@@ -1155,10 +1098,9 @@
             "name": "Yu",
             "surname": "Suzumura",
             "series": "Idoly Pride"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.02",
     "characters": [
         {
@@ -1175,10 +1117,9 @@
             "name": "Maya",
             "surname": "Sato",
             "series": "Classroom of the Elite"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.02",
     "characters": [
         {
@@ -1195,10 +1136,9 @@
             "name": "Omoharu",
             "surname": "Nakanaka",
             "series": "Komi Can't Communicate"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.03",
     "characters": [
         {
@@ -1215,10 +1155,9 @@
             "name": "Yuri",
             "surname": "Plisetsky",
             "series": "Yuri!!! on Ice"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.03",
     "characters": [
         {
@@ -1235,10 +1174,9 @@
             "name": "Satoru",
             "surname": "Fujinuma",
             "series": "Erased"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.03",
     "characters": [
         {
@@ -1255,10 +1193,9 @@
             "name": "Kae",
             "surname": "Serinuma",
             "series": "Kiss Him, Not Me"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.03",
     "characters": [
         {
@@ -1275,10 +1212,9 @@
             "name": "Hanamaru",
             "surname": "Kunikida",
             "series": "Love Live! Sunshine!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.03",
     "characters": [
         {
@@ -1295,10 +1231,9 @@
             "name": "Nana",
             "surname": "Osaki",
             "series": "Nana"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.03",
     "characters": [
         {
@@ -1315,10 +1250,9 @@
             "name": "Orphelia",
             "surname": "Landlufen",
             "series": "The Asterisk War: The Academy City of the Water"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.03",
     "characters": [
         {
@@ -1335,10 +1269,9 @@
             "name": "Kinkaku",
             "surname": "",
             "series": "Naruto Shippuden"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.03",
     "characters": [
         {
@@ -1355,10 +1288,9 @@
             "name": "Gamamaru",
             "surname": "",
             "series": "Naruto Shippuden"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.03",
     "characters": [
         {
@@ -1375,10 +1307,9 @@
             "name": "Franky",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.03",
     "characters": [
         {
@@ -1395,10 +1326,9 @@
             "name": "Anastasia",
             "surname": "Hoshin",
             "series": "Re:ZERO -Starting Life in Another World-"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.03",
     "characters": [
         {
@@ -1415,10 +1345,9 @@
             "name": "Shen-Long",
             "surname": "Belvedere",
             "series": "E's Otherwise"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.03",
     "characters": [
         {
@@ -1435,10 +1364,9 @@
             "name": "Azmaria",
             "surname": "Hendric",
             "series": "Chrono Crusade"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.03",
     "characters": [
         {
@@ -1455,10 +1383,9 @@
             "name": "Araya",
             "surname": "",
             "series": "Boruto: Naruto Next Generations"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.03",
     "characters": [
         {
@@ -1475,10 +1402,9 @@
             "name": "Nodoka",
             "surname": "Toyohama",
             "series": "Rascal Does Not Dream of Bunny Girl Senpai"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.03",
     "characters": [
         {
@@ -1495,10 +1421,9 @@
             "name": "Ichigo",
             "surname": "Hoshimiya",
             "series": "Aikatsu!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.03",
     "characters": [
         {
@@ -1515,10 +1440,9 @@
             "name": "Kanata",
             "surname": "Kira",
             "series": "Aikatsu Stars!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.03",
     "characters": [
         {
@@ -1535,10 +1459,9 @@
             "name": "Hakufu",
             "surname": "Sonsaku",
             "series": "Battle Vixens"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.03",
     "characters": [
         {
@@ -1555,10 +1478,9 @@
             "name": "Rei",
             "surname": "",
             "series": "Gintama"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.03",
     "characters": [
         {
@@ -1575,10 +1497,9 @@
             "name": "Haru",
             "surname": "Yayoi",
             "series": "Tsukiuta The Animation"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.03",
     "characters": [
         {
@@ -1595,10 +1516,9 @@
             "name": "Kiyoomi",
             "surname": "Sakusa",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.03",
     "characters": [
         {
@@ -1615,10 +1535,9 @@
             "name": "Valt",
             "surname": "Aoi",
             "series": "Beyblade Burst"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.03",
     "characters": [
         {
@@ -1635,10 +1554,9 @@
             "name": "Cementoss",
             "surname": "",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.03",
     "characters": [
         {
@@ -1655,10 +1573,9 @@
             "name": "Kotarou",
             "surname": "Kashima",
             "series": "Gakuen Babysitters"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.03",
     "characters": [
         {
@@ -1675,10 +1592,9 @@
             "name": "Itaru",
             "surname": "Chigasaki",
             "series": "A3! Season Spring & Summer"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.03",
     "characters": [
         {
@@ -1695,10 +1611,9 @@
             "name": "Akira",
             "surname": "Kunimi",
             "series": "Haikyuu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.03",
     "characters": [
         {
@@ -1715,10 +1630,9 @@
             "name": "Ryuho",
             "surname": "Kamo",
             "series": "K"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.03",
     "characters": [
         {
@@ -1735,10 +1649,9 @@
             "name": "Akitaru",
             "surname": "Obi",
             "series": "Fire Force"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.03",
     "characters": [
         {
@@ -1755,10 +1668,9 @@
             "name": "Koichi",
             "surname": "Hirose",
             "series": "JoJo's Bizarre Adventure"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.03",
     "characters": [
         {
@@ -1775,10 +1687,9 @@
             "name": "Rasa",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.03",
     "characters": [
         {
@@ -1795,10 +1706,9 @@
             "name": "Momoe",
             "surname": "Sawaki",
             "series": "Wonder Egg Priority"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "31.03",
     "characters": [
         {
@@ -1815,10 +1725,9 @@
             "name": "Sarada",
             "surname": "Uchiha",
             "series": "Boruto: Naruto Next Generations"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.04",
     "characters": [
         {
@@ -1835,10 +1744,9 @@
             "name": "Hayase",
             "surname": "Nagatoro",
             "series": "Don't Toy with Me, Miss Nagatoro"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.04",
     "characters": [
         {
@@ -1855,10 +1763,9 @@
             "name": "Zeff",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.04",
     "characters": [
         {
@@ -1875,10 +1782,9 @@
             "name": "Shinji",
             "surname": "Watari",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.04",
     "characters": [
         {
@@ -1895,10 +1801,9 @@
             "name": "Kasumi",
             "surname": "Miwa",
             "series": "Jujutsu Kaisen"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.04",
     "characters": [
         {
@@ -1915,10 +1820,9 @@
             "name": "Tazuna",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.04",
     "characters": [
         {
@@ -1926,7 +1830,6 @@
             "surname": "Newgate",
             "series": "Whitebeard"
         },
-        null,
         {
             "name": "Darkness",
             "surname": "",
@@ -1936,10 +1839,9 @@
             "name": "Ki-Ja",
             "surname": "",
             "series": "Yona of the Dawn"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.04",
     "characters": [
         {
@@ -1956,10 +1858,9 @@
             "name": "Magna",
             "surname": "Swing",
             "series": "Black Clover"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.04",
     "characters": [
         {
@@ -1976,10 +1877,9 @@
             "name": "Nobuyuki",
             "surname": "Kai",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.04",
     "characters": [
         {
@@ -1996,10 +1896,9 @@
             "name": "Ginkaku",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.04",
     "characters": [
         {
@@ -2016,10 +1915,9 @@
             "name": "Eugeo",
             "surname": "",
             "series": "Sword Art Online"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.04",
     "characters": [
         {
@@ -2036,10 +1934,9 @@
             "name": "Suguru",
             "surname": "Koshigaya",
             "series": "Non Non Biyori"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.04",
     "characters": [
         {
@@ -2056,10 +1953,9 @@
             "name": "Chiyo",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.04",
     "characters": [
         {
@@ -2076,10 +1972,9 @@
             "name": "Chi",
             "surname": "",
             "series": "Chobits"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.04",
     "characters": [
         {
@@ -2096,10 +1991,9 @@
             "name": "Riruka",
             "surname": "Dokugamine",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.04",
     "characters": [
         {
@@ -2116,10 +2010,9 @@
             "name": "Jiro",
             "surname": "Ogasawara",
             "series": "Sasaki and Miyano"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.04",
     "characters": [
         {
@@ -2136,10 +2029,9 @@
             "name": "Jinta",
             "surname": "Yadomi",
             "series": "Anohana: The Flower We Saw That Day"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.04",
     "characters": [
         {
@@ -2156,10 +2048,9 @@
             "name": "You",
             "surname": "Watanabe",
             "series": "Love Live! Sunshine!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.04",
     "characters": [
         {
@@ -2176,10 +2067,9 @@
             "name": "Asahi",
             "surname": "Shiina",
             "series": "Free!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.04",
     "characters": [
         {
@@ -2196,10 +2086,9 @@
             "name": "Klaus",
             "surname": "Lunettes",
             "series": "Black Clover"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.04",
     "characters": [
         {
@@ -2216,10 +2105,9 @@
             "name": "Kiyotaka",
             "surname": "Ijichi",
             "series": "Jujutsu Kaisen"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.04",
     "characters": [
         {
@@ -2236,10 +2124,9 @@
             "name": "Naoya",
             "surname": "Nifuji",
             "series": "Wotakoi: Love is Hard for Otaku"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.04",
     "characters": [
         {
@@ -2256,10 +2143,9 @@
             "name": "Kuro",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.04",
     "characters": [
         {
@@ -2276,10 +2162,9 @@
             "name": "Kanae",
             "surname": "von Rosewald",
             "series": "Tokyo Ghoul:re"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.04",
     "characters": [
         {
@@ -2296,10 +2181,9 @@
             "name": "Manabu",
             "surname": "Horikita",
             "series": "Classroom of the Elite"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.04",
     "characters": [
         {
@@ -2316,10 +2200,9 @@
             "name": "Penguin",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.04",
     "characters": [
         {
@@ -2336,10 +2219,9 @@
             "name": "Seiun",
             "surname": "Sky",
             "series": "Uma Musume Pretty Derby"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.04",
     "characters": [
         {
@@ -2356,10 +2238,9 @@
             "name": "Neiru",
             "surname": "Aonuma",
             "series": "Wonder Egg Priority"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.04",
     "characters": [
         {
@@ -2376,10 +2257,9 @@
             "name": "Yasuhiro",
             "surname": "Muto",
             "series": "Tokyo Revengers"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.04",
     "characters": [
         {
@@ -2396,10 +2276,9 @@
             "name": "Sakura",
             "surname": "Inami",
             "series": "Beyond the Boundary"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.04",
     "characters": [
         {
@@ -2416,10 +2295,9 @@
             "name": "Rantaro",
             "surname": "Kiyama",
             "series": "Beyblade Burst"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.05",
     "characters": [
         {
@@ -2436,10 +2314,9 @@
             "name": "Mandalay",
             "surname": "",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.05",
     "characters": [
         {
@@ -2456,10 +2333,9 @@
             "name": "Ichiyo",
             "surname": "Higuchi",
             "series": "Bungo Stray Dogs"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.05",
     "characters": [
         {
@@ -2476,10 +2352,9 @@
             "name": "Oxnard",
             "surname": "",
             "series": "Hamtaro"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.05",
     "characters": [
         {
@@ -2487,7 +2362,6 @@
             "surname": "Edogawa",
             "series": "Shinichi Kudo"
         },
-        null,
         {
             "name": "Ikumi",
             "surname": "Mito",
@@ -2497,10 +2371,9 @@
             "name": "Kenjiro",
             "surname": "Shirabu",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.05",
     "characters": [
         {
@@ -2517,10 +2390,9 @@
             "name": "Deidara",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.05",
     "characters": [
         {
@@ -2537,10 +2409,9 @@
             "name": "Kurena",
             "surname": "Kukumila",
             "series": "86 Eighty-Six"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.05",
     "characters": [
         {
@@ -2557,10 +2428,9 @@
             "name": "Maynard",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.05",
     "characters": [
         {
@@ -2577,10 +2447,9 @@
             "name": "Hiiragi",
             "surname": "Kashima",
             "series": "Given"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.05",
     "characters": [
         {
@@ -2597,10 +2466,9 @@
             "name": "Katsuyu",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.05",
     "characters": [
         {
@@ -2617,10 +2485,9 @@
             "name": "Twice",
             "surname": "",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.05",
     "characters": [
         {
@@ -2637,10 +2504,9 @@
             "name": "Asia",
             "surname": "Argento",
             "series": "High School DxD"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.05",
     "characters": [
         {
@@ -2657,10 +2523,9 @@
             "name": "Yoh",
             "surname": "Asakura",
             "series": "Shaman King"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.05",
     "characters": [
         {
@@ -2677,10 +2542,9 @@
             "name": "Koby",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.05",
     "characters": [
         {
@@ -2697,10 +2561,9 @@
             "name": "Leonardo",
             "surname": "Watch",
             "series": "Blood Blockade Battlefront"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.05",
     "characters": [
         {
@@ -2717,10 +2580,9 @@
             "name": "Baby",
             "surname": "5",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.05",
     "characters": [
         {
@@ -2737,10 +2599,9 @@
             "name": "Nono",
             "surname": "Kazuura",
             "series": "Warlords of Sigrdrifa"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.05",
     "characters": [
         {
@@ -2757,10 +2618,9 @@
             "name": "Poppy",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.05",
     "characters": [
         {
@@ -2777,10 +2637,9 @@
             "name": "Aki",
             "surname": "Myojin",
             "series": "Sweet Punishment: I'm the Guard's Personal Pet"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.05",
     "characters": [
         {
@@ -2797,10 +2656,9 @@
             "name": "Shinei",
             "surname": "Nouzen",
             "series": "86 Eighty-Six"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.05",
     "characters": [
         {
@@ -2817,10 +2675,9 @@
             "name": "Ryunosuke",
             "surname": "Chiba",
             "series": "Assassination Classroom"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.05",
     "characters": [
         {
@@ -2837,10 +2694,9 @@
             "name": "Hinami",
             "surname": "Fueguchi",
             "series": "Tokyo Ghoul"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.05",
     "characters": [
         {
@@ -2857,10 +2713,9 @@
             "name": "Veronica",
             "surname": "Liones",
             "series": "The Seven Deadly Sins"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.05",
     "characters": [
         {
@@ -2877,10 +2732,9 @@
             "name": "Mayaka",
             "surname": "Ibara",
             "series": "Hyouka"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.05",
     "characters": [
         {
@@ -2897,10 +2751,9 @@
             "name": "Hiyori",
             "surname": "Tamura",
             "series": "Lucky Star"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.05",
     "characters": [
         {
@@ -2917,10 +2770,9 @@
             "name": "L-Elf",
             "surname": "",
             "series": "Valvrave the Liberator"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.05",
     "characters": [
         {
@@ -2937,10 +2789,9 @@
             "name": "Kisumi",
             "surname": "Shigino",
             "series": "Free!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.05",
     "characters": [
         {
@@ -2957,10 +2808,9 @@
             "name": "Ako",
             "surname": "Tamaki",
             "series": "And You Thought There Is Never A Girl Online?"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.05",
     "characters": [
         {
@@ -2977,10 +2827,9 @@
             "name": "Sogo",
             "surname": "Osaka",
             "series": "Idolish7"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.05",
     "characters": [
         {
@@ -2997,10 +2846,9 @@
             "name": "Diamante",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.05",
     "characters": [
         {
@@ -3017,10 +2865,9 @@
             "name": "Doppel",
             "surname": "",
             "series": "Monster Musume"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "31.05",
     "characters": [
         {
@@ -3037,10 +2884,9 @@
             "name": "Anna",
             "surname": "Mochizuki",
             "series": "The Idolmaster"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.06",
     "characters": [
         {
@@ -3057,10 +2903,9 @@
             "name": "Dominique",
             "surname": "de Sade",
             "series": "The Case Study of Vanitas"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.06",
     "characters": [
         {
@@ -3077,10 +2922,9 @@
             "name": "Shiki",
             "surname": "Natsumezaka",
             "series": "Dance with Devils"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.06",
     "characters": [
         {
@@ -3097,10 +2941,9 @@
             "name": "Yuuta",
             "surname": "Iridatsu",
             "series": "The Disastrous Life of Saiki K."
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.06",
     "characters": [
         {
@@ -3117,10 +2960,9 @@
             "name": "Roshi",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.06",
     "characters": [
         {
@@ -3137,10 +2979,9 @@
             "name": "Enrico",
             "surname": "Pucci",
             "series": "JoJo's Bizarre Adventure"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.06",
     "characters": [
         {
@@ -3157,10 +2998,9 @@
             "name": "Shinji",
             "surname": "Ikari",
             "series": "Neon Genesis Evangelion"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.06",
     "characters": [
         {
@@ -3177,10 +3017,9 @@
             "name": "Kazuma",
             "surname": "Sato",
             "series": "Konosuba: God’s Blessing on This Wonderful World!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.06",
     "characters": [
         {
@@ -3197,10 +3036,9 @@
             "name": "Trish",
             "surname": "Una",
             "series": "JoJo’s Bizarre Adventure"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.06",
     "characters": [
         {
@@ -3217,10 +3055,9 @@
             "name": "Hikaru",
             "surname": "Hitachiin",
             "series": "Ouran High School Host Club"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.06",
     "characters": [
         {
@@ -3237,10 +3074,9 @@
             "name": "Hajime",
             "surname": "Iwaizumi",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.06",
     "characters": [
         {
@@ -3257,10 +3093,9 @@
             "name": "Chiyo",
             "surname": "Yumehara",
             "series": "The Disasterous Life of Saiki K."
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.06",
     "characters": [
         {
@@ -3277,10 +3112,9 @@
             "name": "Rikka",
             "surname": "Takanashi",
             "series": "Love, Chunibyo & Other Delusions"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.06",
     "characters": [
         {
@@ -3297,10 +3131,9 @@
             "name": "Mashiro",
             "surname": "Shiina",
             "series": "The Pet Girl of Sakurasou"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.06",
     "characters": [
         {
@@ -3317,10 +3150,9 @@
             "name": "Hacker",
             "surname": "",
             "series": "Akudama Drive"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.06",
     "characters": [
         {
@@ -3337,10 +3169,9 @@
             "name": "Tetora",
             "surname": "Nagumo",
             "series": "Ensemble Stars!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.06",
     "characters": [
         {
@@ -3357,10 +3188,9 @@
             "name": "Marco",
             "surname": "Bott",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.06",
     "characters": [
         {
@@ -3377,10 +3207,9 @@
             "name": "Ryoji",
             "surname": "Kaji",
             "series": "Neon Genesis Evangelion"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.06",
     "characters": [
         {
@@ -3397,10 +3226,9 @@
             "name": "Sayu",
             "surname": "Yagami",
             "series": "Death Note"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.06",
     "characters": [
         {
@@ -3417,10 +3245,9 @@
             "name": "Futaba",
             "surname": "Yoshioka",
             "series": "Blue Spring Ride"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.06",
     "characters": [
         {
@@ -3437,10 +3264,9 @@
             "name": "Juzo",
             "surname": "Honenuki",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.06",
     "characters": [
         {
@@ -3457,10 +3283,9 @@
             "name": "Rekka",
             "surname": "Hoshimiya",
             "series": "Fire Force"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.06",
     "characters": [
         {
@@ -3477,10 +3302,9 @@
             "name": "Hikaru",
             "surname": "Asahi",
             "series": "Beyblade Burst Surge"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.06",
     "characters": [
         {
@@ -3497,10 +3321,9 @@
             "name": "Natsuki",
             "surname": "Nakagawa",
             "series": "Sound! Euphonium"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.06",
     "characters": [
         {
@@ -3517,10 +3340,9 @@
             "name": "Makoto",
             "surname": "Kiriyama",
             "series": "Takunomi"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.06",
     "characters": [
         {
@@ -3537,10 +3359,9 @@
             "name": "Shuu",
             "surname": "Inuzuka",
             "series": "Shikimori's Not Just a Cutie"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.06",
     "characters": [
         {
@@ -3557,10 +3378,9 @@
             "name": "Zeus",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.06",
     "characters": [
         {
@@ -3577,10 +3397,9 @@
             "name": "Uryoku",
             "surname": "Chouno",
             "series": "The Disastrous Life of Saiki K."
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.06",
     "characters": [
         {
@@ -3597,10 +3416,9 @@
             "name": "Mocha",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.06",
     "characters": [
         {
@@ -3617,10 +3435,9 @@
             "name": "Eliza",
             "surname": "Faust",
             "series": "Shaman King"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.06",
     "characters": [
         {
@@ -3637,10 +3454,9 @@
             "name": "Nanaba",
             "surname": "",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.07",
     "characters": [
         {
@@ -3657,10 +3473,9 @@
             "name": "Escanor",
             "surname": "",
             "series": "The Seven Deadly Sins"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.07",
     "characters": [
         {
@@ -3677,10 +3492,9 @@
             "name": "Tsumugi",
             "surname": "Kotobuki",
             "series": "K-On!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.07",
     "characters": [
         {
@@ -3697,10 +3511,9 @@
             "name": "Nami",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.07",
     "characters": [
         {
@@ -3717,10 +3530,9 @@
             "name": "Kaori",
             "surname": "Miyazono",
             "series": "Your Lie in April"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.07",
     "characters": [
         {
@@ -3737,10 +3549,9 @@
             "name": "Tom",
             "surname": "Ksaver",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.07",
     "characters": [
         {
@@ -3757,10 +3568,9 @@
             "name": "Satone",
             "surname": "Shichimiya",
             "series": "Love, Chunibyo & Other Delusions"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.07",
     "characters": [
         {
@@ -3777,10 +3587,9 @@
             "name": "Present",
             "surname": "Mic",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.07",
     "characters": [
         {
@@ -3797,10 +3606,9 @@
             "name": "Gonzaburou",
             "surname": "Tashiro",
             "series": "Sasaki and Miyano"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.07",
     "characters": [
         {
@@ -3817,10 +3625,9 @@
             "name": "Sora",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.07",
     "characters": [
         {
@@ -3837,10 +3644,9 @@
             "name": "Suzaku",
             "surname": "Kururugi",
             "series": "Code Geass: Lelouch of the Rebellion"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.07",
     "characters": [
         {
@@ -3857,10 +3663,9 @@
             "name": "Hiwako",
             "surname": "Torishima",
             "series": "Asura Cryin'"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.07",
     "characters": [
         {
@@ -3877,10 +3682,9 @@
             "name": "Soichiro",
             "surname": "Yagami",
             "series": "Death Note"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.07",
     "characters": [
         {
@@ -3897,10 +3701,9 @@
             "name": "Yoshiko",
             "surname": "Tsushima",
             "series": "Love Live! Sunshine!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.07",
     "characters": [
         {
@@ -3917,10 +3720,9 @@
             "name": "Zaratras",
             "surname": "",
             "series": "The Seven Deadly Sins"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.07",
     "characters": [
         {
@@ -3937,10 +3739,9 @@
             "name": "Shikaku",
             "surname": "Nara",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.07",
     "characters": [
         {
@@ -3957,10 +3758,9 @@
             "name": "Helmeppo",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.07",
     "characters": [
         {
@@ -3977,10 +3777,9 @@
             "name": "Yuu",
             "surname": "Mizuno",
             "series": "Sanrio Boys"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.07",
     "characters": [
         {
@@ -3997,11 +3796,9 @@
             "name": "Cure",
             "surname": "March",
             "series": "Nao Midorikawa"
-        },
-        null,
-        null
+        }
     ]
-}{
+},{
     "date": "19.07",
     "characters": [
         {
@@ -4018,10 +3815,9 @@
             "name": "Wei",
             "surname": "Liu",
             "series": "Kuroko's Basketball"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.07",
     "characters": [
         {
@@ -4038,10 +3834,9 @@
             "name": "Honami",
             "surname": "Ichinose",
             "series": "Classroom of the Elite"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.07",
     "characters": [
         {
@@ -4058,10 +3853,9 @@
             "name": "Kotetsu",
             "surname": "Hagane",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.07",
     "characters": [
         {
@@ -4078,10 +3872,9 @@
             "name": "Nico",
             "surname": "Yazawa",
             "series": "Love Live! School Idol Project"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.07",
     "characters": [
         {
@@ -4098,10 +3891,9 @@
             "name": "Yuma",
             "surname": "Mukami",
             "series": "Diabolik Lovers"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.07",
     "characters": [
         {
@@ -4118,10 +3910,9 @@
             "name": "Yugito",
             "surname": "Nii",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.07",
     "characters": [
         {
@@ -4138,10 +3929,9 @@
             "name": "Nojiko",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.07",
     "characters": [
         {
@@ -4158,10 +3948,9 @@
             "name": "Ichiro",
             "surname": "Yamada",
             "series": "Hypnosis Mic: Division Rap Battle"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.07",
     "characters": [
         {
@@ -4178,10 +3967,9 @@
             "name": "Delta",
             "surname": "Akane",
             "series": "Beyblade Burst Rise"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.07",
     "characters": [
         {
@@ -4198,10 +3986,9 @@
             "name": "Tsubasa",
             "surname": "Ozora",
             "series": "Captain Tsubasa"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.07",
     "characters": [
         {
@@ -4218,10 +4005,9 @@
             "name": "Jun",
             "surname": "Arashiyama",
             "series": "World Trigger"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.07",
     "characters": [
         {
@@ -4238,10 +4024,9 @@
             "name": "Ryuuichi",
             "surname": "Kashima",
             "series": "School Babysitters"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "31.07",
     "characters": [
         {
@@ -4258,10 +4043,9 @@
             "name": "Cross",
             "surname": "Marian",
             "series": "D. Gray-man"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.08",
     "characters": [
         {
@@ -4278,10 +4062,9 @@
             "name": "Reiner",
             "surname": "Braun",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.08",
     "characters": [
         {
@@ -4298,10 +4081,9 @@
             "name": "Taiga",
             "surname": "Kagami",
             "series": "Kuroko's Basketball"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.08",
     "characters": [
         {
@@ -4318,10 +4100,9 @@
             "name": "Mamoru",
             "surname": "Chiba",
             "series": "Sailor Moon"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.08",
     "characters": [
         {
@@ -4334,15 +4115,13 @@
             "surname": "Heart",
             "series": "Mana Aida"
         },
-        null,
         {
             "name": "Kenji",
             "surname": "Kazama",
             "series": "D-Frag!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.08",
     "characters": [
         {
@@ -4359,10 +4138,9 @@
             "name": "Gaimon",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.08",
     "characters": [
         {
@@ -4379,10 +4157,9 @@
             "name": "Hawk",
             "surname": "",
             "series": "The Seven Deadly Sins"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.08",
     "characters": [
         {
@@ -4399,10 +4176,9 @@
             "name": "Hana",
             "surname": "Uzaki",
             "series": "Uzaki-chan Wants to Hang Out!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.08",
     "characters": [
         {
@@ -4419,10 +4195,9 @@
             "name": "Morisuke",
             "surname": "Yaku",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.08",
     "characters": [
         {
@@ -4439,10 +4214,9 @@
             "name": "Sanae",
             "surname": "Dekomori",
             "series": "Love, Chunibyo & Other Delusions"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.08",
     "characters": [
         {
@@ -4459,10 +4233,9 @@
             "name": "Yamato",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.08",
     "characters": [
         {
@@ -4479,10 +4252,9 @@
             "name": "Kokona",
             "surname": "Aoba",
             "series": "Encouragement of Climb"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.08",
     "characters": [
         {
@@ -4499,10 +4271,9 @@
             "name": "Tsume",
             "surname": "Inuzuka",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.08",
     "characters": [
         {
@@ -4519,10 +4290,9 @@
             "name": "Takanobu",
             "surname": "Aone",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.08",
     "characters": [
         {
@@ -4539,10 +4309,9 @@
             "name": "Aoba",
             "surname": "Kuronuma",
             "series": "Durarara!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.08",
     "characters": [
         {
@@ -4559,10 +4328,9 @@
             "name": "Bon",
             "surname": "Clay",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.08",
     "characters": [
         {
@@ -4579,10 +4347,9 @@
             "name": "Gaku",
             "surname": "Yaotome",
             "series": "Idolish Seven"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.08",
     "characters": [
         {
@@ -4599,10 +4366,9 @@
             "name": "Pagaya",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.08",
     "characters": [
         {
@@ -4619,10 +4385,9 @@
             "name": "Keith",
             "surname": "Shadis",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.08",
     "characters": [
         {
@@ -4639,10 +4404,9 @@
             "name": "Keizaburou",
             "surname": "Ouchi",
             "series": "Libra of Nil Admirari"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.08",
     "characters": [
         {
@@ -4650,7 +4414,6 @@
             "surname": "Sano",
             "series": "Mikey"
         },
-        null,
         {
             "name": "Takeru",
             "surname": "Nakashima",
@@ -4660,10 +4423,9 @@
             "name": "Natsuya",
             "surname": "Kirishima",
             "series": "Free!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.08",
     "characters": [
         {
@@ -4671,7 +4433,6 @@
             "surname": "",
             "series": "Shino Asada"
         },
-        null,
         {
             "name": "Lacus",
             "surname": "Welt",
@@ -4681,10 +4442,9 @@
             "name": "Ritsu",
             "surname": "Tainaka",
             "series": "K-On!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.08",
     "characters": [
         {
@@ -4701,10 +4461,9 @@
             "name": "Hina",
             "surname": "Amano",
             "series": "Weathering With You"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.08",
     "characters": [
         {
@@ -4721,10 +4480,9 @@
             "name": "Temari",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.08",
     "characters": [
         {
@@ -4741,10 +4499,9 @@
             "name": "Yoshiki",
             "surname": "Towada",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.08",
     "characters": [
         {
@@ -4761,10 +4518,9 @@
             "name": "Yukari",
             "surname": "Mishakuji",
             "series": "K: Return of Kings"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.08",
     "characters": [
         {
@@ -4781,10 +4537,9 @@
             "name": "Ruka",
             "surname": "Sarashina",
             "series": "Rent-A-Girlfriend"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.08",
     "characters": [
         {
@@ -4801,10 +4556,9 @@
             "name": "Yusa",
             "surname": "Nishimori",
             "series": "Charlotte"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.08",
     "characters": [
         {
@@ -4821,10 +4575,9 @@
             "name": "Mephisto",
             "surname": "Pheles",
             "series": "Blue Exorcist"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.08",
     "characters": [
         {
@@ -4841,10 +4594,9 @@
             "name": "Reiji",
             "surname": "Sakamaki",
             "series": "Diabolik Lovers"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.08",
     "characters": [
         {
@@ -4861,10 +4613,9 @@
             "name": "Ruka",
             "surname": "Urushibara",
             "series": "Steins;Gate"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "31.08",
     "characters": [
         {
@@ -4881,10 +4632,9 @@
             "name": "Cavendish",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.09",
     "characters": [
         {
@@ -4901,10 +4651,9 @@
             "name": "Tsugumi",
             "surname": "",
             "series": "Guilty Crown"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.09",
     "characters": [
         {
@@ -4921,10 +4670,9 @@
             "name": "Aren",
             "surname": "Kuboyasu",
             "series": "The Disastrous Life of Saiki K."
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.09",
     "characters": [
         {
@@ -4941,10 +4689,9 @@
             "name": "Doraemon",
             "surname": "",
             "series": "Doraemon"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.09",
     "characters": [
         {
@@ -4961,10 +4708,9 @@
             "name": "Isao",
             "surname": "Kondo",
             "series": "Gintama"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.09",
     "characters": [
         {
@@ -4981,10 +4727,9 @@
             "name": "Rui",
             "surname": "Tachibana",
             "series": "Domestic Girlfriend"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.09",
     "characters": [
         {
@@ -5001,10 +4746,9 @@
             "name": "Shin",
             "surname": "",
             "series": "Naruto Shippuden"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.09",
     "characters": [
         {
@@ -5021,10 +4765,9 @@
             "name": "Shion",
             "surname": "",
             "series": "No. 6"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.09",
     "characters": [
         {
@@ -5041,10 +4784,9 @@
             "name": "Metori",
             "surname": "Saiko",
             "series": "The Disastrous Life of Saiki K."
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.09",
     "characters": [
         {
@@ -5061,10 +4803,9 @@
             "name": "Isabella",
             "surname": "",
             "series": "The Promised Neverland"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.09",
     "characters": [
         {
@@ -5081,10 +4822,9 @@
             "name": "Sailor",
             "surname": "Mercury",
             "series": "Sailor Moon"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.09",
     "characters": [
         {
@@ -5101,10 +4841,9 @@
             "name": "Montblanc",
             "surname": "Cricket",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.09",
     "characters": [
         {
@@ -5121,10 +4860,9 @@
             "name": "Nayuta",
             "surname": "Asahi",
             "series": "Argonavis from BanG Dream!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.09",
     "characters": [
         {
@@ -5141,10 +4879,9 @@
             "name": "Dot",
             "surname": "Pixis",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.09",
     "characters": [
         {
@@ -5161,10 +4898,9 @@
             "name": "Abumi",
             "surname": "Zaku",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.09",
     "characters": [
         {
@@ -5181,10 +4917,9 @@
             "name": "Roche",
             "surname": "Frain Yggdmillennia",
             "series": "Fate/Apocrypha"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.09",
     "characters": [
         {
@@ -5201,10 +4936,9 @@
             "name": "Rosa",
             "surname": "",
             "series": "Pokemon"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.09",
     "characters": [
         {
@@ -5221,10 +4955,9 @@
             "name": "Higari",
             "surname": "Maijima",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.09",
     "characters": [
         {
@@ -5237,15 +4970,13 @@
             "surname": "Honma",
             "series": "Menma"
         },
-        null,
         {
             "name": "Hairu",
             "surname": "Ihei",
             "series": "Tokyo Ghoul:re"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.09",
     "characters": [
         {
@@ -5262,10 +4993,9 @@
             "name": "Hauser",
             "surname": "",
             "series": "The Seven Deadly Sins"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.09",
     "characters": [
         {
@@ -5282,10 +5012,9 @@
             "name": "Sayaka",
             "surname": "Miki",
             "series": "Puella Magi Madoka Magica"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.09",
     "characters": [
         {
@@ -5302,10 +5031,9 @@
             "name": "Kouhei",
             "surname": "Izumi",
             "series": "World Trigger"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.09",
     "characters": [
         {
@@ -5322,10 +5050,9 @@
             "name": "Kyros",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.09",
     "characters": [
         {
@@ -5342,10 +5069,9 @@
             "name": "Emilia",
             "surname": "",
             "series": "Re:ZERO -Starting Life in Another World-"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.09",
     "characters": [
         {
@@ -5362,10 +5088,9 @@
             "name": "Isumi",
             "surname": "Saginomiya",
             "series": "Hayate the Combat Butler"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.09",
     "characters": [
         {
@@ -5382,10 +5107,9 @@
             "name": "Rei",
             "surname": "Kuroki",
             "series": "Vividred Operation"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.09",
     "characters": [
         {
@@ -5402,10 +5126,9 @@
             "name": "Chika",
             "surname": "Ichijou",
             "series": "Horimiya"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.09",
     "characters": [
         {
@@ -5422,10 +5145,9 @@
             "name": "Bruno",
             "surname": "Bucciarati",
             "series": "JoJo's Bizarre Adventure"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.09",
     "characters": [
         {
@@ -5442,10 +5164,9 @@
             "name": "Yuuko",
             "surname": "Yoshida",
             "series": "The Demon Girl Next Door"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.09",
     "characters": [
         {
@@ -5462,10 +5183,9 @@
             "name": "Shohei",
             "surname": "Fukunaga",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.09",
     "characters": [
         {
@@ -5482,10 +5202,9 @@
             "name": "Xerxes",
             "surname": "Break",
             "series": "Pandora Hearts"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.10",
     "characters": [
         {
@@ -5502,10 +5221,9 @@
             "name": "Tooru",
             "surname": "Ishikawa",
             "series": "Horimiya"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.10",
     "characters": [
         {
@@ -5522,10 +5240,9 @@
             "name": "Imai",
             "surname": "Nobume",
             "series": "Gintama"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.10",
     "characters": [
         {
@@ -5542,10 +5259,9 @@
             "name": "Koori",
             "surname": "Ui",
             "series": "Tokyo Ghoul"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.10",
     "characters": [
         {
@@ -5562,10 +5278,9 @@
             "name": "Iruma",
             "surname": "Suzuki",
             "series": "Welcome to Demon School! Iruma-kun"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.10",
     "characters": [
         {
@@ -5582,10 +5297,9 @@
             "name": "Atsumu",
             "surname": "Miya",
             "series": "Haikyu!!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.10",
     "characters": [
         {
@@ -5602,10 +5316,9 @@
             "name": "Tashigi",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.10",
     "characters": [
         {
@@ -5622,10 +5335,9 @@
             "name": "Akihito",
             "surname": "Kanbara",
             "series": "Beyond the Boundary"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.10",
     "characters": [
         {
@@ -5642,10 +5354,9 @@
             "name": "Haruhi",
             "surname": "Suzumiya",
             "series": "The Melancholy of Haruhi Suzumiya"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.10",
     "characters": [
         {
@@ -5662,10 +5373,9 @@
             "name": "Hasuki",
             "surname": "Komai",
             "series": "Boarding School Juliet"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.10",
     "characters": [
         {
@@ -5682,10 +5392,9 @@
             "name": "Gintoki",
             "surname": "Sakata",
             "series": "Gintama"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.10",
     "characters": [
         {
@@ -5702,10 +5411,9 @@
             "name": "Euphemia",
             "surname": "li Britannia",
             "series": "Code Geass"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.10",
     "characters": [
         {
@@ -5722,10 +5430,9 @@
             "name": "Sara",
             "surname": "Iwami",
             "series": "Fuuka"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.10",
     "characters": [
         {
@@ -5742,10 +5449,9 @@
             "name": "Izou",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.10",
     "characters": [
         {
@@ -5762,10 +5468,9 @@
             "name": "Hisako",
             "surname": "Arato",
             "series": "Food Wars!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.10",
     "characters": [
         {
@@ -5782,10 +5487,9 @@
             "name": "Rindo",
             "surname": "Kobayashi",
             "series": "Food Wars!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.10",
     "characters": [
         {
@@ -5802,10 +5506,9 @@
             "name": "Tetsutetsu",
             "surname": "Tetsutetsu",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.10",
     "characters": [
         {
@@ -5822,10 +5525,9 @@
             "name": "Rinko",
             "surname": "Shirokane",
             "series": "BanG Dream!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.10",
     "characters": [
         {
@@ -5842,10 +5544,9 @@
             "name": "Souta",
             "surname": "Hori",
             "series": "Horimiya"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.10",
     "characters": [
         {
@@ -5862,10 +5563,9 @@
             "name": "Galette",
             "surname": "Charlotte S.",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.10",
     "characters": [
         {
@@ -5882,10 +5582,9 @@
             "name": "Kakeru",
             "surname": "Ryuen",
             "series": "Classroom of the Elite"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.10",
     "characters": [
         {
@@ -5902,10 +5601,9 @@
             "name": "Marx",
             "surname": "Francois",
             "series": "Black Clover"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.10",
     "characters": [
         {
@@ -5922,10 +5620,9 @@
             "name": "Hirato",
             "surname": "",
             "series": "Karneval"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.10",
     "characters": [
         {
@@ -5942,10 +5639,9 @@
             "name": "Donquixote",
             "surname": "Doflamingo",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.10",
     "characters": [
         {
@@ -5962,10 +5658,9 @@
             "name": "Shizuru",
             "surname": "Hoshino",
             "series": "Princess Connect! Re:Dive"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.10",
     "characters": [
         {
@@ -5982,10 +5677,9 @@
             "name": "Sousuke",
             "surname": "Sugaya",
             "series": "Assassination Classroom"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.10",
     "characters": [
         {
@@ -6002,10 +5696,9 @@
             "name": "Saki",
             "surname": "Kawasaki",
             "series": "My Teen Romantic Comedy SNAFU"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.10",
     "characters": [
         {
@@ -6022,10 +5715,9 @@
             "name": "Krul",
             "surname": "Tepes",
             "series": "Seraph of the End"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.10",
     "characters": [
         {
@@ -6042,10 +5734,9 @@
             "name": "Akane",
             "surname": "Hiyama",
             "series": "Love Tyrant"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.10",
     "characters": [
         {
@@ -6062,10 +5753,9 @@
             "name": "Krillin",
             "surname": "",
             "series": "Dragon Ball Z"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.10",
     "characters": [
         {
@@ -6082,10 +5772,9 @@
             "name": "Derieri",
             "surname": "",
             "series": "The Seven Deadly Sins"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "31.10",
     "characters": [
         {
@@ -6102,10 +5791,9 @@
             "name": "Sebastian",
             "surname": "Michaelis",
             "series": "Black Butler"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.11",
     "characters": [
         {
@@ -6122,10 +5810,9 @@
             "name": "Mike",
             "surname": "Zacharias",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.11",
     "characters": [
         {
@@ -6142,10 +5829,9 @@
             "name": "Hake",
             "surname": "",
             "series": "Inukami!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.11",
     "characters": [
         {
@@ -6162,10 +5848,9 @@
             "name": "Armin",
             "surname": "Arlert ",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.11",
     "characters": [
         {
@@ -6182,10 +5867,9 @@
             "name": "Hibiya",
             "surname": "Amamiya",
             "series": "Mekaku City Actors"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.11",
     "characters": [
         {
@@ -6202,10 +5886,9 @@
             "name": "Hayato",
             "surname": "Kamitani",
             "series": "School Babysitters"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.11",
     "characters": [
         {
@@ -6222,10 +5905,9 @@
             "name": "Uryu",
             "surname": "Ishida",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.11",
     "characters": [
         {
@@ -6242,10 +5924,9 @@
             "name": "Manami",
             "surname": "Okuda",
             "series": "Assassination Classroom"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.11",
     "characters": [
         {
@@ -6262,10 +5943,9 @@
             "name": "Karoo",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.11",
     "characters": [
         {
@@ -6282,10 +5962,9 @@
             "name": "Ikkaku",
             "surname": "Madarame",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.11",
     "characters": [
         {
@@ -6302,10 +5981,9 @@
             "name": "Vlad",
             "surname": "King",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.11",
     "characters": [
         {
@@ -6322,10 +6000,9 @@
             "name": "Fyodor",
             "surname": "Dostoyevsky",
             "series": "Bungo Stray Dogs"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.11",
     "characters": [
         {
@@ -6342,10 +6019,9 @@
             "name": "Ann",
             "surname": "Takamaki",
             "series": "Persona 5"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.11",
     "characters": [
         {
@@ -6362,10 +6038,9 @@
             "name": "Kaname",
             "surname": "Tosen",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.11",
     "characters": [
         {
@@ -6382,10 +6057,9 @@
             "name": "Moeka",
             "surname": "Nitta",
             "series": "Girl Friend Beta"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.11",
     "characters": [
         {
@@ -6402,10 +6076,9 @@
             "name": "Rin",
             "surname": "Nohara",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.11",
     "characters": [
         {
@@ -6422,10 +6095,9 @@
             "name": "Porche",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.11",
     "characters": [
         {
@@ -6442,10 +6114,9 @@
             "name": "Kinzo",
             "surname": "Shima",
             "series": "Blue Exorcist"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.11",
     "characters": [
         {
@@ -6462,10 +6133,9 @@
             "name": "Yuki",
             "surname": "Nagato",
             "series": "The Melancholy of Haruhi Suzumiya"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.11",
     "characters": [
         {
@@ -6482,10 +6152,9 @@
             "name": "Gilbert",
             "surname": "Durandal",
             "series": "Mobile Suit Gundam SEED Destiny"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.11",
     "characters": [
         {
@@ -6502,10 +6171,9 @@
             "name": "Mai",
             "surname": "Valentine",
             "series": "Yu-Gi-Oh!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.11",
     "characters": [
         {
@@ -6522,10 +6190,9 @@
             "name": "Hiei",
             "surname": "",
             "series": "Yu Yu Hakusho"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.11",
     "characters": [
         {
@@ -6542,10 +6209,9 @@
             "name": "Nekomamushi",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.11",
     "characters": [
         {
@@ -6562,10 +6228,9 @@
             "name": "Yoichi",
             "surname": "Saotome",
             "series": "Seraph of the End"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.11",
     "characters": [
         {
@@ -6582,10 +6247,9 @@
             "name": "Misao",
             "surname": "Makimachi",
             "series": "Rurouni Kenshin"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.11",
     "characters": [
         {
@@ -6602,10 +6266,9 @@
             "name": "Izumo",
             "surname": "Kamizuki",
             "series": "Naruto Shippūden"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.11",
     "characters": [
         {
@@ -6622,10 +6285,9 @@
             "name": "Yamato",
             "surname": "Nagamori",
             "series": "Lucky Star"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.11",
     "characters": [
         {
@@ -6642,10 +6304,9 @@
             "name": "Yui",
             "surname": "Hirasawa",
             "series": "K-On!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.11",
     "characters": [
         {
@@ -6662,10 +6323,9 @@
             "name": "Masayuki",
             "surname": "Hori",
             "series": "Monthly Girls' Nozaki-kun"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.11",
     "characters": [
         {
@@ -6682,10 +6342,9 @@
             "name": "Yukine",
             "surname": "",
             "series": "Noragami"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.11",
     "characters": [
         {
@@ -6702,10 +6361,9 @@
             "name": "Nana",
             "surname": "Komatsu",
             "series": "Nana"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "01.12",
     "characters": [
         {
@@ -6722,10 +6380,9 @@
             "name": "Mitsuha",
             "surname": "Miyamizu",
             "series": "Your Name."
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "02.12",
     "characters": [
         {
@@ -6742,10 +6399,9 @@
             "name": "Atsushi",
             "surname": "Sendo",
             "series": "Tokyo Revengers"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "03.12",
     "characters": [
         {
@@ -6762,10 +6418,9 @@
             "name": "Belle-mere",
             "surname": "",
             "series": "One Piece"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "04.12",
     "characters": [
         {
@@ -6782,10 +6437,9 @@
             "name": "Dan",
             "surname": "Kato",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "05.12",
     "characters": [
         {
@@ -6802,10 +6456,9 @@
             "name": "Sailor",
             "surname": "Jupiter",
             "series": "Sailor Moon"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "06.12",
     "characters": [
         {
@@ -6822,10 +6475,9 @@
             "name": "Hiroto",
             "surname": "Maehara",
             "series": "Assassination Classroom"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "07.12",
     "characters": [
         {
@@ -6842,10 +6494,9 @@
             "name": "Rico",
             "surname": "Brzenska",
             "series": "Attack on Titan"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "08.12",
     "characters": [
         {
@@ -6862,10 +6513,9 @@
             "name": "Asuma",
             "surname": "Ogasawara",
             "series": "Dream Festival!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "09.12",
     "characters": [
         {
@@ -6882,10 +6532,9 @@
             "name": "Kazuha",
             "surname": "Kumada",
             "series": "Girl Friend Beta"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "10.12",
     "characters": [
         {
@@ -6902,10 +6551,9 @@
             "name": "Somali",
             "surname": "Longhaired",
             "series": "Boarding School Juliet"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "11.12",
     "characters": [
         {
@@ -6922,10 +6570,9 @@
             "name": "Rin",
             "surname": "Azuma",
             "series": "Isekai Cheat Magician"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "12.12",
     "characters": [
         {
@@ -6942,10 +6589,9 @@
             "name": "Karim",
             "surname": "Flam",
             "series": "Fire Force"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "13.12",
     "characters": [
         {
@@ -6962,10 +6608,9 @@
             "name": "Miyako",
             "surname": "Shirakaba",
             "series": "Blue Reflection Ray"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "14.12",
     "characters": [
         {
@@ -6982,10 +6627,9 @@
             "name": "Rei",
             "surname": "Ryugazaki",
             "series": "Free!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "15.12",
     "characters": [
         {
@@ -7002,10 +6646,9 @@
             "name": "Hugo",
             "surname": "",
             "series": "The Seven Deadly Sins"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "16.12",
     "characters": [
         {
@@ -7022,10 +6665,9 @@
             "name": "Kidomaru",
             "surname": "",
             "series": "Naruto"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "17.12",
     "characters": [
         {
@@ -7042,10 +6684,9 @@
             "name": "Hokuto",
             "surname": "Hidaka",
             "series": "Ensemble Stars!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "18.12",
     "characters": [
         {
@@ -7062,10 +6703,9 @@
             "name": "Shino",
             "surname": "Mizusaki",
             "series": "Blue Reflection Ray"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "19.12",
     "characters": [
         {
@@ -7082,10 +6722,9 @@
             "name": "Megumi",
             "surname": "Tadokoro",
             "series": "Food Wars!"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "20.12",
     "characters": [
         {
@@ -7102,10 +6741,9 @@
             "name": "Kishou",
             "surname": "Arima",
             "series": "Tokyo Ghoul"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "21.12",
     "characters": [
         {
@@ -7122,10 +6760,9 @@
             "name": "Marie",
             "surname": "Adlai",
             "series": "Black Clover"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "22.12",
     "characters": [
         {
@@ -7142,10 +6779,9 @@
             "name": "Yusuke",
             "surname": "Nisaka",
             "series": "Love and Lies"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "23.12",
     "characters": [
         {
@@ -7162,10 +6798,9 @@
             "name": "Kojiro",
             "surname": "Bondo",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "24.12",
     "characters": [
         {
@@ -7182,10 +6817,9 @@
             "name": "Junko",
             "surname": "Enoshima",
             "series": "Danganronpa"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "25.12",
     "characters": [
         {
@@ -7202,10 +6836,9 @@
             "name": "Komi",
             "surname": "Shouko",
             "series": "Komi Can't Communicate"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "26.12",
     "characters": [
         {
@@ -7222,10 +6855,9 @@
             "name": "Mika",
             "surname": "Kagehira",
             "series": "Ensemble Stars"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "27.12",
     "characters": [
         {
@@ -7242,10 +6874,9 @@
             "name": "Ochaco",
             "surname": "Uraraka",
             "series": "My Hero Academia"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "28.12",
     "characters": [
         {
@@ -7262,10 +6893,9 @@
             "name": "Zenon",
             "surname": "Zogratis",
             "series": "Black Clover"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "29.12",
     "characters": [
         {
@@ -7282,10 +6912,9 @@
             "name": "Masato",
             "surname": "Hijirikawa",
             "series": "Uta no Prince-sama Maji Love 1000%"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "30.12",
     "characters": [
         {
@@ -7302,10 +6931,9 @@
             "name": "Kon",
             "surname": "",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}{
+},{
     "date": "31.12",
     "characters": [
         {
@@ -7322,7 +6950,6 @@
             "name": "Kisuke",
             "surname": "Urahara",
             "series": "Bleach"
-        },
-        null
+        }
     ]
-}
+}]

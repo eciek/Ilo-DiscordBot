@@ -41,7 +41,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Modules\BirthdayAnime\JsonFiles\birthdayanime.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Modules\GuildConfig\JsonFiles\configbot.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

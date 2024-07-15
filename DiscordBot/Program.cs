@@ -57,7 +57,7 @@ builder.Services.AddSingleton<RaiderIOService>();
 
 builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),
                                                         x.GetRequiredService<GuildConfigService>()));
-builder.Services.AddSingleton<BirthdayAnimeService>();
+builder.Services.AddSingleton(x=> new BirthdayAnimeService(x.GetRequiredService<GuildConfigService>()));
 
 var app = builder.Build();
 

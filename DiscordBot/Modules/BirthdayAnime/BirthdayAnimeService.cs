@@ -11,6 +11,8 @@ public class BirthdayAnimeService
     readonly List<BirthdayAnime> _animeBirthdays;
     private readonly GuildConfigService _guildConfigService;
 
+    private const string _configId = "animeBirthday";
+
     public BirthdayAnimeService(GuildConfigService configBotService)
     {
         _guildConfigService = configBotService;
@@ -32,13 +34,30 @@ public class BirthdayAnimeService
     }
 
     public List<BirthdayAnimeCharacter> GetAnimeCharacters(string date)
-        => _animeBirthdays.Where(x => x.Date == date).Select(x=>x.Characters).FirstOrDefault() ?? [];
+        => _animeBirthdays.Where(x => x.Date == date).Select(x => x.Characters).FirstOrDefault() ?? [];
+
+    public ulong GetBirthdayChannel(ulong guildId)
+        => _guildConfigService
+        .GetGuildConfig(guildId)
+        .Where(x => x.Key == _configId)
+        .Select(x => (ulong)x.Value)
+        .First();
+
+    public ulong[] GetUnlockedGuilds()
+        => _guildConfigService
+        .GetAllGuildsData()
+        .Where(x =>
+            x.Value.Any(y =>
+            y.Key == _configId &&
+            (ulong)y.Value > 0))
+        .Select(x => x.Key)
+        .ToArray();
 
     private static ComponentBuilder BuildConfig(ComponentBuilder builder, SocketInteractionContext context)
     {
         var menuBuilder = new SelectMenuBuilder()
         .WithPlaceholder("Urodziny Anime - wybierz kanał")
-        .WithCustomId("animeBirthday")
+        .WithCustomId(_configId)
         .WithMinValues(1)
         .WithMaxValues(1);
 

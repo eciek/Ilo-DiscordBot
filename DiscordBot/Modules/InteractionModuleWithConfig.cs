@@ -31,7 +31,7 @@ public abstract class ServiceWithJsonData<T>
             moduleData.Add(ulong.Parse(registeredGuild.TrimLetters()), []);
         }
         LoadModuleDataFromJson();
-    }
+    }   
 
     protected List<T> GetGuildData(ulong guildId)
     {

@@ -12,19 +12,23 @@ namespace DiscordBot.Modules.GuildConfig
         private readonly BirthdayAnimeService _birthdayAnimeService;
         private readonly BooruService _booruService;
         private readonly TimerService _timerService;
+        private readonly DiscordSocketClient _socketClient;
 
 
         public BirthdayAnimeModule(
             BirthdayAnimeService birthdayAnimeService, 
             TimerService timerService,
-            BooruService booruService)
+            BooruService booruService,
+            DiscordSocketClient discordSocketClient)
         {
             _birthdayAnimeService = birthdayAnimeService;
             _timerService = timerService;
             _booruService = booruService;
+            _socketClient = discordSocketClient;
 
             TimerJob birthdaySendMessageJob = new(nameof(birthdaySendMessageJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, SendMessageAdapter);
             _timerService.RegisterJob(birthdaySendMessageJob);
+            SendMessageAdapter();
         }
 
         private async void SendMessageAdapter()
@@ -51,8 +55,8 @@ namespace DiscordBot.Modules.GuildConfig
             {
                 msgBuilder.AppendLine(character.ToString());
 
-                var charImages = _booruService.GetBooruImage(character.ToNameSurnameBooruSlug(),3).ToList();
-                charImages.AddRange(_booruService.GetBooruImage(character.ToSurnameNameBooruSlug(),3).ToList());
+                var charImages = _booruService.GetBooruImageAsync(character.ToNameSurnameBooruSlug(),3).Result.ToList();
+                charImages.AddRange(_booruService.GetBooruImageAsync(character.ToSurnameNameBooruSlug(),3).Result.ToList());
                 
                 var selectedItem = charImages[RandomNumberGenerator.GetInt32(charImages.Count - 1)];
 
@@ -68,7 +72,12 @@ namespace DiscordBot.Modules.GuildConfig
                 }
             }
 
-            await RespondAsync(msgBuilder.ToString(),embeds: embeds.ToArray(), ephemeral: true);
+            foreach (var guildId in _birthdayAnimeService.GetUnlockedGuilds())
+            {
+                var channelId = _birthdayAnimeService.GetBirthdayChannel(guildId);
+                var channel = (SocketTextChannel)_socketClient.GetChannel(channelId);
+                _ =channel.SendMessageAsync(msgBuilder.ToString(), embeds: [.. embeds]);
+            }            
         }
     }
 }
