@@ -1,6 +1,7 @@
 ﻿using DiscordBot.Modules.AnimeFeed.Models;
 using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Modules.GuildConfig.Models;
+using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
 
 namespace DiscordBot.Modules.AnimeFeed;
@@ -9,14 +10,18 @@ public class AnimeListService : ServiceWithJsonData<Anime>
 {
     private readonly DiscordChatService _chatService;
     private readonly GuildConfigService _guildConfigService;
+    private readonly GuildLoggingService _guildLoggingService;
+
     private bool _contentChanged = false;
 
     public AnimeListService(
             DiscordChatService chatService,
-            GuildConfigService guildConfigService)
+            GuildConfigService guildConfigService,
+            GuildLoggingService guildLoggingService)
     {
         _chatService = chatService;
         _guildConfigService = guildConfigService;
+        _guildLoggingService = guildLoggingService;
 
         _guildConfigService.Components.Add(BuildConfig);
     }
@@ -29,26 +34,39 @@ public class AnimeListService : ServiceWithJsonData<Anime>
     {
         foreach (var guild in moduleData)
         {
-            ulong weebChannelId = 0;
-            foreach (GuildConfigRecord model in _guildConfigService.GetGuildConfig(guild.Key).Where(x => x.Key == ModulePath))
+            try
             {
-                weebChannelId = (ulong)model.Value;
+                ulong weebChannelId = ulong.Parse((string?) _guildConfigService.GetGuildConfigValue(guild.Key, ModulePath) ?? "0") ;
+
+
+                foreach (var guildAnime in guild.Value)
+                {
+                    var anime = animeList.Where(x => x.Equals(guildAnime)).FirstOrDefault();
+
+                    if (anime is null || guildAnime.Episode == anime.Episode)
+                        continue;
+
+                    guildAnime.Episode = anime.Episode;
+                    guildAnime.Url = anime.Url;
+                    guildAnime.Id = anime.Id;
+
+                    if ((guildAnime.Subscribers ?? []).Count > 0 && weebChannelId > 0)
+                        await _chatService.SendMessage(weebChannelId, guildAnime.GetUpdateMessage());
+                    _contentChanged = true;
+                }
             }
-
-            foreach (var guildAnime in guild.Value)
+            catch (Exception ex)
             {
-                var anime = animeList.Where(x => x.Equals(guildAnime)).FirstOrDefault();
-
-                if (anime is null || guildAnime.Episode == anime.Episode)
-                    continue;
-
-                guildAnime.Episode = anime.Episode;
-                guildAnime.Url = anime.Url;
-                guildAnime.Id = anime.Id;
-
-                if ((guildAnime.Subscribers ?? []).Count > 0)
-                    await _chatService.SendMessage(weebChannelId, guildAnime.GetUpdateMessage());
-                _contentChanged = true;
+                if (ex is IloException iloEx)
+                {
+                    Console.WriteLine(guild.Key + ":" + ex.Message);
+                    _guildLoggingService.GuildLog(guild.Key, iloEx.Message, iloEx.ToEmbed());
+                }
+                else
+                {
+                    Console.WriteLine(guild.Key + ":" + ex.Message);
+                    _guildLoggingService.GuildLog(guild.Key, ex.Message);
+                }
             }
         }
 

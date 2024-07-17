@@ -75,8 +75,9 @@ public class DiscordBotService(
             ? 0
             : component.GuildId.Value;
 
-        var record = new GuildConfigRecord(component.Data.CustomId, component.Data.Value);
-        configBotService.SaveConfig(guildId, record);
-        await component.RespondAsync("Zapisano!", ephemeral: true);
+        var value = component.Data.Values.FirstOrDefault() ?? "0";
+
+        var record = new GuildConfigRecord(component.Data.CustomId, value);
+        configBotService.SaveConfig(guildId, record);        
     }
 }

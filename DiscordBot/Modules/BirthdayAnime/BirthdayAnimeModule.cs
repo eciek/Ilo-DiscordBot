@@ -1,6 +1,7 @@
 ﻿using DiscordBot.Models;
 using DiscordBot.Modules.AnimeBirthdays;
 using DiscordBot.Modules.AnimeBirthdays.Models;
+using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,74 +11,31 @@ namespace DiscordBot.Modules.GuildConfig
     public class BirthdayAnimeModule : InteractionModuleBase<SocketInteractionContext>
     {
         private readonly BirthdayAnimeService _birthdayAnimeService;
-        private readonly BooruService _booruService;
-        private readonly TimerService _timerService;
-        private readonly DiscordSocketClient _socketClient;
-
+        private readonly TimerService _timerService;        
 
         public BirthdayAnimeModule(
             BirthdayAnimeService birthdayAnimeService, 
-            TimerService timerService,
-            BooruService booruService,
-            DiscordSocketClient discordSocketClient)
+            TimerService timerService)
         {
             _birthdayAnimeService = birthdayAnimeService;
             _timerService = timerService;
-            _booruService = booruService;
-            _socketClient = discordSocketClient;
 
-            TimerJob birthdaySendMessageJob = new(nameof(birthdaySendMessageJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, SendMessageAdapter);
+            TimerJob birthdaySendMessageJob = new(nameof(birthdaySendMessageJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, BirthdayUpdate);
             _timerService.RegisterJob(birthdaySendMessageJob);
-            SendMessageAdapter();
         }
 
-        private async void SendMessageAdapter()
+        private void BirthdayUpdate()
         {
-            await SendMessage();
+            try
+            {
+                _birthdayAnimeService.SendBirthdayMessage();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        [SlashCommand("urodziny", "Urodziny postaci z anime")]
-        public async Task SendMessage()
-        {
-            var characters = _birthdayAnimeService.GetAnimeCharacters(DateTime.Now.ToString("dd.MM"));
-            var msgBuilder = new StringBuilder();
-            msgBuilder.AppendLine("Dzisiaj urodzili się:");
-            
-            List<Embed> embeds = new List<Embed>();
 
-            if (characters.Count == 0)
-            {
-                await RespondAsync($"Zapomniałam kto się dzisiaj urodził :(", ephemeral: true);
-                return;
-            }
-
-            foreach (var character in characters)
-            {
-                msgBuilder.AppendLine(character.ToString());
-
-                var charImages = _booruService.GetBooruImageAsync(character.ToNameSurnameBooruSlug(),3).Result.ToList();
-                charImages.AddRange(_booruService.GetBooruImageAsync(character.ToSurnameNameBooruSlug(),3).Result.ToList());
-                
-                var selectedItem = charImages[RandomNumberGenerator.GetInt32(charImages.Count - 1)];
-
-                if (selectedItem.EndsWith(".mp4"))
-                {
-                    var emb = new EmbedBuilder().WithUrl($"attachment://{selectedItem}").Build();
-                    embeds.Add(emb);
-                }
-                else
-                {
-                    var emb = new EmbedBuilder().WithImageUrl($"attachment://{selectedItem}").Build();
-                    embeds.Add(emb);
-                }
-            }
-
-            foreach (var guildId in _birthdayAnimeService.GetUnlockedGuilds())
-            {
-                var channelId = _birthdayAnimeService.GetBirthdayChannel(guildId);
-                var channel = (SocketTextChannel)_socketClient.GetChannel(channelId);
-                _ =channel.SendMessageAsync(msgBuilder.ToString(), embeds: [.. embeds]);
-            }            
-        }
     }
 }

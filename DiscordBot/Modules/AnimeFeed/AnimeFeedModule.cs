@@ -2,7 +2,9 @@
 using DiscordBot.Models;
 using DiscordBot.Modules.AnimeFeed.Models;
 using DiscordBot.Modules.GuildConfig;
+using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
+using Serilog;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -13,16 +15,19 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     private readonly AnimeFeedService _animeFeedService;
     private readonly AnimeListService _animeListService;
     private readonly TimerService _timerService;
+    private readonly GuildLoggingService _guildLogging;
     private const int _jobInterval = 1;
 
     public AnimeFeedModule(
         AnimeFeedService animeFeedService,
         AnimeListService animeListService,
-        TimerService timerService)
+        TimerService timerService,
+        GuildLoggingService guildLogging)
     {
         _animeFeedService = animeFeedService;
         _animeListService = animeListService;
         _timerService = timerService;
+        _guildLogging = guildLogging;
 
         TimerJob animeFeedJob = new(nameof(animeFeedJob), _jobInterval, TimerJobTiming.NowAndRepeatOnInterval, Update);
         _timerService.RegisterJob(animeFeedJob);
@@ -83,8 +88,16 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
 
     private async void Update()
     {
-        await _animeFeedService.UpdateAnimeFeedAsync();
-        var animeList = _animeFeedService.GetAnimeList();
+        IEnumerable<Anime> animeList = [];
+        try
+        {
+            await _animeFeedService.UpdateAnimeFeedAsync();
+            animeList = _animeFeedService.GetAnimeList();            
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);            
+        }
 
         await _animeListService.UpdateAnimeList(animeList);
     }

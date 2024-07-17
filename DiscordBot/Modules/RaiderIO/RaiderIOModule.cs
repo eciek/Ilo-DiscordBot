@@ -11,7 +11,7 @@ namespace DiscordBot.Modules.RaiderIO
         public RaiderIOService RaiderIOService { get; set; }
         public AntiSpamService AntiSpamService { get; set; }
 
-        [SlashCommand("score", "Pokaż score danej postaci")]
+        //[SlashCommand("score", "Pokaż score danej postaci")]
         public async Task ScoreSend([Name("Nazwapostaci")][MinLength(2)] string charName, [Name("Nazwaserwera")][MinLength(4)] string realmName)
         {
             if (AntiSpamService._blockedUsers.Contains((long)Context.User.Id))
@@ -35,7 +35,7 @@ namespace DiscordBot.Modules.RaiderIO
             }
         }
 
-        [SlashCommand("say", "Say")]
+        //[SlashCommand("say", "Say")]
         public async Task Say([Name("Message")][MinLength(2)] string message)
         {
             if (Context.User.Id == 394196664388157440)

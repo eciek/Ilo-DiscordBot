@@ -9,7 +9,8 @@
             GuildConfigService = guildConfigService;
         }
 
-        [RequireUserPermission(GuildPermission.Administrator)]
+        //[RequireUserPermission(GuildPermission.Administrator)]
+        [RequireOwner()]
         [SlashCommand("config", "Konfiguracja funkcji bota")]
         public async Task ConfigBot()
         {

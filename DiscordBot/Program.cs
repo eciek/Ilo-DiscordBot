@@ -13,6 +13,7 @@ using DiscordBot.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using DiscordBot.Modules.GuildLogging;
 
 var builder = new HostApplicationBuilder(args);
 
@@ -49,15 +50,21 @@ builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<DiscordChatService>();
 builder.Services.AddSingleton<InteractionHandler>();
 builder.Services.AddSingleton<BooruService>();
+builder.Services.AddSingleton(x => new GuildLoggingService(x.GetRequiredService<GuildConfigService>(),
+                                                           x.GetRequiredService<DiscordChatService>()));
 
 builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
 builder.Services.AddSingleton<AntiSpamService>();
-builder.Services.AddSingleton<RaiderIOService>();
 
 builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),
-                                                        x.GetRequiredService<GuildConfigService>()));
-builder.Services.AddSingleton(x=> new BirthdayAnimeService(x.GetRequiredService<GuildConfigService>()));
+                                                        x.GetRequiredService<GuildConfigService>(),
+                                                        x.GetRequiredService<GuildLoggingService>()));
+
+builder.Services.AddSingleton(x => new BirthdayAnimeService(x.GetRequiredService<GuildConfigService>(),
+                                                            x.GetRequiredService<BooruService>(),
+                                                            x.GetRequiredService<DiscordChatService>(),
+                                                            x.GetRequiredService<GuildLoggingService>()));
 
 var app = builder.Build();
 

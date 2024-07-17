@@ -10,14 +10,30 @@ namespace DiscordBot.Modules.GuildConfig
 
         protected override string ModuleJson => "guildConfig";
 
-        public List<GuildConfigRecord> GetGuildConfig(ulong guildId)
+        private List<GuildConfigRecord> GetGuildConfig(ulong guildId)
             => GetGuildData(guildId);
+
+        public object? GetGuildConfigValue(ulong guildId, string configId)
+        {
+            var guildConfig = GetGuildConfig(guildId)
+                                .Where(x => x.Key == configId)
+                                .FirstOrDefault()
+                                ?? null;
+
+            if (guildConfig is null)
+                return null;
+
+            return guildConfig.Value;            
+        }
 
         public Dictionary<ulong, List<GuildConfigRecord>> GetAllGuildsData()
         => moduleData;
         
         public void SaveConfig(ulong guildId, GuildConfigRecord configRecord)
         {
+            if (!moduleData.ContainsKey(guildId))
+                moduleData.Add(guildId, []);
+
             moduleData[guildId].Add(configRecord);
             SynchronizeJson();
         }

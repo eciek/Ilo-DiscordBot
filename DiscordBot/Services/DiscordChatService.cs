@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DiscordBot.Services;
 
-namespace DiscordBot.Services
+public class DiscordChatService
 {
-    public class DiscordChatService
+    private readonly DiscordSocketClient _socketClient;
+
+    public DiscordChatService(DiscordSocketClient socketClient)
     {
-        private readonly DiscordSocketClient _socketClient;
+        _socketClient = socketClient;
+    }
 
-        public DiscordChatService(DiscordSocketClient socketClient)
+    public async Task SendMessage(ulong channelId, string message, Embed? embed = null, Embed[]? embeds = null)
+    {
+        if (_socketClient.GetChannel(channelId) is not SocketTextChannel channel)
         {
-            _socketClient = socketClient;
+            throw new ArgumentException($"Could not find TestChannel with given ID:[{channelId}]");
         }
-
-        public async Task SendMessage(ulong channelId, string message, Embed? embed = null) 
-        {
-            if (_socketClient.GetChannel(channelId) is not SocketTextChannel channel)
-            {
-                throw new ArgumentException($"Could not find TestChannel with given ID:[{channelId}]");
-            }
-            await channel.SendMessageAsync(text: message, embed:embed);
-        }
+        await channel.SendMessageAsync(text: message, embed: embed, embeds: embeds);
     }
 }
