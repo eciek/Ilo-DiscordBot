@@ -11,7 +11,7 @@ namespace DiscordBot.Modules.RaiderIO
         public RaiderIOService RaiderIOService { get; set; }
         public AntiSpamService AntiSpamService { get; set; }
 
-        //[SlashCommand("score", "Pokaż score danej postaci")]
+        [SlashCommand("score", "Pokaż score danej postaci")]
         public async Task ScoreSend([Name("Nazwapostaci")][MinLength(2)] string charName, [Name("Nazwaserwera")][MinLength(4)] string realmName)
         {
             if (AntiSpamService._blockedUsers.Contains((long)Context.User.Id))
