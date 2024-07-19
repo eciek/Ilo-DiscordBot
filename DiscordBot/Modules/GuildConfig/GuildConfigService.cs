@@ -8,12 +8,12 @@ namespace DiscordBot.Modules.GuildConfig
 
         protected override string ModulePath => "!config";
 
-        protected override string ModuleJson => "guildConfig";
+        protected override string ModuleJson => "guildConfig.json";
 
         private List<GuildConfigRecord> GetGuildConfig(ulong guildId)
             => GetGuildData(guildId);
 
-        public object? GetGuildConfigValue(ulong guildId, string configId)
+        public string? GetGuildConfigValue(ulong guildId, string configId)
         {
             var guildConfig = GetGuildConfig(guildId)
                                 .Where(x => x.Key == configId)
@@ -23,12 +23,22 @@ namespace DiscordBot.Modules.GuildConfig
             if (guildConfig is null)
                 return null;
 
-            return guildConfig.Value;            
+            return (string)guildConfig.Value;
         }
+
+        /// <summary>
+        /// returns 0 when not found
+        /// </summary>
+        /// <param name="guildId"></param>
+        /// <param name="configId"></param>
+        /// <returns></returns>
+        public ulong GetGuildConfigValueAsUlong(ulong guildId, string configId)
+            => ulong.Parse(GetGuildConfigValue(guildId, configId) ?? "0");
+
 
         public Dictionary<ulong, List<GuildConfigRecord>> GetAllGuildsData()
         => moduleData;
-        
+
         public void SaveConfig(ulong guildId, GuildConfigRecord configRecord)
         {
             if (!moduleData.ContainsKey(guildId))

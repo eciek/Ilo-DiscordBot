@@ -41,11 +41,13 @@ public class Anime
         string animeUrlTemplate = "https://gogocdn.net/cover/{0}.png";
         string gogoanimeUrl = "https://gogoanime3.co/";
 
-        EmbedBuilder builder = new EmbedBuilder();
-        builder.Title = $"Jest Nowy odcinek {Name}";
-        builder.ImageUrl = string.Format(animeUrlTemplate, Name!.GenerateSlug());
-        builder.Color = 0x00FFFF;
-        builder.Description = GetUserMentions();
+        EmbedBuilder builder = new()
+        {
+            Title = $"Jest Nowy odcinek {Name}",
+            ImageUrl = string.Format(animeUrlTemplate, Name!.GenerateSlug()),
+            Color = 0x00FFFF,
+            Description = GetUserMentions()
+        };
 
         ActionRowBuilder actionRowBuilder = new ActionRowBuilder()
             .WithButton(label: "Nyaa", url: Url, style: ButtonStyle.Link)
@@ -64,7 +66,7 @@ public class Anime
 
     public string GetUpdateMessage()
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         sb.AppendLine($"Jest Nowy odcinek {Name}!");
         sb.AppendLine(GetUserMentions());
         sb.AppendLine("");

@@ -1,11 +1,8 @@
 ﻿using Discord.Commands;
 using DiscordBot.Models;
 using DiscordBot.Modules.AnimeFeed.Models;
-using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
-using Serilog;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace DiscordBot.Modules.AnimeFeed;
@@ -16,18 +13,22 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     private readonly AnimeListService _animeListService;
     private readonly TimerService _timerService;
     private readonly GuildLoggingService _guildLogging;
+    private readonly ILogger<AnimeFeedModule> _logger;
     private const int _jobInterval = 1;
 
     public AnimeFeedModule(
         AnimeFeedService animeFeedService,
         AnimeListService animeListService,
         TimerService timerService,
-        GuildLoggingService guildLogging)
+        GuildLoggingService guildLogging,
+        ILogger<AnimeFeedModule> logger
+        )
     {
         _animeFeedService = animeFeedService;
         _animeListService = animeListService;
         _timerService = timerService;
         _guildLogging = guildLogging;
+        _logger = logger;
 
         TimerJob animeFeedJob = new(nameof(animeFeedJob), _jobInterval, TimerJobTiming.NowAndRepeatOnInterval, Update);
         _timerService.RegisterJob(animeFeedJob);
@@ -39,15 +40,48 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
         Anime foundAnime;
         try
         {
-            foundAnime = await _animeFeedService.MatchAnime(anime);
+            foundAnime = _animeFeedService.MatchAnime(anime);
+        }
+        catch (InvalidOperationException ex)
+        {
+            string msg = $"Znalazłam kilka pasujących anime do twojego opisu: \n" +
+                $"{ex.Message}" +
+                " Które Cie interesuje?";
+
+            _logger.LogInformation("AnimeFeed.AnimeAdd: Query {query} gave out multiple results: \n {anime}", anime, ex.Message);
+            await RespondAsync(msg, ephemeral: true);
+            return;
+        }
+        catch (ArgumentNullException)
+        {
+            string msg = "Nie wiem o które anime Ci chodzi. Czy pojawił się już chociaż jeden odcinek?";
+
+            _logger.LogInformation("AnimeFeed.AnimeAdd: Query {query} gave out no results.", anime);
+            await RespondAsync(msg, ephemeral: true);
+            return;
         }
         catch (Exception ex)
         {
-            await RespondAsync(ex.Message, ephemeral: true);
+            
+            _logger.LogError("AnimeFeed.AnimeAdd: Unhandled exception:\n{ex}", ex.Message);
+            _guildLogging.GuildLog(Context.Guild.Id, string.Format($"AnimeFeed.AnimeAdd: Unhandled exception:\n {ex.Message}"));
+
+            await RespondAsync("Przepraszam, coś się popsuło (˃̣̣̥∩˂̣̣̥)",ephemeral:true);
             return;
         }
 
-        _animeListService.AddAnimeSubscriber(Context.Guild.Id, Context.User.Id, foundAnime);
+        try
+        {
+            _animeListService.AddAnimeSubscriber(Context.Guild.Id, Context.User.Id, foundAnime);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("AnimeListService.AddAnimeSubscriber: Unhandled exception:\n{ex}", ex.Message);
+            _guildLogging.GuildLog(Context.Guild.Id, string.Format($"AnimeListService.AddAnimeSubscriber: Unhandled exception:\n {ex.Message}"));
+
+            await RespondAsync("Przepraszam, coś się popsuło (˃̣̣̥∩˂̣̣̥)", ephemeral: true);
+            return;
+        }
 
         await RespondAsync($"Dodałam Cię do listy {foundAnime.Name}!", ephemeral: true);
     }
@@ -55,34 +89,48 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     [SlashCommand("anime-usuń", "Usuń z listy wołania na nowy odcinek anime")]
     public async Task AnimeDelete([Optional][Name("Nazwa Anime")][MinLength(4)] string anime)
     {
-        Anime foundAnime;
-        try
+        if (!String.IsNullOrEmpty(anime))
         {
-            foundAnime = await _animeFeedService.MatchAnime(anime);
-        }
-        catch (Exception)
-        {
+            Anime foundAnime;
             try
             {
-                var userAnimeList = _animeListService.GetUserAnimeList(Context.Guild.Id, Context.User.Id);
-
-                string errmsg = "O to anime które obserwujesz: \n"
-                    + string.Join(",\n", userAnimeList)
-                    + ".\n\n" + "Wybierz właściwą nazwę!";
-                await RespondAsync(errmsg, ephemeral: true);
+                foundAnime = _animeFeedService.MatchAnime(anime);
+            }
+            catch (InvalidOperationException ex)
+            {
+                string msg = "Oto anime które obserwujesz: \n" +
+                    $"{ex.Message}\n" +
+                    "Wybierz właściwą nazwę!";
+                await RespondAsync(msg, ephemeral: true);
                 return;
             }
-            // This exception covers GetUserAnimeList messages
+            catch (KeyNotFoundException)
+            {
+                string msg = "Nie znalazłam żadnego pasującego anime, które obserwujesz.\n" +
+                    "Użyj /anime-usuń bez podawania nazwy by usunąć wszystkie obserwujące anime!";
+
+                await RespondAsync(msg, ephemeral: true);
+                return;
+            }
             catch (Exception ex)
             {
-                await RespondAsync(ex.Message, ephemeral: true);
+                _logger.LogError("AnimeFeed.AnimeDelete: Unhandled exception:\n{ex}", ex.Message);
+                _guildLogging.GuildLog(Context.Guild.Id, string.Format($"AnimeFeed.AnimeDelete: Unhandled exception:\n {ex.Message}"));
+
+                await RespondAsync("Przepraszam, coś się popsuło (˃̣̣̥∩˂̣̣̥)", ephemeral: true);
                 return;
             }
-        }
 
-        _animeListService.RemoveAnimeSubscriber(Context.Guild.Id, Context.User.Id, foundAnime);
-        await RespondAsync($"Już nie obserwujesz {foundAnime.Name}. \n" +
-            $"Co Ci się nie spodobało w tym anime?", ephemeral: true);
+            _animeListService.RemoveAnimeSubscriber(Context.Guild.Id, Context.User.Id, foundAnime);
+            await RespondAsync($"Już nie obserwujesz {foundAnime.Name}. \n" +
+                $"Co Ci się nie spodobało w tym anime?", ephemeral: true);
+        }
+        // Remove user from all anime lists
+        else
+        {
+            _animeListService.RemoveAnimeSubscriber(Context.Guild.Id, Context.User.Id);
+            await RespondAsync($"Już nie obserwujesz żadnego anime!", ephemeral:true);
+        }
         return;
     }
 
@@ -92,11 +140,11 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
         try
         {
             await _animeFeedService.UpdateAnimeFeedAsync();
-            animeList = _animeFeedService.GetAnimeList();            
+            animeList = _animeFeedService.GetAnimeList();
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);            
+            _logger.LogCritical("AnimeFeed.Update: Unhandled exception:\n{ex}", ex.Message);
         }
 
         await _animeListService.UpdateAnimeList(animeList);
@@ -105,6 +153,6 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     [ComponentInteraction("animeFeed")]
     public static void AnimeFeed()
     {
-        
+
     }
 }

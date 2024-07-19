@@ -1,4 +1,5 @@
 ﻿using DiscordBot.Models;
+using System.Runtime.CompilerServices;
 using System.Timers;
 
 namespace DiscordBot.Services;
@@ -12,6 +13,7 @@ public enum TimerJobTiming
 
 public class TimerService
 {
+    private readonly ILogger<TimerService> _logger;
     private readonly System.Timers.Timer _timer;
 
     double _minutes;
@@ -19,8 +21,10 @@ public class TimerService
 
     readonly List<TimerJob> _timerJobs;
 
-    public TimerService()
+    public TimerService(ILogger<TimerService> logger)
     {
+        _logger = logger;
+
         _timer = new()
         {
             // 1 minute
@@ -35,7 +39,7 @@ public class TimerService
         _minutes = double.Floor(DateTime.Now.TimeOfDay.TotalMinutes);
         _timerJobs = [];
 
-        Console.WriteLine($"Timer Started! [Day:{_today.Date} ] [minute: {_minutes}]");
+        _logger.LogInformation("Timer Started! [Day:{Date} ] [minute: {minutes}]",_today.Date, _minutes);
     }
 
     public void RegisterJob(TimerJob job)
@@ -43,7 +47,7 @@ public class TimerService
         if (_timerJobs.Where(x => x.Name == job.Name).Any() == false)
         {
             _timerJobs.Add(job);
-            Console.WriteLine($"TimerJob [{job.Name}] Registered! Executing in [{job.Interval}] minutes");
+            _logger.LogInformation("\"TimerJob [{Name}] Registered! Executing in [{Interval}] minutes\"", job.Name, job.Interval);
         }
     }
 

@@ -1,60 +1,60 @@
-﻿using DiscordBot.Models;
-using DiscordBot.Modules.AnimeFeed.Models;
-using DiscordBot.Services;
+﻿using DiscordBot.Modules.AnimeFeed.Models;
 using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace DiscordBot.Modules.AnimeFeed;
 
-public partial class AnimeFeedService
+public partial class AnimeFeedService()
 {
     private const string _subsPleaseUrl = @"https://nyaa.si/?page=rss&q=%5BSubsPlease%5D+1080&c=1_2&f=0";
     private const string _nyaaSiiFilter = @"\[(.*)\] (.*) - (.\d+(?:[\.\,]\d{1,2})?) \(1080p\)";
     private const string _nyaaSiiIdFilter = @"https:\/\/nyaa\.si\/view\/(\d*)";
 
-    private readonly HttpClient _httpClient;
-    private List<Anime> _animeList;
+    private readonly HttpClient _httpClient = new();
 
-    public AnimeFeedService()
-    {
-        _httpClient = new HttpClient();
-        _animeList = [];
-    }
+    private List<Anime> _animeList = [];
 
-    public async Task UpdateAnimeFeedAsync( CancellationToken ct = default)
+    public async Task UpdateAnimeFeedAsync(CancellationToken ct = default)
     {
         var nyaaXml = await GetSubsXML(ct);
-        _animeList = [.. ParseFromXml(nyaaXml).OrderByDescending(x => x.Id).DistinctBy(x=>x.Name)];
+        try
+        {
+            _animeList = [.. ParseFromXml(nyaaXml)
+                .OrderByDescending(x => x.Id)
+                .DistinctBy(x => x.Name)];
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"AnimeFeedService.ParseFromXml: Failed to deserialize XML!:\n{ex.Message}");
+        }
     }
 
     public IEnumerable<Anime> GetAnimeList() =>
         _animeList;
 
-    public async Task<Anime> MatchAnime(string query)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException">Found multiple matching anime</exception>
+    /// <exception cref="KeyNotFoundException">Failed to find matching anime</exception>
+    public Anime MatchAnime(string query)
     {
         try
         {
-            var anime = _animeList.SingleOrDefault(x => x.Name!.Contains(query, StringComparison.CurrentCultureIgnoreCase)) ?? throw new Exception();
+            var anime = _animeList.Single(x => x.Name!.Contains(query, StringComparison.CurrentCultureIgnoreCase));
 
             return anime;
 
         }
-        catch(InvalidOperationException)
+        catch (InvalidOperationException)
         {
-            var animeNames = _animeList.Where(x => x.Name!.Contains(query,StringComparison.CurrentCultureIgnoreCase)).Select(x=> x.Name).ToArray();
+            var animeNames = _animeList.Where(x => x.Name!.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(x => x.Name).ToArray();
 
-            string errMsg = "Znalazłam kilka pasujących anime do twojego opisu:\n" +
-                String.Join(",\n", animeNames) + ".\n"+"Które Cie interesuje?";
+            string errMsg = String.Join(",\n", animeNames);
 
-            throw new Exception(errMsg);
-        }
-        catch (Exception)
-        {
-            // update anime list and try again, just to be sure
-            await UpdateAnimeFeedAsync();
-            var anime = _animeList.FirstOrDefault(x => x.Name!.Contains(query, StringComparison.CurrentCultureIgnoreCase));
-
-            return anime ?? throw new Exception("Nie wiem o które anime Ci chodzi. Czy pojawił się już chociaż jeden odcinek?");
+            throw new InvalidOperationException(errMsg);
         }
     }
 
@@ -72,13 +72,12 @@ public partial class AnimeFeedService
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
-            throw;
+            throw new Exception($"AnimeFeedService.GetSubsXML:\n Error on downloading anime list from SubsPlease!:\n {ex.Message}");
         }
         return xmlDoc;
     }
-    
-    private static List<Anime> ParseFromXml(XmlDocument xmlDoc) 
+
+    private static List<Anime> ParseFromXml(XmlDocument xmlDoc)
     {
         List<Anime> animeList = [];
         XmlNode rootNode = xmlDoc.DocumentElement!;
@@ -94,6 +93,12 @@ public partial class AnimeFeedService
 
             var idRegex = NyaaIdRegex();
             Match idMatch = idRegex.Match(node["guid"]!.InnerText);
+
+            if (match.Groups.Count < 4)
+            {
+                // batch release is without episode number, ignore them
+                continue;
+            }
 
             Anime anime = new()
             {

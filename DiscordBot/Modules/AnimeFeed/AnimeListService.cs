@@ -11,17 +11,20 @@ public class AnimeListService : ServiceWithJsonData<Anime>
     private readonly DiscordChatService _chatService;
     private readonly GuildConfigService _guildConfigService;
     private readonly GuildLoggingService _guildLoggingService;
+    private readonly ILogger<AnimeListService> _logger;
 
     private bool _contentChanged = false;
 
     public AnimeListService(
             DiscordChatService chatService,
             GuildConfigService guildConfigService,
-            GuildLoggingService guildLoggingService)
+            GuildLoggingService guildLoggingService,
+            ILogger<AnimeListService> logger)
     {
         _chatService = chatService;
         _guildConfigService = guildConfigService;
         _guildLoggingService = guildLoggingService;
+        _logger = logger;
 
         _guildConfigService.Components.Add(BuildConfig);
     }
@@ -32,41 +35,34 @@ public class AnimeListService : ServiceWithJsonData<Anime>
 
     public async Task UpdateAnimeList(IEnumerable<Anime> animeList)
     {
-        foreach (var guild in moduleData)
+        foreach (var guildData in moduleData)
         {
             try
             {
-                ulong weebChannelId = ulong.Parse((string?) _guildConfigService.GetGuildConfigValue(guild.Key, ModulePath) ?? "0") ;
+                ulong weebChannelId = _guildConfigService.GetGuildConfigValueAsUlong(guildData.Key, ModulePath);
+                if (weebChannelId == 0)
+                    { continue; }
 
-
-                foreach (var guildAnime in guild.Value)
+                foreach (var guildAnimeList in guildData.Value)
                 {
-                    var anime = animeList.Where(x => x.Equals(guildAnime)).FirstOrDefault();
+                    var anime = animeList.Where(x => x.Equals(guildAnimeList)).FirstOrDefault();
 
-                    if (anime is null || guildAnime.Episode == anime.Episode)
+                    if (anime is null || guildAnimeList.Episode == anime.Episode)
                         continue;
 
-                    guildAnime.Episode = anime.Episode;
-                    guildAnime.Url = anime.Url;
-                    guildAnime.Id = anime.Id;
+                    guildAnimeList.Episode = anime.Episode;
+                    guildAnimeList.Url = anime.Url;
+                    guildAnimeList.Id = anime.Id;
 
-                    if ((guildAnime.Subscribers ?? []).Count > 0 && weebChannelId > 0)
-                        await _chatService.SendMessage(weebChannelId, guildAnime.GetUpdateMessage());
+                    if ((guildAnimeList.Subscribers ?? []).Count > 0 && weebChannelId > 0)
+                        await _chatService.SendMessage(weebChannelId, guildAnimeList.GetUpdateMessage());
                     _contentChanged = true;
                 }
             }
             catch (Exception ex)
-            {
-                if (ex is IloException iloEx)
-                {
-                    Console.WriteLine(guild.Key + ":" + ex.Message);
-                    _guildLoggingService.GuildLog(guild.Key, iloEx.Message, iloEx.ToEmbed());
-                }
-                else
-                {
-                    Console.WriteLine(guild.Key + ":" + ex.Message);
-                    _guildLoggingService.GuildLog(guild.Key, ex.Message);
-                }
+            {   
+                _logger.LogError("AnimeListService.UpdateAnimeList: Unhandled excepption: \n {ex}", ex.Message);
+                _guildLoggingService.GuildLog(guildData.Key, $"AnimeListService.UpdateAnimeList: Unhandled exception \n {ex.Message}");               
             }
         }
 
@@ -78,7 +74,9 @@ public class AnimeListService : ServiceWithJsonData<Anime>
     {
         List<Anime> guildAnimeList = GetGuildData(guildId);
 
-        var listEntry = guildAnimeList.Where(x => x.Equals(anime)).FirstOrDefault();
+        var listEntry = guildAnimeList
+            .Where(x => x.Equals(anime))
+            .FirstOrDefault();
 
         if (listEntry is null)
         {
@@ -96,34 +94,19 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         }
     }
 
-    public void RemoveAnimeSubscriber(ulong guildId, ulong userId, Anime anime)
+    public void RemoveAnimeSubscriber(ulong guildId, ulong userId, Anime? anime = null)
     {
-        var listEntry = GetGuildData(guildId)
-                        .Where(x => x.Equals(anime))
-                        .FirstOrDefault();
+        foreach (var listEntry in GetGuildData(guildId)
+            .Where(x => anime is not null && x.Equals(anime)))
+        {
+            if (listEntry is null ||
+                listEntry.Subscribers is null ||
+                !listEntry.Subscribers.Contains(userId))
+                continue;
 
-        if (listEntry is null ||
-            listEntry.Subscribers is null ||
-            !listEntry.Subscribers.Contains(userId))
-            return;
-
-        listEntry.Subscribers.Remove(userId);
-        _contentChanged = true;
-    }
-
-    public IEnumerable<string?> GetUserAnimeList(ulong guildId, ulong userId)
-    {
-        List<Anime> guildAnimeList = GetGuildData(guildId);
-
-        var userAnimeList = guildAnimeList.Where(x => x.Subscribers is not null
-                                           && x.Subscribers.Contains(userId))
-                                          .Select(x => x.Name)
-                                          .ToList()
-                                          .DefaultIfEmpty();
-
-        return userAnimeList is null
-            ? throw new Exception("Ty Pajacu! Nie obserwujesz żadnego anime!")
-            : userAnimeList;
+            listEntry.Subscribers.Remove(userId);
+            _contentChanged = true;
+        }
     }
 
     private static ComponentBuilder BuildConfig(ComponentBuilder builder, SocketInteractionContext context)

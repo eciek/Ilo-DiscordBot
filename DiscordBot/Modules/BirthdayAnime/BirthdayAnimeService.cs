@@ -115,6 +115,7 @@ public class BirthdayAnimeService
         foreach (var guildId in GetUnlockedGuilds())
         {
             bool hasGuildError = hasError;
+            var guildErrMsgBuilder = errMsgBuilder;
             try
             {
                 var channelId = GetBirthdayChannel(guildId);
@@ -122,19 +123,17 @@ public class BirthdayAnimeService
             }
             catch (Exception e)
             {
-                errMsgBuilder.AppendLine($"SendMessage:\n{msgBuilder.ToString()}\n"
+                guildErrMsgBuilder.AppendLine($"SendMessage:\n{msgBuilder}\n"
                 + e.Message);
                 hasGuildError = true;
             }
             if (hasGuildError)
-                _loggingService.GuildLog(guildId, errMsgBuilder.ToString());
+                _loggingService.GuildLog(guildId, guildErrMsgBuilder.ToString());
         }
     }
 
     private ulong GetBirthdayChannel(ulong guildId)
-        => (ulong?)_guildConfigService
-        .GetGuildConfigValue(guildId, _birthdayChannelConfigId)
-        ?? 0;
+        => _guildConfigService.GetGuildConfigValueAsUlong(guildId, _birthdayChannelConfigId);
 
     private ulong[] GetUnlockedGuilds()
         => _guildConfigService

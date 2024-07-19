@@ -3,17 +3,15 @@ global using Discord.Interactions;
 global using Discord.WebSocket;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.Logging;
-using DiscordBot.Modules.AnimeFeed;
-using DiscordBot.Modules.AntiSpam;
 using DiscordBot.Modules.AnimeBirthdays;
+using DiscordBot.Modules.AnimeFeed;
 using DiscordBot.Modules.GuildConfig;
-using DiscordBot.Modules.RaiderIO;
+using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Modules.Tarot;
 using DiscordBot.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using DiscordBot.Modules.GuildLogging;
 
 var builder = new HostApplicationBuilder(args);
 
@@ -49,17 +47,17 @@ builder.Services.AddHostedService<DiscordBotService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<DiscordChatService>();
 builder.Services.AddSingleton<InteractionHandler>();
-builder.Services.AddSingleton<BooruService>();
 builder.Services.AddSingleton(x => new GuildLoggingService(x.GetRequiredService<GuildConfigService>(),
                                                            x.GetRequiredService<DiscordChatService>()));
 
+builder.Services.AddSingleton<BooruService>();
 builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
-builder.Services.AddSingleton<AntiSpamService>();
 
 builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),
                                                         x.GetRequiredService<GuildConfigService>(),
-                                                        x.GetRequiredService<GuildLoggingService>()));
+                                                        x.GetRequiredService<GuildLoggingService>(),
+                                                        x.GetRequiredService<ILogger<AnimeListService>>()));
 
 builder.Services.AddSingleton(x => new BirthdayAnimeService(x.GetRequiredService<GuildConfigService>(),
                                                             x.GetRequiredService<BooruService>(),

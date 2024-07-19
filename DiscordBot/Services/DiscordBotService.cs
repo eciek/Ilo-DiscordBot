@@ -17,10 +17,8 @@ public class DiscordBotService(
         var sconfig = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
-        BotConfig botConfig = new()
-        { token = sconfig.GetValue<string>("BotConfig:token") ?? throw new Exception("appsettings.json is not specified properly!") };
-
-        if (String.IsNullOrEmpty(botConfig.token))
+        var token = sconfig.GetValue<string>("BotConfig:token") ?? throw new Exception("appsettings.json is not specified properly!");
+        if (String.IsNullOrEmpty(token))
             throw new Exception("BotConfig:token is missing!");
 
         client.Ready += ClientReady;
@@ -32,7 +30,7 @@ public class DiscordBotService(
         interactions.Log += LogAsync;
 
         return interactionHandler.InitializeAsync()
-            .ContinueWith(t => client.LoginAsync(TokenType.Bot, botConfig.token), ct)
+            .ContinueWith(t => client.LoginAsync(TokenType.Bot, token), ct)
             .ContinueWith(t => client.StartAsync(), ct);
     }
 
@@ -65,11 +63,11 @@ public class DiscordBotService(
             _ => LogLevel.Information
         };
 
-        logger.Log(severity, msg.Exception, msg.Message);
+        logger.Log(severity, "DiscordChatService Exception {Exception}\nMessage: {message}", msg.Exception, msg.Message);
         return Task.CompletedTask;
     }
 
-    private async Task ConfigHandler(SocketMessageComponent component)
+    private Task ConfigHandler(SocketMessageComponent component)
     {
         var guildId = component.GuildId is null
             ? 0
@@ -78,6 +76,8 @@ public class DiscordBotService(
         var value = component.Data.Values.FirstOrDefault() ?? "0";
 
         var record = new GuildConfigRecord(component.Data.CustomId, value);
-        configBotService.SaveConfig(guildId, record);        
+        configBotService.SaveConfig(guildId, record);
+
+        return Task.CompletedTask;
     }
 }
