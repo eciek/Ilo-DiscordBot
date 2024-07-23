@@ -58,5 +58,12 @@ namespace DiscordBot.Modules.GuildConfig
 
             SynchronizeJson();
         }
+
+        public void RemoveGuildConfig(ulong guildId)
+        {
+            moduleData.Remove(guildId);
+            SynchronizeJson();
+            Directory.Delete(Path.Combine(_dataRoot, guildId.ToString()), true);
+        }
     }
 }

@@ -25,6 +25,7 @@ public class DiscordBotService(
         client.Log += LogAsync;
         client.ButtonExecuted += ConfigHandler;
         client.SelectMenuExecuted += ConfigHandler;
+        client.LeftGuild += OnGuildLeave;
 
         interactions.Log += LogAsync;
 
@@ -44,9 +45,17 @@ public class DiscordBotService(
 
     private async Task ClientReady()
     {
+
         logger.LogInformation("Logged as {User}", client.CurrentUser);
-        await interactions.RegisterCommandsGloballyAsync(deleteMissing: true);        
+        await interactions.RegisterCommandsGloballyAsync(deleteMissing: true);
         //await interactions.RegisterCommandsToGuildAsync(1209180343714971739, true);
+
+        // clear config from discarded guilds
+        foreach (var configId in configBotService.GetAllGuilds())
+        {
+            if (!client.Guilds.Any(x => x.Id == configId))
+                    configBotService.RemoveGuildConfig(configId);
+        }
     }
 
 
@@ -64,6 +73,12 @@ public class DiscordBotService(
         };
 
         logger.Log(severity, "DiscordChatService Exception {Exception}\nMessage: {message}", msg.Exception, msg.Message);
+        return Task.CompletedTask;
+    }
+
+    private Task OnGuildLeave(SocketGuild guild)
+    {
+        configBotService.RemoveGuildConfig(guild.Id);
         return Task.CompletedTask;
     }
 
