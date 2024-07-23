@@ -1,4 +1,5 @@
-﻿using DiscordBot.Modules.AnimeFeed.Models;
+﻿using DiscordBot.Helpers;
+using DiscordBot.Modules.AnimeFeed.Models;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -106,6 +107,7 @@ public partial class AnimeFeedService()
                 Name = match.Groups[2].Value,
                 Url = node["guid"]!.InnerText,
                 Id = Int32.Parse(idMatch.Groups[1].Value),
+                BooruName = match.Groups[2].Value.TrimmedName()
             };
 
             if (String.IsNullOrWhiteSpace(anime.Name))

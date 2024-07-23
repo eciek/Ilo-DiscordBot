@@ -1,12 +1,4 @@
-﻿using Discord.Net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SixLabors.ImageSharp;
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace DiscordBot.Services;
 public class BooruService
@@ -73,12 +65,12 @@ public class BooruService
 
         List<string> localImages = [];
 
-        foreach (var imageUrl in imageUrls) 
+        foreach (var imageUrl in imageUrls)
         {
             var img = await SaveImage(imageUrl);
             localImages.Add(img);
         }
-        
+
         return localImages;
     }
 
@@ -88,7 +80,7 @@ public class BooruService
 
         var resp = await _httpClient.GetAsync(imageUrl);
         var imageBytes = await resp.Content.ReadAsByteArrayAsync();
-        if(!Directory.Exists(CachePath))
+        if (!Directory.Exists(CachePath))
             Directory.CreateDirectory(CachePath);
         await File.WriteAllBytesAsync(imagePath, imageBytes);
 
@@ -101,13 +93,13 @@ public class BooruService
 
         string regexFilter = @"""type"":""original"",""url*"":""([^""]*)""";
 
-        Regex regex = new(regexFilter,RegexOptions.Compiled);
-        
+        Regex regex = new(regexFilter, RegexOptions.Compiled);
+
         foreach (Match match in regex.Matches(jsonResp).Cast<Match>())
         {
             result.Add(match.Groups[1].Value);
             ;
-        }        
+        }
 
         return result;
     }

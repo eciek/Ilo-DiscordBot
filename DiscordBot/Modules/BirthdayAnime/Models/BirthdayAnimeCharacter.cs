@@ -1,4 +1,6 @@
-﻿namespace DiscordBot.Modules.AnimeBirthdays.Models;
+﻿using DiscordBot.Helpers;
+
+namespace DiscordBot.Modules.AnimeBirthdays.Models;
 
 public class BirthdayAnimeCharacter
 {
@@ -14,13 +16,9 @@ public class BirthdayAnimeCharacter
             return $"{Name} {Surname} ({Series})";
     }
 
-    private string GetSeriesSlug()
-        => (Series ?? string.Empty).Trim().Replace(" ", "_");
-
-
     public string ToNameSurnameBooruSlug()
-        => $"{Name}_{Surname}".Trim().Replace(" ", "_") + $" ({GetSeriesSlug()})";
-
+        => $"{Name} {Surname}".ToBooruSlug() + $" ({Series.ToBooruSlug()})";
+     
     public string ToSurnameNameBooruSlug()
-        => $"{Surname}_{Name}".Trim().Replace(" ", "_") + $" ({GetSeriesSlug()})";
+        => $"{Surname} {Name}".ToBooruSlug() + $" ({Series.ToBooruSlug()})";
 }

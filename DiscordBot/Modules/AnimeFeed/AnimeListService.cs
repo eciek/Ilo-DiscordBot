@@ -1,6 +1,6 @@
-﻿using DiscordBot.Modules.AnimeFeed.Models;
+﻿using DiscordBot.Helpers;
+using DiscordBot.Modules.AnimeFeed.Models;
 using DiscordBot.Modules.GuildConfig;
-using DiscordBot.Modules.GuildConfig.Models;
 using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
 
@@ -11,6 +11,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
     private readonly DiscordChatService _chatService;
     private readonly GuildConfigService _guildConfigService;
     private readonly GuildLoggingService _guildLoggingService;
+    private readonly BooruService _booruService;
     private readonly ILogger<AnimeListService> _logger;
 
     private bool _contentChanged = false;
@@ -19,11 +20,13 @@ public class AnimeListService : ServiceWithJsonData<Anime>
             DiscordChatService chatService,
             GuildConfigService guildConfigService,
             GuildLoggingService guildLoggingService,
+            BooruService booruService,
             ILogger<AnimeListService> logger)
     {
         _chatService = chatService;
         _guildConfigService = guildConfigService;
         _guildLoggingService = guildLoggingService;
+        _booruService = booruService;
         _logger = logger;
 
         _guildConfigService.AddConfigComponent(AnimeListBuilder);
@@ -47,7 +50,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
                 {
                     var anime = animeList.Where(x => x.Equals(guildAnimeList)).FirstOrDefault();
 
-                    if (anime is null || guildAnimeList.Episode == anime.Episode)
+                    if (anime is null || guildAnimeList.Name is null || guildAnimeList.Episode == anime.Episode)
                         continue;
 
                     guildAnimeList.Episode = anime.Episode;
@@ -55,7 +58,27 @@ public class AnimeListService : ServiceWithJsonData<Anime>
                     guildAnimeList.Id = anime.Id;
 
                     if ((guildAnimeList.Subscribers ?? []).Count > 0 && weebChannelId > 0)
-                        await _chatService.SendMessage(weebChannelId, guildAnimeList.GetUpdateMessage());
+                    {
+                        List<FileAttachment> attachments = [];
+                        string animeNameSlug = guildAnimeList.BooruName.ToBooruSlug();
+                        var animeImages = await _booruService.GetBooruImageAsync(animeNameSlug);
+
+                        if (!animeImages.Any())
+                        {
+                            _guildLoggingService.GuildLog(guildData.Key, $"Nie znaleziono żadnych artów dla anime {guildAnimeList.Name}. Czy to anime posiada alternatywny tytuł?");
+                        }
+                        else
+                        {
+                            attachments.AddRange(
+                                animeImages
+                                .OrderBy(x => Guid.NewGuid())
+                                .Take(2)
+                                .Select(x => new FileAttachment(x))
+                                .ToArray());
+                        }
+
+                        await _chatService.SendFiles(weebChannelId, guildAnimeList.GetUpdateMessage(), [.. attachments]);
+                    }
                     _contentChanged = true;
                 }
             }
@@ -70,7 +93,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
             SynchronizeJson();
     }
 
-    public void AddAnimeSubscriber(ulong guildId, ulong userId, Anime anime)
+    public void AddAnimeSubscriber(ulong guildId, ulong userId, Anime anime, string note)
     {
         List<Anime> guildAnimeList = GetGuildData(guildId);
 
@@ -85,12 +108,26 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         }
 
         listEntry.Subscribers ??= [];
+        listEntry.Notes ??= [];
+
+        listEntry.Notes.Add(note);
 
         // check if user is already on the list
         if (!listEntry.Subscribers.Contains(userId))
         {
             listEntry.Subscribers.Add(userId);
             _contentChanged = true;
+        }
+    }
+
+    public void SetAlternateNameForAnime(Anime anime, string alternateName)
+    {
+        foreach (var guildData in moduleData.Values)
+        {
+            var guildAnime = guildData.Where(x => x.Name == anime.Name).FirstOrDefault();
+
+            if (guildAnime is not null)
+                guildAnime.BooruName = alternateName;
         }
     }
 

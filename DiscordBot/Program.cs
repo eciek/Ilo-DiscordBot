@@ -57,6 +57,7 @@ builder.Services.AddSingleton<AnimeFeedService>();
 builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),
                                                         x.GetRequiredService<GuildConfigService>(),
                                                         x.GetRequiredService<GuildLoggingService>(),
+                                                        x.GetRequiredService<BooruService>(),
                                                         x.GetRequiredService<ILogger<AnimeListService>>()));
 
 builder.Services.AddSingleton(x => new BirthdayAnimeService(x.GetRequiredService<GuildConfigService>(),

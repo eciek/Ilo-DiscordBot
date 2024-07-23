@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DiscordBot.Services;
 
@@ -28,7 +29,7 @@ public class InteractionHandler(DiscordSocketClient client, InteractionService i
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, ex.Message);
+            logger.LogError("{error}", ex.Message);
         }
     }
 
@@ -44,31 +45,31 @@ public class InteractionHandler(DiscordSocketClient client, InteractionService i
         switch (result.Error)
         {
             case InteractionCommandError.UnmetPrecondition:
-                logger.LogInformation($"Unmet precondition - {result.Error}");
+                logger.LogInformation("Unmet precondition - {error}",result.Error);
                 break;
 
             case InteractionCommandError.BadArgs:
-                logger.LogInformation($"Unmet precondition - {result.Error}");
+                logger.LogInformation("Unmet precondition - {error}", result.Error);
                 break;
 
             case InteractionCommandError.ConvertFailed:
-                logger.LogInformation($"Convert Failed - {result.Error}");
+                logger.LogInformation("Convert Failed - {error}", result.Error);
                 break;
 
             case InteractionCommandError.Exception:
-                logger.LogInformation($"Exception - {result.Error}");
+                logger.LogInformation("Exception - {error}", result.Error);
                 break;
 
             case InteractionCommandError.ParseFailed:
-                logger.LogInformation($"Parse Failed - {result.Error}");
+                logger.LogInformation("Parse Failed - {error}", result.Error);
                 break;
 
             case InteractionCommandError.UnknownCommand:
-                logger.LogInformation($"Unknown Command - {result.Error}");
+                logger.LogInformation("Unknown Command - {error}", result.Error);
                 break;
 
             case InteractionCommandError.Unsuccessful:
-                logger.LogInformation($"Unsuccessful - {result.Error}");
+                logger.LogInformation("Unsuccessful - {error}", result.Error);
                 break;
         }
 

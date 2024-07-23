@@ -16,7 +16,8 @@ namespace DiscordBot.Helpers
             return str;
         }
 
-        public static string TrimLetters(this string str) {
+        public static string TrimLetters(this string str)
+        {
             return LetterFilter().Replace(str, "");
         }
 
@@ -28,5 +29,23 @@ namespace DiscordBot.Helpers
         private static partial Regex TrimSpaces();
         [GeneratedRegex(@"\s")]
         private static partial Regex Hyphens();
+
+        public static string ToBooruSlug(this string? str)
+            => (str ?? string.Empty).Trim().Replace(" ", "_");
+
+        public static string TrimmedName(this string? str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return string.Empty;
+            var match = TrimSeason().Match(str);
+
+            if (!match.Success)
+                return str;
+
+            return match.Groups[1].Value;
+        }
+
+        [GeneratedRegex("(.*) S\\d$")]
+        private static partial Regex TrimSeason();
     }
 }

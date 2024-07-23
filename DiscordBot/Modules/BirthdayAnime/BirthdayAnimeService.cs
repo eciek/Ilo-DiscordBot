@@ -111,7 +111,7 @@ public class BirthdayAnimeService
             {
                 var channelId = GetBirthdayChannel(guildId);
 
-                await _chatService.SendFiles(channelId, msgBuilder.ToString(), attachments.ToArray());
+                await _chatService.SendFiles(channelId, msgBuilder.ToString(), [.. attachments]);
             }
             catch (Exception e)
             {

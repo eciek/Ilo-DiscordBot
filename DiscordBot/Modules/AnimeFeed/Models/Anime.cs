@@ -11,17 +11,37 @@ public class Anime
     public int? Id { get; set; }
     public List<ulong>? Subscribers { get; set; }
 
+    // name for Booru search, it sometimes differs.
+
+    private string _booruName = string.Empty;
+    public string? BooruName
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_booruName))
+                return Name;
+            else return _booruName;
+        }
+        set
+        {
+            _booruName = value ?? string.Empty;
+        }
+    }
+
+    public List<string>? Notes { get; set; }
+
     public Anime()
     {
         Subscribers = [];
+        Notes = [];
     }
 
     public bool Equals(Anime? other)
-        {
-            if (other == null) return false;
+    {
+        if (other == null) return false;
 
-            return Name == other.Name;
-        }
+        return Name == other.Name;
+    }
 
     public override string ToString()
     {
@@ -67,7 +87,17 @@ public class Anime
     public string GetUpdateMessage()
     {
         StringBuilder sb = new();
-        sb.AppendLine($"Jest Nowy odcinek {Name}!");
+        if (Notes is not null && Notes.Count > 0)
+        {
+            foreach (var note in Notes.OrderBy(x => new Guid()).Take(3).ToList())
+            {
+                sb.AppendLine(note);
+            }
+        }
+        else
+        {
+            sb.AppendLine($"Jest Nowy odcinek {Name}!");
+        }
         sb.AppendLine(GetUserMentions());
         sb.AppendLine("");
         sb.AppendLine(Url);
