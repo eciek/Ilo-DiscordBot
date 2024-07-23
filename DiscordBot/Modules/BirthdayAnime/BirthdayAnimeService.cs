@@ -29,7 +29,7 @@ public class BirthdayAnimeService
         _chatService = chatService;
         _loggingService = loggingService;
 
-        _guildConfigService.Components.Add(BuildConfig);
+        _guildConfigService.AddConfigComponent(BirthdayAnimeBuilder);
 
         using var s = new StreamReader("Modules/BirthdayAnime/JsonFiles/birthdayanime.json");
         var jsonString = s.ReadToEnd();
@@ -52,7 +52,7 @@ public class BirthdayAnimeService
                 .FirstOrDefault()
                 ?? [];
 
-    public void SendBirthdayMessage()
+    public async void SendBirthdayMessage()
     {
         var characters = GetAnimeCharacters(DateTime.Now.ToString("dd.MM"));
         var msgBuilder = new StringBuilder();
@@ -60,7 +60,7 @@ public class BirthdayAnimeService
 
         bool hasError = false;
 
-        List<Embed> embeds = [];
+        List<FileAttachment> attachments = [];
 
         var errMsgBuilder = new StringBuilder().AppendLine("BirthdayAnimeService:");
 
@@ -76,7 +76,7 @@ public class BirthdayAnimeService
         {
             List<string> charImages = [];
 
-            msgBuilder.AppendLine(character.ToString());            
+            msgBuilder.AppendLine(character.ToString());
             try
             {
                 charImages.AddRange(_booruService.GetBooruImageAsync(character.ToNameSurnameBooruSlug(), 3).Result.ToList());
@@ -85,7 +85,7 @@ public class BirthdayAnimeService
             }
             catch (Exception e)
             {
-                errMsgBuilder.AppendLine($"GetImages:\n{ character.ToNameSurnameBooruSlug()}\n"
+                errMsgBuilder.AppendLine($"GetImages:\n{character.ToNameSurnameBooruSlug()}\n"
                 + e.Message);
                 hasError = true;
                 continue;
@@ -94,22 +94,13 @@ public class BirthdayAnimeService
             if (charImages.Count == 0)
             {
                 errMsgBuilder.AppendLine($"No images found for {character.ToNameSurnameBooruSlug()}");
-                
+
                 continue;
             }
 
             var selectedItem = charImages[RandomNumberGenerator.GetInt32(charImages.Count - 1)];
 
-            if (selectedItem.EndsWith(".mp4"))
-            {
-                var emb = new EmbedBuilder().WithUrl($"attachment://{selectedItem}").Build();
-                embeds.Add(emb);
-            }
-            else
-            {
-                var emb = new EmbedBuilder().WithImageUrl($"attachment://{selectedItem}").Build();
-                embeds.Add(emb);
-            }
+            attachments.Add(new FileAttachment(selectedItem));
         }
 
         foreach (var guildId in GetUnlockedGuilds())
@@ -119,7 +110,8 @@ public class BirthdayAnimeService
             try
             {
                 var channelId = GetBirthdayChannel(guildId);
-                _ = _chatService.SendMessage(channelId, msgBuilder.ToString(), embeds: [.. embeds]);
+
+                await _chatService.SendFiles(channelId, msgBuilder.ToString(), attachments.ToArray());
             }
             catch (Exception e)
             {
@@ -129,6 +121,11 @@ public class BirthdayAnimeService
             }
             if (hasGuildError)
                 _loggingService.GuildLog(guildId, guildErrMsgBuilder.ToString());
+        }
+
+        foreach(var attachment in attachments)
+        {
+            attachment.Dispose();
         }
     }
 
@@ -141,12 +138,12 @@ public class BirthdayAnimeService
         .Where(x =>
             x.Value.Any(y =>
             y.Key == _birthdayChannelConfigId &&
-            y.Value is not null &&
-            (ulong)y.Value > 0))
+            !String.IsNullOrEmpty((string)y.Value)
+            ))
         .Select(x => x.Key)
         .ToArray();
 
-    private static ComponentBuilder BuildConfig(ComponentBuilder builder, SocketInteractionContext context)
+    private static ComponentBuilder BirthdayAnimeBuilder(ComponentBuilder builder, SocketInteractionContext context)
     {
         var menuBuilder = new SelectMenuBuilder()
             .WithPlaceholder("Urodziny Anime - wybierz kanał")
@@ -164,6 +161,11 @@ public class BirthdayAnimeService
             }
         }
         menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
-        return builder.WithSelectMenu(menuBuilder);
+
+        var actionRow = new ActionRowBuilder();
+        actionRow.Components.Add(menuBuilder.Build());
+        builder.ActionRows.Add(actionRow);
+
+        return builder;
     }
 }

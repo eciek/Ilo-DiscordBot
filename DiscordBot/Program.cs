@@ -41,12 +41,12 @@ builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<D
     LogLevel = LogSeverity.Info
 }));
 
-
+builder.Services.AddSingleton<InteractionHandler>();
 builder.Services.AddSingleton<GuildConfigService>();
 builder.Services.AddHostedService<DiscordBotService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<DiscordChatService>();
-builder.Services.AddSingleton<InteractionHandler>();
+
 builder.Services.AddSingleton(x => new GuildLoggingService(x.GetRequiredService<GuildConfigService>(),
                                                            x.GetRequiredService<DiscordChatService>()));
 

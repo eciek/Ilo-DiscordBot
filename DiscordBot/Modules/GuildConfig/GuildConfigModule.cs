@@ -1,13 +1,8 @@
 ﻿namespace DiscordBot.Modules.GuildConfig
 {
-    public class GuildConfigModule : InteractionModuleBase<SocketInteractionContext>
+    public class GuildConfigModule(GuildConfigService guildConfigService) : InteractionModuleBase<SocketInteractionContext>
     {
-        public GuildConfigService GuildConfigService { get; set; }
-
-        public GuildConfigModule(GuildConfigService guildConfigService)
-        {
-            GuildConfigService = guildConfigService;
-        }
+        public GuildConfigService GuildConfigService { get; set; } = guildConfigService;
 
         //[RequireUserPermission(GuildPermission.Administrator)]
         [RequireOwner()]
@@ -22,12 +17,18 @@
 
         private ComponentBuilder BuildConfig(SocketInteractionContext context)
         {
-            var builder = new ComponentBuilder();
+            var builder = new ComponentBuilder
+            {
+                ActionRows = []
+            };
+
             foreach (var component in GuildConfigService.Components)
             {
+                Console.WriteLine("Adding config for: " + component.Method.Name);
                 builder = component.Invoke(builder, context);
             }
             return builder;
-        }
+        } 
+
     }
 }

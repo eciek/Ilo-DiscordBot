@@ -6,13 +6,17 @@ public class InteractionHandler(DiscordSocketClient client, InteractionService i
 {
     public async Task InitializeAsync()
     {
-        await interactionService.AddModulesAsync(Assembly.GetEntryAssembly(), services);
+        await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services);
         client.InteractionCreated += HandleInteraction;
         interactionService.InteractionExecuted += HandleInteractionExecuted;
     }
 
     private async Task HandleInteraction(SocketInteraction interaction)
     {
+        if (
+            interaction.Type == InteractionType.MessageComponent)
+            return;
+
         try
         {
             var context = new SocketInteractionContext(client, interaction);

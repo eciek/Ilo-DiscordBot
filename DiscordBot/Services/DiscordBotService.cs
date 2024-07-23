@@ -1,5 +1,4 @@
-﻿using DiscordBot.Models;
-using DiscordBot.Modules.GuildConfig;
+﻿using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Modules.GuildConfig.Models;
 using Microsoft.Extensions.Hosting;
 
@@ -46,7 +45,8 @@ public class DiscordBotService(
     private async Task ClientReady()
     {
         logger.LogInformation("Logged as {User}", client.CurrentUser);
-        await interactions.RegisterCommandsGloballyAsync(deleteMissing: true);
+        await interactions.RegisterCommandsGloballyAsync(deleteMissing: true);        
+        //await interactions.RegisterCommandsToGuildAsync(1209180343714971739, true);
     }
 
 
@@ -67,7 +67,7 @@ public class DiscordBotService(
         return Task.CompletedTask;
     }
 
-    private Task ConfigHandler(SocketMessageComponent component)
+    private async Task ConfigHandler(SocketMessageComponent component)
     {
         var guildId = component.GuildId is null
             ? 0
@@ -77,7 +77,6 @@ public class DiscordBotService(
 
         var record = new GuildConfigRecord(component.Data.CustomId, value);
         configBotService.SaveConfig(guildId, record);
-
-        return Task.CompletedTask;
+        await component.RespondAsync("Zapisano!", ephemeral: true);
     }
 }

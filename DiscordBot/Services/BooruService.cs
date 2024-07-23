@@ -20,7 +20,7 @@ public class BooruService
     private const string _urlFormat = @"https://danbooru.donmai.us/posts.json?limit={0}&tags=age:<3year {1} ";
     //{0} {1}  "
 
-    private string GetQueryUrl(string tags, int imageCount)
+    private static string GetQueryUrl(string tags, int imageCount)
         => string.Format(_urlFormat, imageCount, tags);
 
     public BooruService()
@@ -44,7 +44,7 @@ public class BooruService
 
     public async Task<IEnumerable<string>> GetBooruImageAsync(string tags, int imageCount = 5, bool isNsfw = false)
     {
-        var jsonResp = string.Empty;
+        string jsonResp;
 
         if (String.IsNullOrEmpty(apiKey))
             throw new Exception("booruKey is missing!");
@@ -95,14 +95,15 @@ public class BooruService
         return imagePath;
     }
 
-    private IEnumerable<string> GetImageUrlsFromJson(string jsonResp)
+    private static List<string> GetImageUrlsFromJson(string jsonResp)
     {
         List<string> result = [];
 
         string regexFilter = @"""type"":""original"",""url*"":""([^""]*)""";
 
-        Regex regex = new Regex(regexFilter,RegexOptions.Compiled);
-        foreach (Match match in regex.Matches(jsonResp))
+        Regex regex = new(regexFilter,RegexOptions.Compiled);
+        
+        foreach (Match match in regex.Matches(jsonResp).Cast<Match>())
         {
             result.Add(match.Groups[1].Value);
             ;

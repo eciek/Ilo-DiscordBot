@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Modules.GuildLogging;
-public class GuildLoggingService
+public class GuildLoggingService : InteractionModuleBase<SocketInteractionContext>
 {
     private readonly GuildConfigService _guildConfigService;
     private readonly DiscordChatService _chatService;
@@ -20,20 +20,22 @@ public class GuildLoggingService
         _guildConfigService = configBotService;
         _chatService = chatService;
 
-        _guildConfigService.Components.Add(BuildConfig);
+        
+        if (!_guildConfigService.Components.Contains(LogBuilder))
+            _guildConfigService.Components.Add(LogBuilder);
     }
 
     public void GuildLog(ulong guildId, string msg, Embed? embed = null)
     {
         var logchannelId = ulong.Parse(
-            (string?) _guildConfigService
-            .GetGuildConfigValue(guildId, _logChannelConfigId) 
+            (string?)_guildConfigService
+            .GetGuildConfigValue(guildId, _logChannelConfigId)
             ?? "0");
         if (logchannelId > 0)
             _ = _chatService.SendMessage(logchannelId, msg, embed);
     }
 
-    private static ComponentBuilder BuildConfig(ComponentBuilder builder, SocketInteractionContext context)
+    private static ComponentBuilder LogBuilder(ComponentBuilder builder, SocketInteractionContext context)
     {
         var menuBuilder = new SelectMenuBuilder()
         .WithPlaceholder("Kanał na logi - wybierz kanał")
@@ -51,6 +53,17 @@ public class GuildLoggingService
             }
         }
         menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
-        return builder.WithSelectMenu(menuBuilder);
+
+        var actionRow = new ActionRowBuilder();
+        actionRow.Components.Add(menuBuilder.Build());
+        builder.ActionRows.Add(actionRow);
+
+        return builder;
     }
+    //
+    //[ComponentInteraction("loggingChannel")]
+    //public static void AnimeFeed()
+    //{
+    //
+    //}
 }

@@ -12,4 +12,13 @@ public class DiscordChatService(DiscordSocketClient socketClient)
         }
         await channel.SendMessageAsync(text: message, embed: embed, embeds: embeds);
     }
+
+    public async Task SendFiles(ulong channelId, string message, FileAttachment[]? attachments)
+    {
+        if (_socketClient.GetChannel(channelId) is not SocketTextChannel channel)
+        {
+            throw new ArgumentException($"Could not find text channel with given ID:[{channelId}]");
+        }
+        await channel.SendFilesAsync(attachments, text: message);
+    }
 }

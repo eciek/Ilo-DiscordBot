@@ -4,7 +4,7 @@ namespace DiscordBot.Modules.GuildConfig
 {
     public class GuildConfigService : ServiceWithJsonData<GuildConfigRecord>
     {
-        public List<Func<ComponentBuilder, SocketInteractionContext, ComponentBuilder>> Components { get; set; } = [];
+        public List<Func<ComponentBuilder, SocketInteractionContext, ComponentBuilder>> Components { get; private set; } = [];
 
         protected override string ModulePath => "!config";
 
@@ -12,6 +12,12 @@ namespace DiscordBot.Modules.GuildConfig
 
         private List<GuildConfigRecord> GetGuildConfig(ulong guildId)
             => GetGuildData(guildId);
+
+        public void AddConfigComponent(Func<ComponentBuilder, SocketInteractionContext, ComponentBuilder> builder)
+        {
+            if (!Components.Contains(builder))
+                Components.Add(builder);
+        }
 
         public string? GetGuildConfigValue(ulong guildId, string configId)
         {
@@ -44,7 +50,12 @@ namespace DiscordBot.Modules.GuildConfig
             if (!moduleData.ContainsKey(guildId))
                 moduleData.Add(guildId, []);
 
-            moduleData[guildId].Add(configRecord);
+            var guildRecord = moduleData[guildId].Where(x => x.Key == configRecord.Key).FirstOrDefault();
+            if (guildRecord is null)
+            {
+                moduleData[guildId].Add(configRecord);
+            }
+
             SynchronizeJson();
         }
     }

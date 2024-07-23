@@ -26,7 +26,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         _guildLoggingService = guildLoggingService;
         _logger = logger;
 
-        _guildConfigService.Components.Add(BuildConfig);
+        _guildConfigService.AddConfigComponent(AnimeListBuilder);
     }
 
     protected override string ModulePath => "animeFeed";
@@ -41,7 +41,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
             {
                 ulong weebChannelId = _guildConfigService.GetGuildConfigValueAsUlong(guildData.Key, ModulePath);
                 if (weebChannelId == 0)
-                    { continue; }
+                { continue; }
 
                 foreach (var guildAnimeList in guildData.Value)
                 {
@@ -60,9 +60,9 @@ public class AnimeListService : ServiceWithJsonData<Anime>
                 }
             }
             catch (Exception ex)
-            {   
+            {
                 _logger.LogError("AnimeListService.UpdateAnimeList: Unhandled excepption: \n {ex}", ex.Message);
-                _guildLoggingService.GuildLog(guildData.Key, $"AnimeListService.UpdateAnimeList: Unhandled exception \n {ex.Message}");               
+                _guildLoggingService.GuildLog(guildData.Key, $"AnimeListService.UpdateAnimeList: Unhandled exception \n {ex.Message}");
             }
         }
 
@@ -109,7 +109,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         }
     }
 
-    private static ComponentBuilder BuildConfig(ComponentBuilder builder, SocketInteractionContext context)
+    private static ComponentBuilder AnimeListBuilder(ComponentBuilder builder, SocketInteractionContext context)
     {
         var menuBuilder = new SelectMenuBuilder()
         .WithPlaceholder("Przypominajka anime - wybierz kanał")
@@ -127,6 +127,11 @@ public class AnimeListService : ServiceWithJsonData<Anime>
             }
         }
         menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
-        return builder.WithSelectMenu(menuBuilder);
+
+        var actionRow = new ActionRowBuilder();
+        actionRow.Components.Add(menuBuilder.Build());
+        builder.ActionRows.Add(actionRow);
+
+        return builder;
     }
 }
