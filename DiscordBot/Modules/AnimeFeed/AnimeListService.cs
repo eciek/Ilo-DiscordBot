@@ -166,6 +166,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
 
         var actionRow = new ActionRowBuilder();
+        actionRow.Components ??= []; 
         actionRow.Components.Add(menuBuilder.Build());
         builder.ActionRows.Add(actionRow);
 
