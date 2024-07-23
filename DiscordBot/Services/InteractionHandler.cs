@@ -17,7 +17,10 @@ public class InteractionHandler(DiscordSocketClient client, InteractionService i
         if (
             interaction.Type == InteractionType.MessageComponent)
             return;
-
+        if(interaction.Type == InteractionType.Ping)
+        {
+            return;
+        }
         try
         {
             var context = new SocketInteractionContext(client, interaction);

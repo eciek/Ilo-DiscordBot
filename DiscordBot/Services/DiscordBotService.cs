@@ -11,6 +11,9 @@ public class DiscordBotService(
         InteractionHandler interactionHandler,
         GuildConfigService configBotService) : BackgroundService
 {
+
+    private ulong _iloUserId;
+
     protected override Task ExecuteAsync(CancellationToken ct)
     {
         var sconfig = new ConfigurationBuilder()
@@ -26,6 +29,7 @@ public class DiscordBotService(
         client.ButtonExecuted += ConfigHandler;
         client.SelectMenuExecuted += ConfigHandler;
         client.LeftGuild += OnGuildLeave;
+        client.MessageReceived += MessageReceived;
 
         interactions.Log += LogAsync;
 
@@ -45,6 +49,7 @@ public class DiscordBotService(
 
     private async Task ClientReady()
     {
+        _iloUserId = client.CurrentUser.Id;
 
         logger.LogInformation("Logged as {User}", client.CurrentUser);
         await interactions.RegisterCommandsGloballyAsync(deleteMissing: true);
@@ -54,7 +59,7 @@ public class DiscordBotService(
         foreach (var configId in configBotService.GetAllGuilds())
         {
             if (!client.Guilds.Any(x => x.Id == configId))
-                    configBotService.RemoveGuildConfig(configId);
+                configBotService.RemoveGuildConfig(configId);
         }
     }
 
@@ -93,5 +98,18 @@ public class DiscordBotService(
         var record = new GuildConfigRecord(component.Data.CustomId, value);
         configBotService.SaveConfig(guildId, record);
         await component.RespondAsync("Zapisano!", ephemeral: true);
+    }
+
+    private async Task MessageReceived(SocketMessage message)
+    {
+        if(message.Author.IsBot)
+        {
+            return;
+        }
+
+        if(message.MentionedUsers.Any(x=> x.Id == _iloUserId)) 
+        {
+
+        }
     }
 }

@@ -136,8 +136,8 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
 
     [Discord.Interactions.RequireOwner]
     //[Discord.Commands.RequireUserPermission(ChannelPermission.ManageRoles)]
-    [SlashCommand("anime-AltName", "Ustaw Alternatywną nazwę dla anime")]
-    public async void SetAlternateName([Name("Nazwa Anime")][MinLength(4)] string animeName, [Name("Alternatywna nazwa")][MinLength(4)] string alternateName)
+    [SlashCommand("anime-altname", "Ustaw Alternatywną nazwę dla anime")]
+    public async Task SetAlternateName([Name("Nazwa Anime")][MinLength(4)] string animeName, [Name("Alternatywna nazwa")][MinLength(4)] string alternateName)
     {
         Anime foundAnime;
         try
