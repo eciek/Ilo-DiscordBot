@@ -40,12 +40,21 @@ namespace DiscordBot.Helpers
             var match = TrimSeason().Match(str);
 
             if (!match.Success)
-                return str;
+            {
+                match = TrimYear().Match(str);
+                if (!match.Success)
+                {
+                    return str;
+                }
+            }
 
             return match.Groups[1].Value;
         }
 
         [GeneratedRegex("(.*) S\\d$")]
         private static partial Regex TrimSeason();
+
+        [GeneratedRegex("(.*) (d)$")]
+        private static partial Regex TrimYear();
     }
 }

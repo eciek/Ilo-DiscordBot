@@ -3,7 +3,6 @@ using DiscordBot.Models;
 using DiscordBot.Modules.AnimeFeed.Models;
 using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
-using System.Runtime.InteropServices;
 
 namespace DiscordBot.Modules.AnimeFeed;
 
@@ -35,7 +34,7 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     }
 
     [SlashCommand("anime-dodaj", "Dodaj do listy wołania na nowy odcinek anime")]
-    public async Task AnimeAdd([Name("Nazwa Anime")][MinLength(4)] string anime , [Optional]string note)
+    public async Task AnimeAdd([Name("Nazwa Anime")][MinLength(4)] string anime, string note = "")
     {
         Anime foundAnime;
         try
@@ -72,7 +71,7 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
 
         try
         {
-            _animeListService.AddAnimeSubscriber(Context.Guild.Id, Context.User.Id, foundAnime,note);
+            _animeListService.AddAnimeSubscriber(Context.Guild.Id, Context.User.Id, foundAnime, note);
         }
         catch (Exception ex)
         {
@@ -87,7 +86,7 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     }
 
     [SlashCommand("anime-usuń", "Usuń z listy wołania na nowy odcinek anime")]
-    public async Task AnimeDelete([Optional][Name("Nazwa Anime")][MinLength(4)] string anime)
+    public async Task AnimeDelete([Name("Nazwa Anime")][MinLength(4)] string anime = "")
     {
         if (!String.IsNullOrEmpty(anime))
         {
@@ -132,6 +131,22 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
             await RespondAsync($"Już nie obserwujesz żadnego anime!", ephemeral: true);
         }
         return;
+    }
+
+    [Discord.Interactions.RequireOwner, Discord.Commands.RequireUserPermission(GuildPermission.Administrator)]
+    //[Discord.Commands.RequireUserPermission(ChannelPermission.ManageRoles)]
+    [SlashCommand("test1", "test1")]
+    public async Task Test1()
+    {
+        await RespondAsync("ok!");
+    }
+
+    [Discord.Commands.RequireUserPermission(GuildPermission.Administrator)]
+    //[Discord.Commands.RequireUserPermission(ChannelPermission.ManageRoles)]
+    [SlashCommand("test2", "test2")]
+    public async Task Test2()
+    {
+        await RespondAsync("ok!");
     }
 
     [Discord.Interactions.RequireOwner]

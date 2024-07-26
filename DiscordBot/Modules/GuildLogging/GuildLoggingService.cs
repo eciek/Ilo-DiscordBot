@@ -1,11 +1,5 @@
 ﻿using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiscordBot.Modules.GuildLogging;
 public class GuildLoggingService : InteractionModuleBase<SocketInteractionContext>
@@ -61,10 +55,4 @@ public class GuildLoggingService : InteractionModuleBase<SocketInteractionContex
 
         return builder;
     }
-    //
-    //[ComponentInteraction("loggingChannel")]
-    //public static void AnimeFeed()
-    //{
-    //
-    //}
 }

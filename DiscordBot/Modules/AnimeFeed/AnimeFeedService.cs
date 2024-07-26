@@ -53,6 +53,9 @@ public partial class AnimeFeedService()
         {
             var animeNames = _animeList.Where(x => x.Name!.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(x => x.Name).ToArray();
 
+            if (animeNames.Length == 0)
+                throw new ArgumentNullException();
+
             string errMsg = String.Join(",\n", animeNames);
 
             throw new InvalidOperationException(errMsg);

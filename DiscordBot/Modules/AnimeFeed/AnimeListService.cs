@@ -93,7 +93,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
             SynchronizeJson();
     }
 
-    public void AddAnimeSubscriber(ulong guildId, ulong userId, Anime anime, string note)
+    public void AddAnimeSubscriber(ulong guildId, ulong userId, Anime anime, string? note = null)
     {
         List<Anime> guildAnimeList = GetGuildData(guildId);
 
@@ -110,11 +110,14 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         listEntry.Subscribers ??= [];
         listEntry.Notes ??= [];
 
-        listEntry.Notes.Add(note);
-
         // check if user is already on the list
         if (!listEntry.Subscribers.Contains(userId))
         {
+            if (note != null)
+            {
+                listEntry.Notes.Add(note);
+            }
+
             listEntry.Subscribers.Add(userId);
             _contentChanged = true;
         }
@@ -166,7 +169,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
 
         var actionRow = new ActionRowBuilder();
-        actionRow.Components ??= []; 
+        actionRow.Components ??= [];
         actionRow.Components.Add(menuBuilder.Build());
         builder.ActionRows.Add(actionRow);
 
