@@ -8,6 +8,7 @@ using DiscordBot.Modules.AnimeFeed;
 using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Modules.Tarot;
+using DiscordBot.Modules.Twitter;
 using DiscordBot.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -53,6 +54,7 @@ builder.Services.AddSingleton(x => new GuildLoggingService(x.GetRequiredService<
 builder.Services.AddSingleton<BooruService>();
 builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
+builder.Services.AddSingleton<TwitterService>();
 
 builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),
                                                         x.GetRequiredService<GuildConfigService>(),
@@ -66,5 +68,4 @@ builder.Services.AddSingleton(x => new BirthdayAnimeService(x.GetRequiredService
                                                             x.GetRequiredService<GuildLoggingService>()));
 
 var app = builder.Build();
-
 await app.RunAsync();

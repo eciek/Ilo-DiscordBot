@@ -1,15 +1,38 @@
-﻿using System.Reflection;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using DiscordBot.Models;
+using DisordBot.Modules.Twitter;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace DiscordBot.Services;
 
-public class InteractionHandler(DiscordSocketClient client, InteractionService interactionService, IServiceProvider services, ILogger<InteractionHandler> logger)
+public class InteractionHandler
 {
+    private readonly DiscordSocketClient _client;
+    private readonly InteractionService _interactionService;
+    private readonly IServiceProvider _services;
+    private readonly ILogger<InteractionHandler> _logger;
+
+    public readonly List<IPingHandler> PingHandlers = [];
+
+    public InteractionHandler(
+        DiscordSocketClient client,
+        InteractionService interactionService,
+        IServiceProvider services,
+        ILogger<InteractionHandler> logger)
+    {
+        _client = client;
+        _interactionService = interactionService;
+        _services = services;
+        _logger = logger;
+
+        RegisterPingHandlers();
+    }
+
     public async Task InitializeAsync()
     {
-        await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services);
-        client.InteractionCreated += HandleInteraction;
-        interactionService.InteractionExecuted += HandleInteractionExecuted;
+        await _interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), _services);
+        _client.InteractionCreated += HandleInteraction;
+        _interactionService.InteractionExecuted += HandleInteractionExecuted;
     }
 
     private async Task HandleInteraction(SocketInteraction interaction)
@@ -17,22 +40,22 @@ public class InteractionHandler(DiscordSocketClient client, InteractionService i
         if (
             interaction.Type == InteractionType.MessageComponent)
             return;
-        if(interaction.Type == InteractionType.Ping)
+        if (interaction.Type == InteractionType.Ping)
         {
             return;
         }
         try
         {
-            var context = new SocketInteractionContext(client, interaction);
+            var context = new SocketInteractionContext(_client, interaction);
 
-            var result = await interactionService.ExecuteCommandAsync(context, services);
+            var result = await _interactionService.ExecuteCommandAsync(context, _services);
 
             if (!result.IsSuccess)
                 _ = Task.Run(() => HandleInteractionExecutionResult(interaction, result));
         }
         catch (Exception ex)
         {
-            logger.LogError("{error}", ex.Message);
+            _logger.LogError("{error}", ex.Message);
         }
     }
 
@@ -48,31 +71,31 @@ public class InteractionHandler(DiscordSocketClient client, InteractionService i
         switch (result.Error)
         {
             case InteractionCommandError.UnmetPrecondition:
-                logger.LogInformation("Unmet precondition - {error}",result.Error);
+                _logger.LogInformation("Unmet precondition - {error}", result.Error);
                 break;
 
             case InteractionCommandError.BadArgs:
-                logger.LogInformation("Unmet precondition - {error}", result.Error);
+                _logger.LogInformation("Unmet precondition - {error}", result.Error);
                 break;
 
             case InteractionCommandError.ConvertFailed:
-                logger.LogInformation("Convert Failed - {error}", result.Error);
+                _logger.LogInformation("Convert Failed - {error}", result.Error);
                 break;
 
             case InteractionCommandError.Exception:
-                logger.LogInformation("Exception - {error}", result.Error);
+                _logger.LogInformation("Exception - {error}", result.Error);
                 break;
 
             case InteractionCommandError.ParseFailed:
-                logger.LogInformation("Parse Failed - {error}", result.Error);
+                _logger.LogInformation("Parse Failed - {error}", result.Error);
                 break;
 
             case InteractionCommandError.UnknownCommand:
-                logger.LogInformation("Unknown Command - {error}", result.Error);
+                _logger.LogInformation("Unknown Command - {error}", result.Error);
                 break;
 
             case InteractionCommandError.Unsuccessful:
-                logger.LogInformation("Unsuccessful - {error}", result.Error);
+                _logger.LogInformation("Unsuccessful - {error}", result.Error);
                 break;
         }
 
@@ -84,6 +107,10 @@ public class InteractionHandler(DiscordSocketClient client, InteractionService i
         {
             await interaction.FollowupAsync("An error has occurred. We are already investigating it!", ephemeral: true);
         }
+    }
 
+    private void RegisterPingHandlers()
+    {
+        PingHandlers.Add(new TwitterPingHandler(_services.GetRequiredService<DiscordChatService>()));
     }
 }

@@ -11,6 +11,11 @@ public class DiscordBotService(
         InteractionHandler interactionHandler,
         GuildConfigService configBotService) : BackgroundService
 {
+    private readonly DiscordSocketClient _client = client;
+    private readonly InteractionService _interactions = interactions;
+    private readonly ILogger<DiscordBotService> _logger = logger;
+    private readonly InteractionHandler _interactionHandler = interactionHandler;
+    private readonly GuildConfigService _configBotService = configBotService;
 
     private ulong _iloUserId;
 
@@ -23,19 +28,19 @@ public class DiscordBotService(
         if (String.IsNullOrEmpty(token))
             throw new Exception("BotConfig:token is missing!");
 
-        client.Ready += ClientReady;
-        client.SetGameAsync("Highschool of the Burning Onion");
-        client.Log += LogAsync;
-        client.ButtonExecuted += ConfigHandler;
-        client.SelectMenuExecuted += ConfigHandler;
-        client.LeftGuild += OnGuildLeave;
-        client.MessageReceived += MessageReceived;
+        _client.Ready += ClientReady;
+        _client.SetGameAsync("Highschool of the Burning Onion");
+        _client.Log += LogAsync;
+        _client.ButtonExecuted += ConfigHandler;
+        _client.SelectMenuExecuted += ConfigHandler;
+        _client.LeftGuild += OnGuildLeave;
+        _client.MessageReceived += MessageReceived;
 
-        interactions.Log += LogAsync;
+        _interactions.Log += LogAsync;
 
-        return interactionHandler.InitializeAsync()
-            .ContinueWith(t => client.LoginAsync(TokenType.Bot, token), ct)
-            .ContinueWith(t => client.StartAsync(), ct);
+        return _interactionHandler.InitializeAsync()
+            .ContinueWith(t => _client.LoginAsync(TokenType.Bot, token), ct)
+            .ContinueWith(t => _client.StartAsync(), ct);
     }
 
     public override Task StopAsync(CancellationToken ct)
@@ -44,22 +49,22 @@ public class DiscordBotService(
             return Task.CompletedTask;
 
         base.StopAsync(ct);
-        return client.StopAsync();
+        return _client.StopAsync();
     }
 
     private async Task ClientReady()
     {
-        _iloUserId = client.CurrentUser.Id;
+        _iloUserId = _client.CurrentUser.Id;
 
-        logger.LogInformation("Logged as {User}", client.CurrentUser);
-        await interactions.RegisterCommandsGloballyAsync(deleteMissing: true);
+        _logger.LogInformation("Logged as {User}", _client.CurrentUser);
+        await _interactions.RegisterCommandsGloballyAsync(deleteMissing: true);
         //await interactions.RegisterCommandsToGuildAsync(1209180343714971739, true);
 
         // clear config from discarded guilds
-        foreach (var configId in configBotService.GetAllGuilds())
+        foreach (var configId in _configBotService.GetAllGuilds())
         {
-            if (!client.Guilds.Any(x => x.Id == configId))
-                configBotService.RemoveGuildConfig(configId);
+            if (!_client.Guilds.Any(x => x.Id == configId))
+                _configBotService.RemoveGuildConfig(configId);
         }
     }
 
@@ -77,13 +82,13 @@ public class DiscordBotService(
             _ => LogLevel.Information
         };
 
-        logger.Log(severity, "DiscordChatService Exception {Exception}\nMessage: {message}", msg.Exception, msg.Message);
+        _logger.Log(severity, "DiscordChatService Exception {Exception}\nMessage: {message}", msg.Exception, msg.Message);
         return Task.CompletedTask;
     }
 
     private Task OnGuildLeave(SocketGuild guild)
     {
-        configBotService.RemoveGuildConfig(guild.Id);
+        _configBotService.RemoveGuildConfig(guild.Id);
         return Task.CompletedTask;
     }
 
@@ -96,20 +101,29 @@ public class DiscordBotService(
         var value = component.Data.Values.FirstOrDefault() ?? "0";
 
         var record = new GuildConfigRecord(component.Data.CustomId, value);
-        configBotService.SaveConfig(guildId, record);
+        _configBotService.SaveConfig(guildId, record);
         await component.RespondAsync("Zapisano!", ephemeral: true);
     }
 
     private async Task MessageReceived(SocketMessage message)
     {
-        if(message.Author.IsBot)
+        if (message.Author.IsBot)
         {
             return;
         }
 
-        if(message.MentionedUsers.Any(x=> x.Id == _iloUserId)) 
+        if (message.MentionedUsers.Any(x => x.Id == _iloUserId))
         {
-
+            foreach (var pingInteraction in _interactionHandler.PingHandlers)
+            {
+                if (pingInteraction.Config.CheckConditions(message) &&
+                    pingInteraction.CheckCustomCondition(message))
+                {
+                    await pingInteraction.HandlePing(message);
+                    if (pingInteraction.Config.FinalHandler)
+                        break;
+                }
+            }
         }
     }
 }
