@@ -133,16 +133,18 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
         return;
     }
 
-    [Discord.Interactions.RequireOwner, Discord.Commands.RequireUserPermission(GuildPermission.Administrator)]
-    //[Discord.Commands.RequireUserPermission(ChannelPermission.ManageRoles)]
+
+    //michałkowi nie działa
+    [Discord.Interactions.RequireOwner, RequireRoleAttribute("Wódz")]
     [SlashCommand("test1", "test1")]
     public async Task Test1()
     {
         await RespondAsync("ok!");
     }
 
-    [Discord.Commands.RequireUserPermission(GuildPermission.Administrator)]
-    //[Discord.Commands.RequireUserPermission(ChannelPermission.ManageRoles)]
+
+    // michałkowi działa
+    [RequireRoleAttribute("Wódz")]
     [SlashCommand("test2", "test2")]
     public async Task Test2()
     {
