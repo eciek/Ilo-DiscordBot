@@ -4,7 +4,7 @@ public class GuildConfigModule(GuildConfigService guildConfigService) : Interact
 {
     public GuildConfigService GuildConfigService { get; set; } = guildConfigService;
 
-    //[RequireUserPermission(GuildPermission.Administrator)]
+    //[RequireUserPermission(guildPermission: GuildPermission.Administrator)]
     [RequireOwner()]
     [SlashCommand("config", "Konfiguracja funkcji bota")]
     public async Task ConfigBot()
@@ -28,6 +28,6 @@ public class GuildConfigModule(GuildConfigService guildConfigService) : Interact
             builder = component.Invoke(builder, context);
         }
         return builder;
-    } 
+    }
 
 }

@@ -119,7 +119,7 @@ public class DiscordBotService(
                 if (pingInteraction.Config.CheckConditions(message) &&
                     pingInteraction.CheckCustomCondition(message))
                 {
-                    await pingInteraction.HandlePing(message);
+                    _= pingInteraction.HandlePing(message);
                     if (pingInteraction.Config.FinalHandler)
                         break;
                 }

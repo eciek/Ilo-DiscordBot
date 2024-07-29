@@ -33,17 +33,20 @@ public class TwitterPingHandler : IPingHandler
             .Contains(@"https://x.com/");
     }
 
-    public Task HandlePing(SocketMessage message)
+    public async Task HandlePing(SocketMessage message)
     {
         var text = GetCleanTextFromMessageAndReference(message);
 
         var fixedUrl = TwitterService.FixupUrl(text);
 
         if (String.IsNullOrEmpty(fixedUrl))
-            return Task.CompletedTask;
+            return;
+        var refMessage = message.Reference ?? new MessageReference(message.Id, message.Channel.Id);
 
-        return _chatService.SendMessage(message.Channel.Id, fixedUrl, messageReference: message.Reference ?? new MessageReference(message.Id, message.Channel.Id));
-
+        _ = _chatService.SendMessage(message.Channel.Id, fixedUrl, messageReference: refMessage);
+        await _chatService.DeleteMessage(message.Channel.Id, message.Id);
+        if (message.Reference is not null)
+            await _chatService.DeleteMessage(message.Channel.Id, message.Reference);
     }
 
     private static string GetCleanTextFromMessageAndReference(SocketMessage message)

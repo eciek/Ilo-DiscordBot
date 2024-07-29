@@ -133,26 +133,7 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
         return;
     }
 
-
-    //michałkowi nie działa
-    [Discord.Interactions.RequireOwner, RequireRoleAttribute("Wódz")]
-    [SlashCommand("test1", "test1")]
-    public async Task Test1()
-    {
-        await RespondAsync("ok!");
-    }
-
-
-    // michałkowi działa
-    [RequireRoleAttribute("Wódz")]
-    [SlashCommand("test2", "test2")]
-    public async Task Test2()
-    {
-        await RespondAsync("ok!");
-    }
-
     [Discord.Interactions.RequireOwner]
-    //[Discord.Commands.RequireUserPermission(ChannelPermission.ManageRoles)]
     [SlashCommand("anime-altname", "Ustaw Alternatywną nazwę dla anime")]
     public async Task SetAlternateName([Name("Nazwa Anime")][MinLength(4)] string animeName, [Name("Alternatywna nazwa")][MinLength(4)] string alternateName)
     {
@@ -193,7 +174,6 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
         await RespondAsync($"Ustawiłam nazwę alternatywną dla \"{foundAnime.Name} \" na \"{alternateName}\" ^.^", ephemeral: true);
 
     }
-
 
     private async void Update()
     {
