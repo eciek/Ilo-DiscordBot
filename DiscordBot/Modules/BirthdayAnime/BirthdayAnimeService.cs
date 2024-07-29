@@ -98,7 +98,7 @@ public class BirthdayAnimeService
                 continue;
             }
 
-            var selectedItem = charImages[RandomNumberGenerator.GetInt32(charImages.Count - 1)];
+            var selectedItem = charImages.OrderBy(x => new Guid()).FirstOrDefault();
 
             attachments.Add(new FileAttachment(selectedItem));
         }

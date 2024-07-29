@@ -105,11 +105,11 @@ public class DiscordBotService(
         await component.RespondAsync("Zapisano!", ephemeral: true);
     }
 
-    private async Task MessageReceived(SocketMessage message)
+    private Task MessageReceived(SocketMessage message)
     {
         if (message.Author.IsBot)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         if (message.MentionedUsers.Any(x => x.Id == _iloUserId))
@@ -125,5 +125,7 @@ public class DiscordBotService(
                 }
             }
         }
+
+        return Task.CompletedTask;
     }
 }

@@ -56,7 +56,7 @@ public class TwitterPingHandler : IPingHandler
         if (String.IsNullOrEmpty(fixedUrl))
             return;
 
-        string msg = $"-# <@{author}>  wrzucił: \n {fixedUrl}";
+        string msg = $"-# <@{author}>: \n {fixedUrl}";
         _ = _chatService.SendMessage(message.Channel.Id, msg);
         await _chatService.DeleteMessage(message.Channel.Id, message.Id);
         if (message.Reference is not null)
