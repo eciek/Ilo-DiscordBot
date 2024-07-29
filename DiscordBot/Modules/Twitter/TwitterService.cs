@@ -19,7 +19,9 @@ public partial class TwitterService
         var match = TwitterRegex().Match(url);
         if (match.Success)
         {
-            return match.Groups[0].Value.Replace(@"https://x.com/", @"https://fixupx.com/");
+            return match.Groups[0].Value
+                .Replace(@"https://twitter.com/", @"https://x.com/")
+                .Replace(@"https://x.com/", @"https://fixupx.com/");
         }
 
         return string.Empty;
