@@ -1,0 +1,6 @@
+@IloApi_HostAddress = http://localhost:5041
+
+GET {{IloApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
