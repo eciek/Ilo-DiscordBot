@@ -3,7 +3,6 @@ using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
 using Newtonsoft.Json;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace DiscordBot.Modules.AnimeBirthdays;

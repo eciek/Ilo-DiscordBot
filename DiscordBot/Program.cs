@@ -7,6 +7,7 @@ using DiscordBot.Modules.AnimeBirthdays;
 using DiscordBot.Modules.AnimeFeed;
 using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Modules.GuildLogging;
+using DiscordBot.Modules.Reminder;
 using DiscordBot.Modules.Tarot;
 using DiscordBot.Modules.Twitter;
 using DiscordBot.Services;
@@ -55,6 +56,7 @@ builder.Services.AddSingleton<BooruService>();
 builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
 builder.Services.AddSingleton<TwitterService>();
+builder.Services.AddHostedService<ReminderService>();
 
 builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),
                                                         x.GetRequiredService<GuildConfigService>(),
