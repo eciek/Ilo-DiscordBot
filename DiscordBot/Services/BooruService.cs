@@ -9,7 +9,7 @@ public class BooruService
 
     private static string CachePath => $"cache/{DateTime.Now:yyyy-MM-dd}/";
 
-    private const string _urlFormat = @"https://danbooru.donmai.us/posts.json?limit={0}&tags=age:<9year {1} ";
+    private const string _urlFormat = @"https://danbooru.donmai.us/posts.json?limit={0}&tags=age:<15year {1} ";
     //{0} {1}  "
 
     private static string GetQueryUrl(string tags, int imageCount)

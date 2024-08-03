@@ -98,8 +98,8 @@ public class BirthdayAnimeService
 
                 continue;
             }
-
-            var selectedItem = charImages.OrderBy(x => new Guid()).FirstOrDefault();
+            Random rnd = new();
+            var selectedItem = charImages[rnd.Next(charImages.Count)];
 
             attachments.Add(new FileAttachment(selectedItem));
         }

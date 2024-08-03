@@ -69,9 +69,10 @@ public class AnimeListService : ServiceWithJsonData<Anime>
                         }
                         else
                         {
+                            Random rnd = new();
                             attachments.AddRange(
                                 animeImages
-                                .OrderBy(x => Guid.NewGuid())
+                                .OrderBy(x => rnd.Next(animeImages.Count()))
                                 .Take(2)
                                 .Select(x => new FileAttachment(x))
                                 .ToArray());

@@ -23,5 +23,5 @@ public class BirthdayAnimeCharacter
         => $"{Surname} {Name}".ToBooruSlug() + $" ({Series.ToBooruSlug()})";
 
     public string ToNameSeriesBooruSlug()
-        => $"{Name} ({Surname})".ToBooruSlug();
+        => $"{Name} ({Series})".ToBooruSlug();
 }
