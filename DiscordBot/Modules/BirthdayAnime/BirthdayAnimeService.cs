@@ -81,6 +81,8 @@ public class BirthdayAnimeService
                 charImages.AddRange(_booruService.GetBooruImageAsync(character.ToNameSurnameBooruSlug(), 3).Result.ToList());
                 if (!String.IsNullOrEmpty(character.Surname))
                     charImages.AddRange(_booruService.GetBooruImageAsync(character.ToSurnameNameBooruSlug(), 3).Result.ToList());
+                if (String.IsNullOrEmpty(character.Surname))
+                    charImages.AddRange(_booruService.GetBooruImageAsync(character.ToNameSeriesBooruSlug(), 3).Result.ToList());
             }
             catch (Exception e)
             {

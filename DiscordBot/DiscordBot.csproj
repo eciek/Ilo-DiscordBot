@@ -9,9 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="obj\Debug\net8.0\tarotphotos\**" />
-    <EmbeddedResource Remove="obj\Debug\net8.0\tarotphotos\**" />
-    <None Remove="obj\Debug\net8.0\tarotphotos\**" />
+    <Compile Remove="bin\**" />
+    <Compile Remove="logs\**" />
+    <Compile Remove="obj\**" />
+    <Compile Remove="Out\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <EmbeddedResource Remove="Out\**" />
+    <None Remove="bin\**" />
+    <None Remove="logs\**" />
+    <None Remove="obj\**" />
+    <None Remove="Out\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,9 +37,6 @@
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="SixLabors.Fonts" Version="2.0.3" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
-    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -286,11 +292,6 @@
     <None Update="Modules\Tarot\tarotphotos\Świat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="bin\Debug\net8.0\tarotphotos\" />
-    <Folder Include="obj\Debug\net8.0\" />
   </ItemGroup>
 
 </Project>
