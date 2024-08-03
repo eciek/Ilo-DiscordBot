@@ -9,9 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="obj\Debug\net8.0\tarotphotos\**" />
-    <EmbeddedResource Remove="obj\Debug\net8.0\tarotphotos\**" />
-    <None Remove="obj\Debug\net8.0\tarotphotos\**" />
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +31,6 @@
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
@@ -284,11 +286,6 @@
     <None Update="Modules\Tarot\tarotphotos\Świat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="bin\Debug\net8.0\tarotphotos\" />
-    <Folder Include="obj\Debug\net8.0\" />
   </ItemGroup>
 
 </Project>

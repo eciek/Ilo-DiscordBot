@@ -43,12 +43,10 @@ builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<D
     LogLevel = LogSeverity.Info
 }));
 
-builder.Services.AddHostedService<ApiHost>();
-
-
 builder.Services.AddSingleton<InteractionHandler>();
 builder.Services.AddSingleton<GuildConfigService>();
 builder.Services.AddHostedService<DiscordBotService>();
+builder.Services.AddHostedService<ApiService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<DiscordChatService>();
 
@@ -72,5 +70,6 @@ builder.Services.AddSingleton(x => new BirthdayAnimeService(x.GetRequiredService
                                                             x.GetRequiredService<DiscordChatService>(),
                                                             x.GetRequiredService<GuildLoggingService>()));
 var app = builder.Build();
+
 
 await app.RunAsync();
