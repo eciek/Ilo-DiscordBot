@@ -1,41 +1,102 @@
 ﻿using DiscordBot.Models;
+using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 
 namespace DiscordBot.Modules.Reminder;
 
-public class ReminderService : BackgroundService
+public class ReminderService(
+    TimerService timerService,
+    ILogger<ReminderService> logger,
+    DiscordChatService chatService,
+    DiscordSocketClient client,
+    GuildLoggingService guildLoggingService) : BackgroundService
 {
-    private readonly TimerService _timerService;
-    private readonly ILogger<ReminderService> _logger;
-    private readonly DiscordChatService _chatService;
-    private readonly DiscordSocketClient _client;
-
-    public ReminderService(
-        TimerService timerService,
-        ILogger<ReminderService> logger,
-        DiscordChatService chatService,
-        DiscordSocketClient client)
-    {
-        _timerService = timerService;
-        _logger = logger;
-        _chatService = chatService;
-        _client = client;
-    }
+    private readonly TimerService _timerService = timerService;
+    private readonly ILogger<ReminderService> _logger = logger;
+    private readonly DiscordChatService _chatService = chatService;
+    private readonly DiscordSocketClient _client = client;
+    private readonly GuildLoggingService _guildLoggingService = guildLoggingService;
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        TimerJob checkRemindersJob = new(nameof(checkRemindersJob), 1, TimerJobTiming.NowAndRepeatOnInterval, CheckReminderCache);
+        TimerJob checkRemindersJob = new(nameof(checkRemindersJob), 1, TimerJobTiming.NowAndRepeatOnInterval, CheckReminder);
         _timerService.RegisterJob(checkRemindersJob);
         return Task.CompletedTask;
     }
 
-    private void CheckReminderCache()
+    private void CheckReminder()
+    {
+        CheckInput();
+
+        CheckCache();
+    }
+
+    private void CheckInput()
+    {
+        var sourcePath = $"input";
+
+
+        if (!Directory.Exists(sourcePath))
+            return;
+
+        foreach (var filePath in Directory.GetFiles(sourcePath, "message*.json"))
+        {
+            try
+            {
+                var reminder = ParseReminderFromFile(filePath);
+
+                if (reminder == null)
+                    continue;
+
+                ValidateReminder(reminder, out _);
+
+                var targetPath = Path.Combine($"cache", reminder.TriggerDate.ToString("yyyy-MM-dd"));
+
+
+                foreach (var attachment in reminder.Attachments)
+                {
+                    var newAttachmentName = attachment;
+                    if (File.Exists(Path.Combine(targetPath, attachment)))
+                    {
+                        var extension = attachment.Split('.').Last();
+                        newAttachmentName = Guid.NewGuid().ToString() + (String.IsNullOrEmpty(extension) ? string.Empty : "." + extension);
+                    }
+
+                    File.Move(
+                        Path.Combine(sourcePath, attachment),
+                        Path.Combine(targetPath, newAttachmentName));
+                }
+
+                var messageCount = Directory.GetFiles(targetPath, "message*.json").Length;
+
+                var messageFilename = $"message{(messageCount > 0 ? messageCount + 1 : string.Empty)}.json";
+
+                File.Move(
+                    filePath,
+                    Path.Combine(targetPath, messageFilename)
+                    );
+
+                if (reminder.TriggerDate > DateTime.Now)
+                    _guildLoggingService.GuildLog(reminder.GuildId, $"Zarejestrowałam nową wiadomość! Wyślę ją o {reminder.TriggerDate} (｡•̀ᴗ-)✧");
+
+                _logger.LogInformation("Message from Input received. Registered for guild [{guildId}], triggerDate: [{triggerDate}]", reminder.GuildId, reminder.TriggerDate);
+            }
+            catch (Exception ex)
+            {
+                var faultyFilename = $"{filePath}{DateTime.Now}.json";
+                _logger.LogError("CheckInput error for [{filename}]; error: [{error}]", faultyFilename, ex.Message);
+            }
+        }
+
+    }
+
+    private async void CheckCache()
     {
         var now = DateTime.Now;
 
-        var path = $"cache/{now:yyyy-MM-dd}";
+        var path = Path.Combine("cache", now.ToString("yyyy-MM-dd"));
 
         if (!Directory.Exists(path))
             return;
@@ -51,49 +112,45 @@ public class ReminderService : BackgroundService
             {
                 try
                 {
-                    HandleReminder(reminder);
+                    ValidateReminder(reminder, out _);
+
+                    List<FileAttachment> attachments = [];
+
+                    foreach (var attachmentName in reminder.Attachments)
+                    {
+                        var attachmentPath = Path.Combine(path, attachmentName);
+                        if (File.Exists(attachmentPath))
+                            attachments.Add(new FileAttachment(attachmentPath));
+                    }
+
+                    await _chatService.SendFiles(reminder.ChannelId, reminder.Message, [.. attachments]);
+                    File.Delete(filePath);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    File.Copy(filePath, filePath + ".error");
-                    
+                    _logger.LogError("Error while handling reminder [{file}]; \n error: {error}", filePath, ex.Message);
+                    File.Move(filePath, filePath + ".error");
                 }
-                File.Delete(filePath); 
             }
         }
     }
 
-    private async void HandleReminder(Reminder reminder)
+    private void ValidateReminder(Reminder reminder, out SocketGuild? targetGuild)
     {
         // check if bot still exists in guild, otherwise return
-        SocketGuild? targetGuild = _client.Guilds.Where(x => x.Id == reminder.GuildId).FirstOrDefault();
-        
+        targetGuild = _client.Guilds.Where(x => x.Id == reminder.GuildId).FirstOrDefault();
+
         if (targetGuild is null)
         {
-            _logger.LogError("Reminder[{name}] triggered for a guild [{guild}] that does not exist anymore",reminder.TriggerDate, reminder.GuildId);
+            _logger.LogError("Reminder[{name}] triggered for a guild [{guild}] that does not exist anymore", reminder.TriggerDate, reminder.GuildId);
             throw new Exception("Reminder triggered for a guild that does not exist anymore");
         }
 
-        if(targetGuild.Channels.Any(x=>x.Id == reminder.ChannelId) == false)
+        if (targetGuild.Channels.Any(x => x.Id == reminder.ChannelId) == false)
         {
             _logger.LogError("Reminder[{name}] triggered for a guild [{guild}] chanel [{channel}]that does not exist anymore", reminder.TriggerDate, reminder.GuildId, reminder.ChannelId);
             throw new Exception("Reminder triggered for a guild chanel that does not exist anymore");
         }
-
-        List<FileAttachment> attachments = new List<FileAttachment>();
-
-        foreach (var attachmentPath in reminder.Attachments)
-        {
-            if(File.Exists(attachmentPath))
-                attachments.Add(new FileAttachment(attachmentPath));
-        }
-
-        await _chatService.SendFiles(reminder.ChannelId, reminder.Message, [.. attachments]);
-    }
-
-    private void DeleteReminder(Reminder reminder)
-    {
-        throw new NotImplementedException();
     }
 
     private Reminder? ParseReminderFromFile(string reminderFile)

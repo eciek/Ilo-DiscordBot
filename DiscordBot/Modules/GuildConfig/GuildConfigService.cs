@@ -51,10 +51,12 @@ namespace DiscordBot.Modules.GuildConfig
                 moduleData.Add(guildId, []);
 
             var guildRecord = moduleData[guildId].Where(x => x.Key == configRecord.Key).FirstOrDefault();
-            if (guildRecord is null)
+            if (guildRecord is not null)
             {
-                moduleData[guildId].Add(configRecord);
+                moduleData[guildId].Remove(guildRecord);
+                
             }
+            moduleData[guildId].Add(configRecord);
 
             SynchronizeJson();
         }

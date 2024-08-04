@@ -46,7 +46,6 @@ builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<D
 builder.Services.AddSingleton<InteractionHandler>();
 builder.Services.AddSingleton<GuildConfigService>();
 builder.Services.AddHostedService<DiscordBotService>();
-builder.Services.AddHostedService<ApiService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<DiscordChatService>();
 
