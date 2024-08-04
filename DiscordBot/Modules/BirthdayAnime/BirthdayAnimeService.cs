@@ -81,6 +81,8 @@ public class BirthdayAnimeService
                 charImages.AddRange(_booruService.GetBooruImageAsync(character.ToNameSurnameBooruSlug(), 3).Result.ToList());
                 if (!String.IsNullOrEmpty(character.Surname))
                     charImages.AddRange(_booruService.GetBooruImageAsync(character.ToSurnameNameBooruSlug(), 3).Result.ToList());
+                if (String.IsNullOrEmpty(character.Surname))
+                    charImages.AddRange(_booruService.GetBooruImageAsync(character.ToNameSeriesBooruSlug(), 3).Result.ToList());
             }
             catch (Exception e)
             {
@@ -96,8 +98,8 @@ public class BirthdayAnimeService
 
                 continue;
             }
-
-            var selectedItem = charImages.OrderBy(x => new Guid()).FirstOrDefault();
+            Random rnd = new();
+            var selectedItem = charImages[rnd.Next(charImages.Count)];
 
             attachments.Add(new FileAttachment(selectedItem));
         }
