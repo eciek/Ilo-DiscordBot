@@ -12,6 +12,8 @@ namespace IloApi.Controllers
         [HttpPost(Name = "PostReminder")]
         public IActionResult PostReminder([FromBody] ReminderModel reminder)
         {
+            _logger.LogInformation("BotReminder Received POST!");
+
             if (reminder == null)
                 return BadRequest();
 
@@ -22,9 +24,10 @@ namespace IloApi.Controllers
             catch(Exception ex)
             {
                 _logger.LogError("Error : {error}", ex);
-                throw;
+                return BadRequest(ex);
             }
 
+            _logger.LogInformation("BotReminder Handled POST! Status code: 200");
             return Ok();
         }
     }

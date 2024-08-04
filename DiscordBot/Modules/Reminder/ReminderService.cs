@@ -54,6 +54,8 @@ public class ReminderService(
 
                 var targetPath = Path.Combine($"cache", reminder.TriggerDate.ToString("yyyy-MM-dd"));
 
+                if(!Directory.Exists(targetPath))
+                    Directory.CreateDirectory(targetPath);
 
                 foreach (var attachment in reminder.Attachments)
                 {
@@ -85,8 +87,9 @@ public class ReminderService(
             }
             catch (Exception ex)
             {
-                var faultyFilename = $"{filePath}{DateTime.Now}.json";
+                var faultyFilename = $"{filePath}{DateTime.Now}.json.error";
                 _logger.LogError("CheckInput error for [{filename}]; error: [{error}]", faultyFilename, ex.Message);
+                File.Move(filePath,faultyFilename);
             }
         }
 
