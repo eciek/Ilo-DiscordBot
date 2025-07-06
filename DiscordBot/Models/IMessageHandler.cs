@@ -1,6 +1,6 @@
 ﻿namespace DiscordBot.Models;
 
-public interface IPingHandler
+public interface IMessageHandler
 {
     public string Name { get; }
     public uint Priority { get; }

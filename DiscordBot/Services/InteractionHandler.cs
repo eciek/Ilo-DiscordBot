@@ -12,7 +12,8 @@ public class InteractionHandler
     private readonly IServiceProvider _services;
     private readonly ILogger<InteractionHandler> _logger;
 
-    public readonly List<IPingHandler> PingHandlers = [];
+    public readonly List<IMessageHandler> PingHandlers = [];
+    public readonly List<IMessageHandler> MessageHandlers = [];
 
     public InteractionHandler(
         DiscordSocketClient client,
@@ -111,6 +112,6 @@ public class InteractionHandler
 
     private void RegisterPingHandlers()
     {
-        PingHandlers.Add(new TwitterPingHandler(_services.GetRequiredService<DiscordChatService>()));
+        PingHandlers.Add(new TwitterMessageHandler(_services.GetRequiredService<DiscordChatService>()));
     }
 }

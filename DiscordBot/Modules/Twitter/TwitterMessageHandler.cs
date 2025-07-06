@@ -5,7 +5,7 @@ using DiscordBot.Services;
 
 namespace DisordBot.Modules.Twitter;
 
-public class TwitterPingHandler : IPingHandler
+public class TwitterMessageHandler : IMessageHandler
 {
     private readonly DiscordChatService _chatService;
     public string Name { get; } = "FxUrlFix";
@@ -13,7 +13,7 @@ public class TwitterPingHandler : IPingHandler
 
     public PingHandlerConfig Config { get; init; }
 
-    public TwitterPingHandler(DiscordChatService chatService)
+    public TwitterMessageHandler(DiscordChatService chatService)
     {
         _chatService = chatService;
         Config = new PingHandlerConfig()

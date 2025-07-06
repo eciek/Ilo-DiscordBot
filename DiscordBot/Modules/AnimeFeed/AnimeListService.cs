@@ -114,7 +114,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         // check if user is already on the list
         if (!listEntry.Subscribers.Contains(userId))
         {
-            if (note != null)
+            if (!String.IsNullOrWhiteSpace(note))
             {
                 listEntry.Notes.Add(note);
             }

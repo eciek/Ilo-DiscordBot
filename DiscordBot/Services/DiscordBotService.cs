@@ -68,7 +68,6 @@ public class DiscordBotService(
         }
     }
 
-
     private Task LogAsync(LogMessage msg)
     {
         var severity = msg.Severity switch
@@ -124,6 +123,11 @@ public class DiscordBotService(
                         break;
                 }
             }
+        }
+
+        foreach (var messageInteraction in _interactionHandler.MessageHandlers)
+        {
+            //NYI
         }
 
         return Task.CompletedTask;

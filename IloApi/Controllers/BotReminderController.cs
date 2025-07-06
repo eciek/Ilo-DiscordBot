@@ -12,7 +12,7 @@ namespace IloApi.Controllers
         [HttpPost(Name = "PostReminder")]
         public IActionResult PostReminder([FromBody] ReminderModel reminder)
         {
-            _logger.LogInformation("BotReminder Received POST!");
+            _logger.LogInformation($"BotReminder Received POST! \n {reminder.TriggerDate} @ {reminder.Message}");
 
             if (reminder == null)
                 return BadRequest();
