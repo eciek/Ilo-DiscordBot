@@ -30,9 +30,11 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         _logger = logger;
 
         _guildConfigService.AddConfigComponent(AnimeListBuilder);
+        _guildConfigService.AddConfigComponent(AnimeArtSensitivityBuilder);
     }
 
     protected override string ModulePath => "animeFeed";
+    private const string animeArtSensitivity = "animeArtSensitivity";
 
     protected override string ModuleJson => "animeList.json";
 
@@ -46,6 +48,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
                 if (weebChannelId == 0)
                 { continue; }
 
+                string animeImageRating = _guildConfigService.GetGuildConfigValue(guildData.Key, animeArtSensitivity) ?? "g,s";
                 foreach (var guildAnimeList in guildData.Value)
                 {
                     var anime = animeList.Where(x => x.Equals(guildAnimeList)).FirstOrDefault();
@@ -61,7 +64,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
                     {
                         List<FileAttachment> attachments = [];
                         string animeNameSlug = guildAnimeList.BooruName.ToBooruSlug();
-                        var animeImages = await _booruService.GetBooruImageAsync(animeNameSlug);
+                        var animeImages = await _booruService.GetBooruImageAsync(animeNameSlug, rating: animeImageRating);
 
                         if (!animeImages.Any())
                         {
@@ -176,4 +179,30 @@ public class AnimeListService : ServiceWithJsonData<Anime>
 
         return builder;
     }
+
+    private static ComponentBuilder AnimeArtSensitivityBuilder(ComponentBuilder builder, SocketInteractionContext context)
+    {
+        var menuBuilder = new SelectMenuBuilder()
+        .WithPlaceholder("anime arty - wybierz opcje NFSW obrazów. ")
+        .WithCustomId(nameof(animeArtSensitivity))
+        .WithMinValues(1)
+        .WithMaxValues(1);
+
+        IReadOnlyCollection<SocketGuildChannel> guildChannels = context.Guild.Channels;
+
+        
+        menuBuilder.AddOption("General", "g", "General");
+        menuBuilder.AddOption("Sensitive", "s,g", "Wyzywające");
+        menuBuilder.AddOption("Questionable", "q,s,g", "softy, lekkie nudle");
+        menuBuilder.AddOption("Explicit", "e,q,s,g", "Twarde 18+");
+
+        var actionRow = new ActionRowBuilder();
+        actionRow.Components ??= [];
+        actionRow.Components.Add(menuBuilder.Build());
+        builder.ActionRows.Add(actionRow);
+
+        return builder;
+    }
+
+
 }

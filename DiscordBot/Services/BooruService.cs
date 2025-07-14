@@ -34,7 +34,7 @@ public class BooruService
         _httpClient.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.39.0");
     }
 
-    public async Task<IEnumerable<string>> GetBooruImageAsync(string tags, int imageCount = 5, bool isNsfw = false)
+    public async Task<IEnumerable<string>> GetBooruImageAsync(string tags, int imageCount = 5, string rating = "g,s")
     {
         string jsonResp;
 
@@ -44,7 +44,7 @@ public class BooruService
         if (String.IsNullOrEmpty(apiUser))
             throw new Exception("apiUser is missing");
 
-        var queryString = GetQueryUrl(tags, imageCount) + (isNsfw ? "is:nsfw" : "is:sfw");
+        var queryString = GetQueryUrl(tags, imageCount) + ("rating:" + rating);
         using HttpRequestMessage request = new(HttpMethod.Get, queryString);
 
         try
