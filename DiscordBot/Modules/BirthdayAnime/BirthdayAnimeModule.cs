@@ -32,7 +32,7 @@ public class BirthdayAnimeModule : InteractionModuleBase<SocketInteractionContex
         }
     }
 
-    [SlashCommand("urodziny", "testowe wywolanie daily urodzin")]
+    [SlashCommand("urodziny", "Eciu: testowe wywolanie daily urodzin")]
     [RequireOwner]
     public async Task TestBirthday()
     {

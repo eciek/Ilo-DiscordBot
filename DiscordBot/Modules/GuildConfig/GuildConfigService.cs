@@ -1,4 +1,6 @@
 ﻿using DiscordBot.Modules.GuildConfig.Models;
+using System.Text;
+using System.Text.Json;
 
 namespace DiscordBot.Modules.GuildConfig
 {
@@ -9,6 +11,8 @@ namespace DiscordBot.Modules.GuildConfig
         protected override string ModulePath => "!config";
 
         protected override string ModuleJson => "guildConfig.json";
+
+        private const string GuildToken = nameof(GuildToken);
 
         private List<GuildConfigRecord> GetGuildConfig(ulong guildId)
             => GetGuildData(guildId);
@@ -66,6 +70,35 @@ namespace DiscordBot.Modules.GuildConfig
             moduleData.Remove(guildId);
             SynchronizeJson();
             Directory.Delete(Path.Combine(_dataRoot, guildId.ToString()), true);
+        }
+
+        public string CreateAccessToken(SocketGuild guild)
+        {
+            string token = string.Empty;
+            
+            var data = new
+            {
+                GuildId = guild.Id,
+                GuildName = guild.Name,
+                Channels = guild.Channels
+                    .Select(c => new KeyValuePair<ulong,string>(c.Id, c.Name ))
+                    .ToArray(),
+                Timestamp = DateTime.UtcNow.Ticks
+            };
+            
+            string json = JsonSerializer.Serialize(data);
+            byte[] bytes = Encoding.UTF8.GetBytes(json);
+
+            // Use a fixed key for XOR obfuscation
+            byte[] key = Encoding.UTF8.GetBytes("ilo123");
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                bytes[i] = (byte)(bytes[i] ^ key[i % key.Length]);
+            }
+
+            token = Convert.ToBase64String(bytes);
+            SaveConfig(guild.Id, new GuildConfigRecord(GuildToken, token));
+            return token;
         }
     }
 }

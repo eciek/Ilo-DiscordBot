@@ -2,16 +2,28 @@
 
 public class GuildConfigModule(GuildConfigService guildConfigService) : InteractionModuleBase<SocketInteractionContext>
 {
-    public GuildConfigService GuildConfigService { get; set; } = guildConfigService;
+    private GuildConfigService _guildConfigService { get; set; } = guildConfigService;
 
-    //[RequireUserPermission(guildPermission: GuildPermission.Administrator)]
-    [RequireOwner()]
-    [SlashCommand("config", "Konfiguracja funkcji bota")]
+    
+    [SlashCommand("config", "Admin: Konfiguracja funkcji bota")]
+    [RequireUserPermission(guildPermission: GuildPermission.Administrator)]
     public async Task ConfigBot()
     {
         var builder = BuildConfig(Context);
         await RespondAsync("", ephemeral: true, components: builder.Build());
     }
+
+    [SlashCommand("klucz-dostępu", "Admin: Wygeneruj zewnętrzny token dostępu")]
+    [RequireUserPermission(GuildPermission.Administrator)]
+    public async Task GenerateAccessCode()
+    {
+
+        await RespondAsync("Uwaga, zaraz wygeneruję token do Discorda! Trzymaj go w sekrecie, by nie wpadł w złe ręce! (>ᴗ•)", ephemeral: true);
+        var token = _guildConfigService.CreateAccessToken(Context.Guild);
+
+        await FollowupAsync(token, ephemeral: true);
+    }
+
     private static IReadOnlyCollection<SocketGuildChannel> GetGuildChannels(SocketInteractionContext context)
         => context.Guild.Channels;
 
@@ -22,7 +34,7 @@ public class GuildConfigModule(GuildConfigService guildConfigService) : Interact
             ActionRows = []
         };
 
-        foreach (var component in GuildConfigService.Components)
+        foreach (var component in _guildConfigService.Components)
         {
             Console.WriteLine("Adding config for: " + component.Method.Name);
             builder = component.Invoke(builder, context);
