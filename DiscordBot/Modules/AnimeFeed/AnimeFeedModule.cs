@@ -34,12 +34,14 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     }
 
     [SlashCommand("anime-dodaj", "Dodaj do listy wołania na nowy odcinek anime")]
-    public async Task AnimeAdd([Name("Nazwa Anime")][MinLength(4)] string anime, string note = "")
+    public async Task AnimeAdd([Name("Nazwa Anime")][MinLength(4)] string anime, string note = "", string? alternateName = "")
     {
         Anime foundAnime;
         try
         {
             foundAnime = _animeFeedService.MatchAnime(anime);
+            if (!string.IsNullOrEmpty(alternateName))
+                foundAnime.BooruName = alternateName;
         }
         catch (InvalidOperationException ex)
         {

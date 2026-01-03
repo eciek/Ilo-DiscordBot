@@ -107,6 +107,8 @@ public class AnimeListService : ServiceWithJsonData<Anime>
 
         if (listEntry is null)
         {
+            // set episode 0 to trigger the bot
+            anime.Episode = "0";
             moduleData[guildId].Add(anime);
             listEntry = anime;
         }
