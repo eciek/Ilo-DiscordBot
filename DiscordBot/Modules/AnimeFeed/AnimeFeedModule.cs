@@ -50,6 +50,7 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
                 " Które Cie interesuje?";
 
             _logger.LogInformation("AnimeFeed.AnimeAdd: Query {query} gave out multiple results: \n {anime}", anime, ex.Message);
+            _guildLogging.GuildLog(Context.Guild.Id, string.Format($"AnimeFeed.AnimeAdd: Query {anime} gave out multiple results: \n {ex.Message}"));
             await RespondAsync(msg, ephemeral: true);
             return;
         }
@@ -58,6 +59,7 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
             string msg = "Nie wiem o które anime Ci chodzi. Czy pojawił się już chociaż jeden odcinek?";
 
             _logger.LogInformation("AnimeFeed.AnimeAdd: Query {query} gave out no results.", anime);
+            _guildLogging.GuildLog(Context.Guild.Id, string.Format($"AnimeFeed.AnimeAdd: Query {anime} gave out no results."));
             await RespondAsync(msg, ephemeral: true);
             return;
         }

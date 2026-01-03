@@ -7,7 +7,7 @@ namespace DiscordBot.Modules.AnimeFeed;
 
 public partial class AnimeFeedService()
 {
-    private const string _subsPleaseUrl = @"https://nyaa.si/?page=rss&q=%5BSubsPlease%5D+1080&c=1_2&f=0";
+    private const string _subsPleaseUrl = @"https://subsplease.org/rss/?t&r=1080";
     private const string _nyaaSiiFilter = @"\[(.*)\] (.*) - (.\d+(?:[\.\,]\d{1,2})?) \(1080p\)";
     private const string _nyaaSiiIdFilter = @"https:\/\/nyaa\.si\/view\/(\d*)";
 
@@ -96,7 +96,7 @@ public partial class AnimeFeedService()
             Match match = regex.Match(node["title"]!.InnerText);
 
             var idRegex = NyaaIdRegex();
-            Match idMatch = idRegex.Match(node["guid"]!.InnerText);
+            Match idMatch = idRegex.Match(node["link"]!.InnerText);
 
             if (match.Groups.Count < 4)
             {
@@ -108,7 +108,7 @@ public partial class AnimeFeedService()
             {
                 Episode = match.Groups[3].Value,
                 Name = match.Groups[2].Value,
-                Url = node["guid"]!.InnerText,
+                Url = node["link"]!.InnerText.Replace("/torrent",""),
                 Id = Int32.Parse(idMatch.Groups[1].Value),
                 BooruName = match.Groups[2].Value.TrimmedName()
             };
