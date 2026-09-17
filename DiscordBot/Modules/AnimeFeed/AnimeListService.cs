@@ -60,9 +60,9 @@ public class AnimeListService : ServiceWithJsonData<Anime>
                     guildAnimeList.Url = anime.Url;
                     guildAnimeList.Id = anime.Id;
 
-                    if ((guildAnimeList.Subscribers ?? []).Count > 0 && weebChannelId > 0)
+                    if ((guildAnimeList.Subscribers ?? new List<ulong>()).Count > 0 && weebChannelId > 0)
                     {
-                        List<FileAttachment> attachments = [];
+                        List<FileAttachment> attachments = new List<FileAttachment>();
                         string animeNameSlug = guildAnimeList.BooruName.ToBooruSlug();
                         var animeImages = await _booruService.GetBooruImageAsync(animeNameSlug, rating: animeImageRating);
 
@@ -81,7 +81,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
                                 .ToArray());
                         }
 
-                        await _chatService.SendFiles(weebChannelId, guildAnimeList.GetUpdateMessage(), [.. attachments]);
+                        await _chatService.SendFiles(weebChannelId, guildAnimeList.GetUpdateMessage(), attachments.ToArray());
                     }
                     _contentChanged = true;
                 }
@@ -113,8 +113,8 @@ public class AnimeListService : ServiceWithJsonData<Anime>
             listEntry = anime;
         }
 
-        listEntry.Subscribers ??= [];
-        listEntry.Notes ??= [];
+        listEntry.Subscribers ??= new List<ulong>();
+        listEntry.Notes ??= new List<string>();
 
         // check if user is already on the list
         if (!listEntry.Subscribers.Contains(userId))
@@ -175,7 +175,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
 
         var actionRow = new ActionRowBuilder();
-        actionRow.Components ??= [];
+        actionRow.Components ??= new List<IMessageComponent>();
         actionRow.Components.Add(menuBuilder.Build());
         builder.ActionRows.Add(actionRow);
 
@@ -199,7 +199,7 @@ public class AnimeListService : ServiceWithJsonData<Anime>
         menuBuilder.AddOption("Explicit", "e,q,s,g", "Twarde 18+");
 
         var actionRow = new ActionRowBuilder();
-        actionRow.Components ??= [];
+        actionRow.Components ??= new List<IMessageComponent>();
         actionRow.Components.Add(menuBuilder.Build());
         builder.ActionRows.Add(actionRow);
 

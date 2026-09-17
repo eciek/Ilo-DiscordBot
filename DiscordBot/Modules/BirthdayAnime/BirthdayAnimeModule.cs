@@ -7,17 +7,11 @@ namespace DiscordBot.Modules.GuildConfig;
 public class BirthdayAnimeModule : InteractionModuleBase<SocketInteractionContext>
 {
     private readonly BirthdayAnimeService _birthdayAnimeService;
-    private readonly TimerService _timerService;
 
     public BirthdayAnimeModule(
-        BirthdayAnimeService birthdayAnimeService,
-        TimerService timerService)
+        BirthdayAnimeService birthdayAnimeService)
     {
         _birthdayAnimeService = birthdayAnimeService;
-        _timerService = timerService;
-
-        TimerJob birthdaySendMessageJob = new(nameof(birthdaySendMessageJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, BirthdayUpdate);
-        _timerService.RegisterJob(birthdaySendMessageJob);
     }
 
     private void BirthdayUpdate()

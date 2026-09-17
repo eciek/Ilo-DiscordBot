@@ -1,6 +1,7 @@
 ﻿using DiscordBot.Models;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using System.Linq;
 
 namespace DiscordBot.Services;
 
@@ -37,7 +38,7 @@ public class TimerService
 
         _today = DateTime.Today;
         _minutes = double.Floor(DateTime.Now.TimeOfDay.TotalMinutes);
-        _timerJobs = [];
+        _timerJobs = new List<TimerJob>();
 
         _logger.LogInformation("Timer Started! [Day:{Date} ] [minute: {minutes}]",_today.Date, _minutes);
     }

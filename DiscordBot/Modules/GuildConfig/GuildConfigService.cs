@@ -6,7 +6,7 @@ namespace DiscordBot.Modules.GuildConfig
 {
     public class GuildConfigService : ServiceWithJsonData<GuildConfigRecord>
     {
-        public List<Func<ComponentBuilder, SocketInteractionContext, ComponentBuilder>> Components { get; private set; } = [];
+        public List<Func<ComponentBuilder, SocketInteractionContext, ComponentBuilder>> Components { get; private set; } = new List<Func<ComponentBuilder, SocketInteractionContext, ComponentBuilder>>();
 
         protected override string ModulePath => "!config";
 
@@ -52,7 +52,7 @@ namespace DiscordBot.Modules.GuildConfig
         public void SaveConfig(ulong guildId, GuildConfigRecord configRecord)
         {
             if (!moduleData.ContainsKey(guildId))
-                moduleData.Add(guildId, []);
+                moduleData.Add(guildId, new List<GuildConfigRecord>());
 
             var guildRecord = moduleData[guildId].Where(x => x.Key == configRecord.Key).FirstOrDefault();
             if (guildRecord is not null)
@@ -70,35 +70,6 @@ namespace DiscordBot.Modules.GuildConfig
             moduleData.Remove(guildId);
             SynchronizeJson();
             Directory.Delete(Path.Combine(_dataRoot, guildId.ToString()), true);
-        }
-
-        public string CreateAccessToken(SocketGuild guild)
-        {
-            string token = string.Empty;
-            
-            var data = new
-            {
-                GuildId = guild.Id,
-                GuildName = guild.Name,
-                Channels = guild.Channels
-                    .Select(c => new KeyValuePair<ulong,string>(c.Id, c.Name ))
-                    .ToArray(),
-                Timestamp = DateTime.UtcNow.Ticks
-            };
-            
-            string json = JsonSerializer.Serialize(data);
-            byte[] bytes = Encoding.UTF8.GetBytes(json);
-
-            // Use a fixed key for XOR obfuscation
-            byte[] key = Encoding.UTF8.GetBytes("ilo123");
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                bytes[i] = (byte)(bytes[i] ^ key[i % key.Length]);
-            }
-
-            token = Convert.ToBase64String(bytes);
-            SaveConfig(guild.Id, new GuildConfigRecord(GuildToken, token));
-            return token;
-        }
+        }        
     }
 }

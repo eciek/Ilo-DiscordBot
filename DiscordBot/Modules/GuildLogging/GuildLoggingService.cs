@@ -49,7 +49,7 @@ public class GuildLoggingService : InteractionModuleBase<SocketInteractionContex
         menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
 
         var actionRow = new ActionRowBuilder();
-        actionRow.Components ??= [];
+        actionRow.Components ??= new List<IMessageComponent>();
         actionRow.Components.Add(menuBuilder.Build());
         builder.ActionRows.Add(actionRow);
 

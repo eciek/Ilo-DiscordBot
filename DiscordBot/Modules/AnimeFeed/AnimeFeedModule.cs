@@ -10,7 +10,6 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
 {
     private readonly AnimeFeedService _animeFeedService;
     private readonly AnimeListService _animeListService;
-    private readonly TimerService _timerService;
     private readonly GuildLoggingService _guildLogging;
     private readonly ILogger<AnimeFeedModule> _logger;
     private const int _jobInterval = 1;
@@ -18,19 +17,14 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
     public AnimeFeedModule(
         AnimeFeedService animeFeedService,
         AnimeListService animeListService,
-        TimerService timerService,
         GuildLoggingService guildLogging,
         ILogger<AnimeFeedModule> logger
         )
     {
         _animeFeedService = animeFeedService;
         _animeListService = animeListService;
-        _timerService = timerService;
         _guildLogging = guildLogging;
         _logger = logger;
-
-        TimerJob animeFeedJob = new(nameof(animeFeedJob), _jobInterval, TimerJobTiming.NowAndRepeatOnInterval, Update);
-        _timerService.RegisterJob(animeFeedJob);
     }
 
     [SlashCommand("anime-dodaj", "Dodaj do listy wołania na nowy odcinek anime")]
@@ -179,20 +173,16 @@ public class AnimeFeedModule : InteractionModuleBase<SocketInteractionContext>
 
     }
 
-    private async void Update()
+    private async Task Update()
     {
-        IEnumerable<Anime> animeList = [];
         try
         {
-            await _animeFeedService.UpdateAnimeFeedAsync();
-            animeList = _animeFeedService.GetAnimeList();
+            await _animeFeedService.RunUpdateCycleAsync();
         }
         catch (Exception ex)
         {
-            _logger.LogCritical("AnimeFeed.Update: Unhandled exception:\n{ex}", ex.Message);
+            _logger.LogCritical(ex, "AnimeFeed.Update: Unhandled exception");
         }
-
-        await _animeListService.UpdateAnimeList(animeList);
     }
 
     [ComponentInteraction("animeFeed")]

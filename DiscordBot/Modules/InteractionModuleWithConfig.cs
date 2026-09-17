@@ -8,13 +8,12 @@ public abstract class ServiceWithJsonData<T>
     protected const string _dataRoot = "data";
     protected abstract string ModulePath { get; }
     protected abstract string ModuleJson { get; }
-
-    protected readonly Dictionary<ulong, List<T>> moduleData = [];
+    protected readonly Dictionary<ulong, List<T>> moduleData;
 
     protected ServiceWithJsonData()
     {
         string[] registeredGuilds;
-        moduleData = [];
+        moduleData = new Dictionary<ulong, List<T>>();
 
         try
         {
@@ -28,39 +27,44 @@ public abstract class ServiceWithJsonData<T>
 
         foreach (var registeredGuild in registeredGuilds)
         {
-            moduleData.Add(ulong.Parse(registeredGuild.TrimLetters()), []);
+            // registeredGuild is a path like "data\<guildId>"; TrimLetters is expected to extract digits
+            moduleData.Add(ulong.Parse(registeredGuild.TrimLetters()), new List<T>());
         }
         LoadModuleDataFromJson();
     }
 
     protected List<T> GetGuildData(ulong guildId)
     {
-        if (!moduleData.TryGetValue(guildId, out _))
+        if (!moduleData.TryGetValue(guildId, out var list))
         {
-            moduleData.Add(guildId, []);
+            list = new List<T>();
+            moduleData.Add(guildId, list);
         }
-        return moduleData[guildId];
+        return list;
     }
 
     public List<ulong> GetAllGuilds()
-    => [.. moduleData.Keys];
+        => moduleData.Keys.ToList();
 
-    private async void LoadModuleDataFromJson()
+    private void LoadModuleDataFromJson()
     {
         Console.WriteLine($"Loading {ModulePath}...");
-        foreach (var guildsData in moduleData)
+        foreach (var guildsData in moduleData.ToList())
         {
             var filePath = Path.Combine(_dataRoot, guildsData.Key.ToString(), ModulePath, ModuleJson);
-            string json;
+            string json = string.Empty;
 
-            if (File.Exists(filePath) == false)
-                return;
+            if (!File.Exists(filePath))
+            {
+                moduleData[guildsData.Key] = new List<T>();
+                continue;
+            }
 
             using (var stream = new StreamReader(filePath))
             {
                 try
                 {
-                    json = await stream.ReadToEndAsync();
+                    json = stream.ReadToEnd();
                 }
                 catch (FileNotFoundException)
                 {
@@ -70,16 +74,16 @@ public abstract class ServiceWithJsonData<T>
 
             if (string.IsNullOrEmpty(json))
             {
-                moduleData[guildsData.Key] ??= [];
+                moduleData[guildsData.Key] = new List<T>();
                 continue;
             }
 
-            moduleData[guildsData.Key] = JsonConvert.DeserializeObject<List<T>>(json)!;
+            moduleData[guildsData.Key] = JsonConvert.DeserializeObject<List<T>>(json) ?? new List<T>();
         }
     }
     protected void SynchronizeJson()
     {
-        Console.WriteLine($"Saving {ModuleJson}.json...");
+        Console.WriteLine($"Saving {ModuleJson}...");
         foreach (var guildData in moduleData)
         {
             var path = Path.Combine(_dataRoot, guildData.Key.ToString(), ModulePath);

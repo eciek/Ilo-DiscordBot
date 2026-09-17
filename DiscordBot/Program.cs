@@ -27,47 +27,43 @@ var loggerConfig = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(loggerConfig, dispose: true);
 
-builder.Services.AddSingleton(new DiscordSocketClient(
-    new DiscordSocketConfig
-    {
-        GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent,
-        FormatUsersInBidirectionalUnicode = false,
-        // Add GatewayIntents.GuildMembers to the GatewayIntents and change this to true if you want to download all users on startup
-        AlwaysDownloadUsers = false,
-        LogGatewayIntentWarnings = false,
-        LogLevel = LogSeverity.Info
-    }));
-
-builder.Services.AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>(), new InteractionServiceConfig()
+// Core clients
+builder.Services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
 {
+    GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent,
+    FormatUsersInBidirectionalUnicode = false,
+    // Add GatewayIntents.GuildMembers to the GatewayIntents and change this to true if you want to download all users on startup
+    AlwaysDownloadUsers = false,
+    LogGatewayIntentWarnings = false,
     LogLevel = LogSeverity.Info
 }));
 
+// Interaction system
+builder.Services.AddSingleton<InteractionService>(sp => new InteractionService(sp.GetRequiredService<DiscordSocketClient>(), new InteractionServiceConfig()
+{
+    LogLevel = LogSeverity.Info
+}));
 builder.Services.AddSingleton<InteractionHandler>();
+
+// Core services
 builder.Services.AddSingleton<GuildConfigService>();
-builder.Services.AddHostedService<DiscordBotService>();
 builder.Services.AddSingleton<TimerService>();
 builder.Services.AddSingleton<DiscordChatService>();
 
-builder.Services.AddSingleton(x => new GuildLoggingService(x.GetRequiredService<GuildConfigService>(),
-                                                           x.GetRequiredService<DiscordChatService>()));
-
+// Logging / utilities
+builder.Services.AddSingleton<GuildLoggingService>();
 builder.Services.AddSingleton<BooruService>();
+
+// Feature services (register as singletons; they can register timer jobs in their constructors)
 builder.Services.AddSingleton<TarotService>();
 builder.Services.AddSingleton<AnimeFeedService>();
 builder.Services.AddSingleton<TwitterService>();
+builder.Services.AddSingleton<AnimeListService>();
+builder.Services.AddSingleton<BirthdayAnimeService>();
+
+// Hosted services
+builder.Services.AddHostedService<DiscordBotService>();
 builder.Services.AddHostedService<ReminderService>();
-
-builder.Services.AddSingleton(x => new AnimeListService(x.GetRequiredService<DiscordChatService>(),
-                                                        x.GetRequiredService<GuildConfigService>(),
-                                                        x.GetRequiredService<GuildLoggingService>(),
-                                                        x.GetRequiredService<BooruService>(),
-                                                        x.GetRequiredService<ILogger<AnimeListService>>()));
-
-builder.Services.AddSingleton(x => new BirthdayAnimeService(x.GetRequiredService<GuildConfigService>(),
-                                                            x.GetRequiredService<BooruService>(),
-                                                            x.GetRequiredService<DiscordChatService>(),
-                                                            x.GetRequiredService<GuildLoggingService>()));
 var app = builder.Build();
 
 

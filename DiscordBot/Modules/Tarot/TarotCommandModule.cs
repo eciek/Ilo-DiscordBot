@@ -9,21 +9,16 @@ namespace DiscordBot.Modules.Tarot;
 public class TarotCommandModule : InteractionModuleBase<SocketInteractionContext>
 {
     private readonly TarotService _tarotService;
-    private readonly TimerService _timerService;
     private readonly ILogger<TarotCommandModule> _logger;
 
 
     private const long _schizoID = 792728812730449941;
     private const long _alcoholicID = 1192192605941932093;
 
-    public TarotCommandModule(TarotService tarotService,TimerService timerService, ILogger<TarotCommandModule> logger)
+    public TarotCommandModule(TarotService tarotService, ILogger<TarotCommandModule> logger)
     {
         _tarotService = tarotService;
-        _timerService = timerService;
         _logger = logger;
-
-        TimerJob ClearDrawJob = new(nameof(ClearDrawJob), 0, TimerJobTiming.TriggerDailyAtSetMinute, _tarotService.ClearDraws);
-        _timerService.RegisterJob(ClearDrawJob);
     }
 
     [SlashCommand("kartadnia", "Losuje karte dnia tarota")]

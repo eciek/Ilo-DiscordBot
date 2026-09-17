@@ -32,8 +32,8 @@ public class Anime
 
     public Anime()
     {
-        Subscribers = [];
-        Notes = [];
+        Subscribers = new List<ulong>();
+        Notes = new List<string>();
     }
 
     public bool Equals(Anime? other)

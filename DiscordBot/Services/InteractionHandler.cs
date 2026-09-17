@@ -12,8 +12,8 @@ public class InteractionHandler
     private readonly IServiceProvider _services;
     private readonly ILogger<InteractionHandler> _logger;
 
-    public readonly List<IMessageHandler> PingHandlers = [];
-    public readonly List<IMessageHandler> MessageHandlers = [];
+    public readonly List<IMessageHandler> PingHandlers = new List<IMessageHandler>();
+    public readonly List<IMessageHandler> MessageHandlers = new List<IMessageHandler>();
 
     public InteractionHandler(
         DiscordSocketClient client,

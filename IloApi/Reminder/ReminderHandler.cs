@@ -11,7 +11,7 @@ public static class ReminderHandler
         if (!Directory.Exists(_dataPath))
             throw new Exception("Ilo-chan has no guilds saved!");
 
-        var registeredGuilds = Directory.GetDirectories(_dataPath).Select(x => x.Split(['/', '\\']).Last()) ?? [];
+        var registeredGuilds = Directory.GetDirectories(_dataPath).Select(x => x.Split(new char[] {'/', '\\'}).Last()).ToList();
 
         if (registeredGuilds.Contains(reminder.GuildId.ToString()) == false)
             throw new Exception("Ilo-chan doesnt know that guild! If she's on that guild try to execute some commands with her first!");
@@ -20,11 +20,11 @@ public static class ReminderHandler
 
         var messageFilename = $"message{(messageCount > 0 ? messageCount + 1 : string.Empty)}.json";
 
-        List<string> downloadedAttachments = [];
+        List<string> downloadedAttachments = new List<string>();
 
         foreach (var attachment in reminder.Attachments)
         {
-            var attachmentLocalPath = DownloadAttachment(attachment).Result;
+            var attachmentLocalPath = DownloadAttachment(attachment).GetAwaiter().GetResult();
             downloadedAttachments.Add(attachmentLocalPath);
         }
 
@@ -39,7 +39,7 @@ public static class ReminderHandler
         HttpClient client = new();
 
         string attachmentName = attachmentUrl
-            .Split(['/', '\\'])
+            .Split(new char[] {'/', '\\'})
             .Last()
             .Split('?')
             .First();

@@ -6,23 +6,41 @@ using Newtonsoft.Json;
 
 namespace DiscordBot.Modules.Reminder;
 
-public class ReminderService(
-    TimerService timerService,
-    ILogger<ReminderService> logger,
-    DiscordChatService chatService,
-    DiscordSocketClient client,
-    GuildLoggingService guildLoggingService) : BackgroundService
+public class ReminderService : BackgroundService
 {
-    private readonly TimerService _timerService = timerService;
-    private readonly ILogger<ReminderService> _logger = logger;
-    private readonly DiscordChatService _chatService = chatService;
-    private readonly DiscordSocketClient _client = client;
-    private readonly GuildLoggingService _guildLoggingService = guildLoggingService;
+    private readonly TimerService _timerService;
+    private readonly ILogger<ReminderService> _logger;
+    private readonly DiscordChatService _chatService;
+    private readonly DiscordSocketClient _client;
+    private readonly GuildLoggingService _guildLoggingService;
+
+    public ReminderService(
+        TimerService timerService,
+        ILogger<ReminderService> logger,
+        DiscordChatService chatService,
+        DiscordSocketClient client,
+        GuildLoggingService guildLoggingService)
+    {
+        _timerService = timerService;
+        _logger = logger;
+        _chatService = chatService;
+        _client = client;
+        _guildLoggingService = guildLoggingService;
+
+        try
+        {
+            var checkRemindersJob = new TimerJob(nameof(CheckReminder), 1, TimerJobTiming.NowAndRepeatOnInterval, CheckReminder);
+            _timerService.RegisterJob(checkRemindersJob);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to register Reminder timer job");
+        }
+    }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        TimerJob checkRemindersJob = new(nameof(checkRemindersJob), 1, TimerJobTiming.NowAndRepeatOnInterval, CheckReminder);
-        _timerService.RegisterJob(checkRemindersJob);
+        // Timer job is registered in the constructor; nothing to do on execute
         return Task.CompletedTask;
     }
 
@@ -117,7 +135,7 @@ public class ReminderService(
                 {
                     ValidateReminder(reminder, out _);
 
-                    List<FileAttachment> attachments = [];
+                    List<FileAttachment> attachments = new List<FileAttachment>();
 
                     foreach (var attachmentName in reminder.Attachments)
                     {
@@ -126,7 +144,7 @@ public class ReminderService(
                             attachments.Add(new FileAttachment(attachmentPath));
                     }
 
-                    await _chatService.SendFiles(reminder.ChannelId, reminder.Message, [.. attachments]);
+                    await _chatService.SendFiles(reminder.ChannelId, reminder.Message, attachments.ToArray());
                     File.Delete(filePath);
                 }
                 catch (Exception ex)

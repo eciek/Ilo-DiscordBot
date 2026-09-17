@@ -3,5 +3,5 @@
 public class BirthdayAnime
 {
     public string? Date { get; set; }
-    public List<BirthdayAnimeCharacter> Characters { get; set; } = [];
+    public List<BirthdayAnimeCharacter> Characters { get; set; } = new List<BirthdayAnimeCharacter>();
 }

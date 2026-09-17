@@ -6,5 +6,5 @@ public class ReminderModel
     public DateTime TriggerDate { get; set; }
 
     public string Message { get; set; } = string.Empty;
-    public List<string> Attachments { get; set; } = [];
+    public List<string> Attachments { get; set; } = new List<string>();
 }

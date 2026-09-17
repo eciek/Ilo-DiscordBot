@@ -2,6 +2,8 @@
 using DiscordBot.Modules.GuildConfig;
 using DiscordBot.Modules.GuildLogging;
 using DiscordBot.Services;
+using DiscordBot.Models;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -44,14 +46,32 @@ public class BirthdayAnimeService
             throw new Exception("Failed to read birthdayanime.json!");
     }
 
+    public BirthdayAnimeService(GuildConfigService configBotService,
+        BooruService booruService,
+        DiscordChatService chatService,
+        GuildLoggingService loggingService,
+        TimerService timerService,
+        ILogger<BirthdayAnimeService> logger) : this(configBotService, booruService, chatService, loggingService)
+    {
+        try
+        {
+            var birthdaySendMessageJob = new TimerJob(nameof(SendBirthdayMessage), 0, TimerJobTiming.TriggerDailyAtSetMinute, () => SendBirthdayMessage().GetAwaiter().GetResult());
+            timerService.RegisterJob(birthdaySendMessageJob);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to register BirthdayAnime timer job");
+        }
+    }
+
     public List<BirthdayAnimeCharacter> GetAnimeCharacters(string date)
         => _animeBirthdays
                 .Where(x => x.Date == date)
                 .Select(x => x.Characters)
                 .FirstOrDefault()
-                ?? [];
+                ?? new List<BirthdayAnimeCharacter>();
 
-    public async void SendBirthdayMessage()
+    public async Task SendBirthdayMessage()
     {
         var characters = GetAnimeCharacters(DateTime.Now.ToString("dd.MM"));
         var msgBuilder = new StringBuilder();
@@ -59,7 +79,7 @@ public class BirthdayAnimeService
 
         bool hasError = false;
 
-        List<FileAttachment> attachments = [];
+        List<FileAttachment> attachments = new List<FileAttachment>();
 
         var errMsgBuilder = new StringBuilder().AppendLine("BirthdayAnimeService:");
 
@@ -73,16 +93,26 @@ public class BirthdayAnimeService
 
         foreach (var character in characters)
         {
-            List<string> charImages = [];
+            List<string> charImages = new List<string>();
 
             msgBuilder.AppendLine(character.ToString());
             try
             {
-                charImages.AddRange(_booruService.GetBooruImageAsync(character.ToNameSurnameBooruSlug(), 3).Result.ToList());
+                var imgs1 = await _booruService.GetBooruImageAsync(character.ToNameSurnameBooruSlug(), 3);
+                if (imgs1 != null)
+                    charImages.AddRange(imgs1.ToList());
                 if (!String.IsNullOrEmpty(character.Surname))
-                    charImages.AddRange(_booruService.GetBooruImageAsync(character.ToSurnameNameBooruSlug(), 3).Result.ToList());
+                {
+                    var imgs2 = await _booruService.GetBooruImageAsync(character.ToSurnameNameBooruSlug(), 3);
+                    if (imgs2 != null)
+                        charImages.AddRange(imgs2.ToList());
+                }
                 if (String.IsNullOrEmpty(character.Surname))
-                    charImages.AddRange(_booruService.GetBooruImageAsync(character.ToNameSeriesBooruSlug(), 3).Result.ToList());
+                {
+                    var imgs3 = await _booruService.GetBooruImageAsync(character.ToNameSeriesBooruSlug(), 3);
+                    if (imgs3 != null)
+                        charImages.AddRange(imgs3.ToList());
+                }
             }
             catch (Exception e)
             {
@@ -112,7 +142,7 @@ public class BirthdayAnimeService
             {
                 var channelId = GetBirthdayChannel(guildId);
 
-                await _chatService.SendFiles(channelId, msgBuilder.ToString(), [.. attachments]);
+                await _chatService.SendFiles(channelId, msgBuilder.ToString(), attachments.ToArray());
             }
             catch (Exception e)
             {
@@ -164,7 +194,7 @@ public class BirthdayAnimeService
         menuBuilder.AddOption("Wyłącz", "0", "Wyłącza funkcje");
 
         var actionRow = new ActionRowBuilder();
-        actionRow.Components ??= [];
+        actionRow.Components ??= new List<IMessageComponent>();
         actionRow.Components.Add(menuBuilder.Build());
         builder.ActionRows.Add(actionRow);
 

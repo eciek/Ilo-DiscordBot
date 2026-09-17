@@ -1,28 +1,57 @@
-﻿using DiscordBot.Helpers;
-using DiscordBot.Modules.AnimeFeed.Models;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Xml;
+using DiscordBot.Helpers;
+using DiscordBot.Models;
+using DiscordBot.Modules.AnimeFeed.Models;
+using DiscordBot.Services;
 
 namespace DiscordBot.Modules.AnimeFeed;
 
-public partial class AnimeFeedService()
+public partial class AnimeFeedService
 {
+    private readonly AnimeListService _animeListService;
+    private readonly TimerService _timerService;
+    private readonly ILogger<AnimeFeedService> _logger;
     private const string _subsPleaseUrl = @"https://subsplease.org/rss/?t&r=1080";
     private const string _nyaaSiiFilter = @"\[(.*)\] (.*) - (.\d+(?:[\.\,]\d{1,2})?) \(1080p\)";
     private const string _nyaaSiiIdFilter = @"https:\/\/nyaa\.si\/view\/(\d*)";
 
     private readonly HttpClient _httpClient = new();
 
-    private List<Anime> _animeList = [];
+    private List<Anime> _animeList = new List<Anime>();
+
+    public AnimeFeedService(AnimeListService animeListService, TimerService timerService, ILogger<AnimeFeedService> logger)
+    {
+        _animeListService = animeListService;
+        _timerService = timerService;
+        _logger = logger;
+
+        try
+        {
+            var animeFeedJob = new TimerJob(nameof(RunUpdateCycleAsync), 1, TimerJobTiming.NowAndRepeatOnInterval, () => RunUpdateCycleAsync().GetAwaiter().GetResult());
+            _timerService.RegisterJob(animeFeedJob);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to register anime feed timer job");
+        }
+    }
+
+    public async Task RunUpdateCycleAsync()
+    {
+        await UpdateAnimeFeedAsync();
+        await _animeListService.UpdateAnimeList(GetAnimeList());
+    }
 
     public async Task UpdateAnimeFeedAsync(CancellationToken ct = default)
     {
         var nyaaXml = await GetSubsXML(ct);
         try
         {
-            _animeList = [.. ParseFromXml(nyaaXml)
+            _animeList = ParseFromXml(nyaaXml)
                 .OrderByDescending(x => x.Id)
-                .DistinctBy(x => x.Name)];
+                .DistinctBy(x => x.Name)
+                .ToList();
         }
         catch (Exception ex)
         {
@@ -69,7 +98,7 @@ public partial class AnimeFeedService()
         using HttpRequestMessage subsMessage = new(HttpMethod.Get, _subsPleaseUrl);
         try
         {
-            var response = _httpClient.SendAsync(subsMessage, ct).Result;
+            var response = await _httpClient.SendAsync(subsMessage, ct);
             response.EnsureSuccessStatusCode();
             string animeXml = await response.Content.ReadAsStringAsync(ct);
             xmlDoc.LoadXml(animeXml);
@@ -83,7 +112,7 @@ public partial class AnimeFeedService()
 
     private static List<Anime> ParseFromXml(XmlDocument xmlDoc)
     {
-        List<Anime> animeList = [];
+        List<Anime> animeList = new List<Anime>();
         XmlNode rootNode = xmlDoc.DocumentElement!;
         XmlNodeList xmlList = rootNode["channel"]!.ChildNodes;
         foreach (XmlNode node in xmlList)

@@ -49,11 +49,10 @@ public class BooruService
 
         try
         {
-
-            var response = _httpClient.SendAsync(request).Result;
+            var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
 
-            jsonResp = response.Content.ReadAsStringAsync().Result;
+            jsonResp = await response.Content.ReadAsStringAsync();
         }
         catch (Exception ex)
         {
@@ -63,7 +62,7 @@ public class BooruService
 
         var imageUrls = GetImageUrlsFromJson(jsonResp);
 
-        List<string> localImages = [];
+        List<string> localImages = new List<string>();
 
         foreach (var imageUrl in imageUrls)
         {
@@ -89,7 +88,7 @@ public class BooruService
 
     private static List<string> GetImageUrlsFromJson(string jsonResp)
     {
-        List<string> result = [];
+        List<string> result = new List<string>();
 
         string regexFilter = @"""type"":""original"",""url*"":""([^""]*)""";
 
