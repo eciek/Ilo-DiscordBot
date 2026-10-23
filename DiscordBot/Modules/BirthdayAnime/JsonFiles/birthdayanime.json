@@ -49,16 +49,16 @@
             "surname": "Yukinoshita",
             "series": "My Teen Romantic Comedy SNAFU"
         },
-        {
-            "name": "Iceberg",
-            "surname": "",
-            "series": "One Piece"
-        }
-        ,{
-            "name": "Arclight",
-            "surname": "(arknights)",
-            "series": ""
-        }
+      {
+        "name": "Iceberg",
+        "surname": "",
+        "series": "One Piece"
+      },
+      {
+        "name": "Arclight",
+        "surname": "",
+        "series": "Arknights"
+      }
     ]
 },{
     "date": "04.01",
@@ -407,8 +407,8 @@
     "characters": [
         {
             "name": "Laevatain",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Miki",
@@ -1329,8 +1329,8 @@
         },
         {
             "name": "Rossi",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Oswald",
@@ -1448,8 +1448,8 @@
         },
         {
             "name": "Perlica",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Tom",
@@ -1738,8 +1738,8 @@
         },
         {
             "name": "Akekuri",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Mirai",
@@ -1913,9 +1913,9 @@
             "series": "High School DxD"
         },
         {
-            "name": "Estella",
-            "surname": "(arknights)",
-            "series": ""
+          "name": "Estella",
+          "surname": "",
+          "series": "Arknights"
         },
         {
             "name": "Legoshi",
@@ -1938,13 +1938,13 @@
         },
         {
             "name": "Ember",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Antal",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Shoko",
@@ -2499,8 +2499,8 @@
         },
         {
             "name": "Yvonne",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Fukasaku",
@@ -2637,8 +2637,8 @@
         },
         {
             "name": "Xaihi",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Junpei",
@@ -2699,8 +2699,8 @@
         },
         {
             "name": "Da Pan",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Tsubaki",
@@ -3331,8 +3331,8 @@
         },
         {
             "name": "Fluorite",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Kaito",
@@ -3639,9 +3639,9 @@
             "series": "Hunter x Hunter"
         },
         {
-            "name": "Arcane",
-            "surname": "(arknights)",
-            "series": ""
+          "name": "Arcane",
+          "surname": "",
+          "series": "Arknights"
         },
         {
             "name": "Akamaru",
@@ -3816,8 +3816,8 @@
         },
         {
             "name": "Lifeng",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Aoi",
@@ -3954,8 +3954,8 @@
         },
         {
             "name": "Pogranichnik",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Niccolo",
@@ -4035,8 +4035,8 @@
         },
         {
             "name": "Liino",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Shiro",
@@ -4249,8 +4249,8 @@
         },
         {
             "name": "Zhuang_Fangyi",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Himiko",
@@ -4425,8 +4425,8 @@
         },
         {
             "name": "Catcher",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Fugaku",
@@ -4467,9 +4467,9 @@
             "series": "Dragon Ball"
         },
         {
-            "name": "Chen Qianyu",
-            "surname": "(arknights)",
-            "series": ""
+          "name": "Chen Qianyu",
+          "surname": "",
+          "series": "Arknights"
         },
         {
             "name": "Kineshi",
@@ -4739,8 +4739,8 @@
         },
         {
             "name": "Alesh",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Alice",
@@ -5637,8 +5637,8 @@
         },
         {
             "name": "Ardelia",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Rize",
@@ -5774,9 +5774,9 @@
             "series": "Yu-Gi-Oh!"
         },
         {
-            "name": "Avywenna",
-            "surname": "(arknights)",
-            "series": ""
+          "name": "Avywenna",
+          "surname": "",
+          "series": "Arknights"
         },
         {
             "name": "Koala",
@@ -6121,9 +6121,9 @@
             "series": "Kamisama Kiss"
         },
         {
-            "name": "Last Rite",
-            "surname": "(arknights)",
-            "series": ""
+          "name": "Last Rite",
+          "surname": "",
+          "series": "Arknights"
         },
         {
             "name": "Johnny",
@@ -6203,8 +6203,8 @@
         },
         {
             "name": "Wulfgard",
-            "surname": "(arknights)",
-            "series": ""
+            "surname": "",
+            "series": "Arknights"
         },
         {
             "name": "Hagoromo",
@@ -6283,9 +6283,9 @@
             "series": "One Piece"
         },
         {
-            "name": "Camille",
-            "surname": "(arknights)",
-            "series": ""
+          "name": "Camille",
+          "surname": "",
+          "series": "Arknights"
         },
         {
             "name": "Illyasviel",
@@ -6440,19 +6440,14 @@
             "series": "Classroom of the Elite"
         },
         {
-            "name": "Gilberta",
-            "surname": "(arknights)",
-            "series": ""
+          "name": "Gilberta",
+          "surname": "",
+          "series": "Arknights"
         },
         {
             "name": "Centorea",
             "surname": "Shianus",
             "series": "Monster Musume: Everyday Life with Monster Girls"
-        },
-        {
-            "name": "Masayuki",
-            "surname": "Hori",
-            "series": "Monthly Girls' Nozaki-kun"
         }
     ]
 },{
@@ -6463,21 +6458,17 @@
             "surname": "Shinazugawa",
             "series": "Demon Slayer: Kimetsu no Yaiba"
         },
-        {
-            "name": "Yuri",
-            "surname": "Katsuki",
-            "series": "Yuri!!! on Ice"
-        },
-        {
-            "name": "Yukine",
-            "surname": "",
-            "series": "Noragami"
-        }
-        ,{
-            "name": "Tangtang",
-            "surname": "(arknights)",
-            "series": ""
-        }
+
+      {
+        "name": "Yukine",
+        "surname": "",
+        "series": "Noragami"
+      },
+      {
+        "name": "Tangtang",
+        "surname": "",
+        "series": "Arknights"
+      }
     ]
 },{
     "date": "30.11",
@@ -6853,16 +6844,16 @@
             "surname": "Kodai",
             "series": "My Hero Academia"
         },
-        {
-            "name": "Megumi",
-            "surname": "Tadokoro",
-            "series": "Food Wars!"
-        }
-        ,{
-            "name": "Snowshine",
-            "surname": "(arknights)",
-            "series": ""
-        }
+      {
+        "name": "Megumi",
+        "surname": "Tadokoro",
+        "series": "Food Wars!"
+      },
+      {
+        "name": "Snowshine",
+        "surname": "",
+        "series": "Arknights"
+      }
     ]
 },{
     "date": "20.12",
